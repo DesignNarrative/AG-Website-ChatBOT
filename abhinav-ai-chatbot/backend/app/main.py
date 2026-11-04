@@ -58,10 +58,11 @@ app = FastAPI(
 # ---------------------------------------------------------------------------
 # Middleware
 # ---------------------------------------------------------------------------
-# CORS — allow WordPress website and admin dashboard
+# CORS — allow WordPress website, admin dashboard, and local testing
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
+    allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$",
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
@@ -128,6 +129,37 @@ async def health_check():
     }
 
 
+# ---------------------------------------------------------------------------
+# Static Files & Local Test Endpoints
+# ---------------------------------------------------------------------------
+import os
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
+_BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+_WIDGET_DIST = os.path.join(_BASE_DIR, "frontend", "chatbot-widget", "dist")
+_WIDGET_HTML = os.path.join(_BASE_DIR, "frontend", "chatbot-widget", "test.html")
+_ADMIN_DIST = os.path.join(_BASE_DIR, "frontend", "admin-dashboard", "dist")
+
+if os.path.isdir(_WIDGET_DIST):
+    app.mount("/static", StaticFiles(directory=_WIDGET_DIST), name="static")
+
+if os.path.isdir(_ADMIN_DIST):
+    app.mount("/admin", StaticFiles(directory=_ADMIN_DIST, html=True), name="admin")
+
+@app.get("/widget-test", include_in_schema=False)
+async def widget_test_page():
+    """Serves the test page with the floating chatbot widget."""
+    if os.path.isfile(_WIDGET_HTML):
+        return FileResponse(_WIDGET_HTML)
+    return {"message": "Widget test file not found"}
+
 @app.get("/", tags=["Root"])
 async def root():
-    return {"message": "Abhinav Group AI Chatbot API", "docs": "/api/docs"}
+    return {
+        "message": "Abhinav Group AI Chatbot API is Running",
+        "docs": "/api/docs",
+        "widget_test_page": "/widget-test",
+        "admin_dashboard": "/admin/",
+        "health": "/health",
+    }
