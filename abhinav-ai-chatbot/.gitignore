@@ -1,0 +1,96 @@
+# ============================================================
+# Abhinav Group AI Chatbot — Git Ignore
+# ============================================================
+
+# --- Secrets (NEVER commit these) ---
+.env
+.env.local
+.env.staging
+.env.production
+*.pem
+*.key
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+*.log
+*.sqlite
+*.sqlite3
+
+# --- Virtual Environments ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Node.js ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp
+.pnp.js
+
+# --- Build Outputs ---
+frontend/admin-dashboard/dist/
+frontend/admin-dashboard/build/
+frontend/chatbot-widget/dist/*.min.js
+frontend/chatbot-widget/dist/*.min.css
+
+# --- Database files (dev only) ---
+*.db
+*.db-shm
+*.db-wal
+abhinav_chatbot_dev.db
+
+# --- Vector store (dev cache) ---
+data/vector_store/
+
+# --- Uploaded files ---
+data/uploads/
+data/documents/raw/
+
+# --- Extracted raw data (large) ---
+data/website-extraction/raw/
+data/website-extraction/html/
+
+# --- IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Deployment secrets ---
+deployment/staging/.env
+deployment/production/.env
+deployment/**/*.key
+deployment/**/*.pem
