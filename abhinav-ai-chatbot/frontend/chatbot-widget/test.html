@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhinav Group Chatbot — Embed Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f5f5f5;
+            color: #333;
+        }
+        h1 { color: #1a2f5a; }
+        code {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 16px;
+            display: block;
+            white-space: pre;
+            overflow-x: auto;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #d4a017;
+            padding: 12px 16px;
+            margin: 16px 0;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Abhinav Group AI Chatbot — Embed Test Page</h1>
+    <p>This page tests the chatbot widget in a standalone HTML context (non-WordPress).</p>
+    <p>The floating chat button should appear in the bottom-right corner of this page.</p>
+
+    <div class="note">
+        <strong>Note:</strong> Update <code>apiBase</code> below to point to your deployed backend URL
+        before using this snippet in production.
+    </div>
+
+    <h2>Embed snippet (copy into any HTML page)</h2>
+    <code id="snippet"></code>
+
+    <script>
+        // Show the embed snippet in the code block
+        const snippet = `&lt;!-- Abhinav Group AI Chatbot Widget --&gt;
+&lt;script&gt;
+window.AbhinavChatConfig = {
+    apiBase:        "https://api.abhinavgroup.co.in",  // Change to your API URL
+    widgetKey:      "your-public-widget-key",           // From admin dashboard
+    sourcePage:     window.location.href,
+    lang:           "auto",                              // "en", "hi", or "auto"
+    position:       "bottom-right",
+    autoOpen:       false,
+    autoOpenDelay:  3000
+};
+&lt;/script&gt;
+&lt;script src="https://api.abhinavgroup.co.in/static/abhinav-chatbot.min.js" async&gt;&lt;/script&gt;
+&lt;!-- End Abhinav Group AI Chatbot Widget --&gt;`;
+        document.getElementById('snippet').textContent = snippet;
+    </script>
+
+    <!-- ============================================================
+         LIVE WIDGET — for testing this page
+         Update apiBase to your backend URL
+    ============================================================ -->
+    <script>
+    window.AbhinavChatConfig = {
+        apiBase:        "http://localhost:8000",   // Local dev backend
+        widgetKey:      "dev-test-key",
+        sourcePage:     window.location.href,
+        lang:           "auto",
+        position:       "bottom-right",
+        autoOpen:       false,
+        autoOpenDelay:  5000
+    };
+    </script>
+    <script src="dist/abhinav-chatbot.min.js" async></script>
+    <!-- End widget -->
+
+</body>
+</html>

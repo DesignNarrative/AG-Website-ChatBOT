@@ -1,0 +1,107 @@
+# =============================================================================
+# Abhinav Group AI Property Chatbot — Production Docker Compose
+# Services:
+#   1. backend:  FastAPI ASGI service (4 workers)
+#   2. postgres: PostgreSQL 16 with pgvector extension enabled
+#   3. redis:    Redis 7 for rate-limiting, session cache & task queue
+#   4. frontend: Nginx serving Admin Dashboard + static widget.min.js
+#   5. caddy:    Reverse proxy with automatic Let's Encrypt SSL
+# =============================================================================
+
+version: '3.8'
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-abhinav_chatbot}
+      POSTGRES_USER: ${POSTGRES_USER:-abhinav_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Database password required}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal-net
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    command: redis-server --requirepass ${REDIS_PASSWORD:-change_redis_password_min32chars}
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - internal-net
+
+  backend:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile.backend
+    restart: always
+    environment:
+      APP_ENV: production
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-abhinav_admin}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-abhinav_chatbot}
+      REDIS_URL: redis://:${REDIS_PASSWORD:-change_redis_password_min32chars}@redis:6379/0
+      APP_SECRET_KEY: ${APP_SECRET_KEY:?APP_SECRET_KEY is required}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:?JWT_SECRET_KEY is required}
+      AI_PROVIDER: ${AI_PROVIDER:-gemini}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      VECTOR_STORE_TYPE: pgvector
+      ALLOWED_ORIGINS: https://abhinavgroup.co.in,https://admin.abhinavgroup.co.in
+      MDOC_ENABLED: ${MDOC_ENABLED:-false}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - internal-net
+      - proxy-net
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile.frontend
+    restart: always
+    networks:
+      - proxy-net
+
+  gateway:
+    image: caddy:2-alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN:-api.abhinavgroup.co.in}
+      ADMIN_DOMAIN: ${ADMIN_DOMAIN:-admin.abhinavgroup.co.in}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - proxy-net
+
+volumes:
+  pgdata:
+  redisdata:
+  caddy_data:
+  caddy_config:
+
+networks:
+  internal-net:
+    internal: true
+  proxy-net:

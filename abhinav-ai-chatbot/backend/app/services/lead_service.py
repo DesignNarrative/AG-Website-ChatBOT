@@ -69,10 +69,13 @@ class LeadService:
 
         return lead
 
-    def _normalize_phone(self, phone: str) -> str:
-        """Normalize to +91XXXXXXXXXX format."""
-        cleaned = re.sub(r"[\s\-\(\)]", "", phone)
-        if cleaned.startswith("+91"):
+    def _normalize_phone(self, phone: str) -> str | None:
+        """Normalize to +91XXXXXXXXXX format. Returns None if invalid."""
+        cleaned = re.sub(r"[\s\-\(\)]", "", str(phone or ""))
+        digits = cleaned[1:] if cleaned.startswith("+") else cleaned
+        if not digits.isdigit():
+            return None
+        if cleaned.startswith("+91") and len(cleaned) == 13:
             return cleaned
         elif cleaned.startswith("91") and len(cleaned) == 12:
             return "+" + cleaned
@@ -80,7 +83,7 @@ class LeadService:
             return "+91" + cleaned[1:]  # strip leading 0
         elif len(cleaned) == 10:
             return "+91" + cleaned
-        return cleaned
+        return None
 
     async def _find_duplicate(self, phone_normalized: str, project_name: str = None) -> Lead | None:
         """Check if a lead with same phone exists within the dedup window."""

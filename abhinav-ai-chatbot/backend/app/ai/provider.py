@@ -21,9 +21,10 @@ class AIMessage:
 class AIResponse:
     content: str
     model: str
-    tokens_used: int
     response_time_ms: int
     is_fallback: bool = False
+    provider: str = "unknown"
+    tokens_used: Optional[int] = None
 
 
 class BaseAIProvider(abc.ABC):
@@ -158,6 +159,7 @@ class MockAIProvider(BaseAIProvider):
             tokens_used=len(content.split()),
             response_time_ms=elapsed_ms,
             is_fallback=False,
+            provider="mock",
         )
 
     async def embed(self, text: str) -> List[float]:
@@ -178,36 +180,54 @@ class MockAIProvider(BaseAIProvider):
 
 def get_ai_provider() -> BaseAIProvider:
     """
-    Factory: returns the configured AI provider.
-    Currently only Mock is fully implemented; Gemini and OpenAI
-    will be added in Phase 5 after API key is provided.
+    Factory: returns the configured AI provider based on AI_PROVIDER env var.
+
+    Supported values:
+      mock   — no API key required; deterministic canned responses (default)
+      gemini — requires GEMINI_API_KEY; uses gemini-1.5-flash + text-embedding-004
+      openai — requires OPENAI_API_KEY; uses gpt-4o-mini + text-embedding-3-small
+
+    Falls back to mock automatically if the provider fails to initialise.
     """
-    from app.core.config import settings
+    from app.core.config import get_settings
+    s = get_settings()
+    provider = s.ai_provider
 
-    provider = settings.ai_provider
-
-    if provider == "mock":
-        return MockAIProvider()
-
-    elif provider == "gemini":
-        # Phase 5: Gemini provider — requires GEMINI_API_KEY
+    if provider == "gemini":
+        api_key = getattr(s, "gemini_api_key", None)
+        if not api_key:
+            import structlog
+            structlog.get_logger().warning(
+                "gemini_key_missing_falling_back_to_mock",
+                hint="Set GEMINI_API_KEY in .env",
+            )
+            return MockAIProvider()
         try:
             from app.ai.gemini_provider import GeminiProvider
-            return GeminiProvider()
-        except Exception as e:
+            model = getattr(s, "gemini_chat_model", "gemini-1.5-flash")
+            return GeminiProvider(api_key=api_key, model=model)
+        except Exception as exc:
             import structlog
-            structlog.get_logger().warning("gemini_unavailable_falling_back_to_mock", error=str(e))
+            structlog.get_logger().warning("gemini_init_error", error=str(exc))
             return MockAIProvider()
 
     elif provider == "openai":
-        # Phase 5: OpenAI provider — requires OPENAI_API_KEY
+        api_key = getattr(s, "openai_api_key", None)
+        if not api_key:
+            import structlog
+            structlog.get_logger().warning(
+                "openai_key_missing_falling_back_to_mock",
+                hint="Set OPENAI_API_KEY in .env",
+            )
+            return MockAIProvider()
         try:
             from app.ai.openai_provider import OpenAIProvider
-            return OpenAIProvider()
-        except Exception as e:
+            model = getattr(s, "openai_chat_model", "gpt-4o-mini")
+            return OpenAIProvider(api_key=api_key, model=model)
+        except Exception as exc:
             import structlog
-            structlog.get_logger().warning("openai_unavailable_falling_back_to_mock", error=str(e))
+            structlog.get_logger().warning("openai_init_error", error=str(exc))
             return MockAIProvider()
 
-    else:
-        return MockAIProvider()
+    # Default / "mock"
+    return MockAIProvider()

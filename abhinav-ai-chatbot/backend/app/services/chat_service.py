@@ -155,46 +155,60 @@ class ChatService:
 
     def _detect_intent(self, text: str) -> str:
         """Basic intent detection. Phase 5 replaces this with LLM-based classification."""
-        t = text.lower()
+        import re
+        t = text.lower().strip()
+        words = set(re.findall(r'\b\w+\b', t))
+
         # Out of scope — checked FIRST to prevent any AI call
-        if any(w in t for w in ["career", "job", "vacancy", "vendor", "supplier",
-                                  "contractor", "recruitment", "hr ", " hr"]):
+        oos_keywords = ["career", "job", "vacancy", "vendor", "supplier",
+                        "contractor", "recruitment", "intern", "internship", "hiring"]
+        if any(w in t for w in oos_keywords) or "hr" in words:
             return "out_of_scope"
-        # Greeting
-        if any(w in t for w in ["hello", "hi", "hey", "namaste", "नमस्ते", "start", "help"]):
-            return "greeting"
-        # Specific project enquiries — checked BEFORE generic project_list
+
+        # Specific project enquiries — checked BEFORE generic greetings or project_list
         if "samsara" in t:
             return "project_enquiry_samsara"
         if "greenfield" in t or "pebbles" in t:
             return "project_enquiry_greenfield"
         if "curve" in t or "virar" in t:
             return "project_enquiry_curve"
-        if "aeromall" in t or ("commercial" in t and "project" not in t):
+        if "aeromall" in t or "airport road" in t or ("commercial" in t and "project" not in t):
             return "project_enquiry_aeromall"
+
         # NRI — before generic project list
         if any(w in t for w in ["nri", "abroad", "foreign", "overseas", "repatriate",
                                   "non resident", "non-resident"]):
             return "nri_enquiry"
+
         # Pricing
         if any(w in t for w in ["price", "cost", "rate", "budget", "afford", "cheap", "kitna",
                                   "कीमत", "दाम", "कितना"]):
             return "pricing_enquiry"
+
         # Configuration
         if any(w in t for w in ["bhk", "bedroom", "2 bhk", "3 bhk", "1 bhk", "config",
                                   "बीएचके", "कमरे"]):
             return "config_enquiry"
-        # Brochure
-        if any(w in t for w in ["brochure", "pdf", "download", "document", "ब्रोशर"]):
+
+        # Brochure / Floor plans
+        if any(w in t for w in ["brochure", "pdf", "download", "document", "floor plan", "floorplan", "ब्रोशर"]):
             return "brochure_request"
-        # Contact/Sales
+
+        # Contact/Sales/Escalation
         if any(w in t for w in ["contact", "call", "speak", "human", "agent", "sales team",
                                   "फोन", "बात"]):
             return "escalation"
+
+        # Greeting (use word matching for short words like 'hi')
+        greetings = {"hello", "hi", "hey", "namaste", "start", "help"}
+        if words & greetings or any(p in t for p in ["good morning", "good afternoon", "good evening", "नमस्ते"]):
+            return "greeting"
+
         # Generic project list — checked AFTER specific projects
         if any(w in t for w in ["project", "property", "properties", "all project",
                                   "प्रोजेक्ट", "प्रॉपर्टी"]):
             return "project_list"
+
         return "general_property_enquiry"
 
     def _out_of_scope_response(self, language: str) -> str:

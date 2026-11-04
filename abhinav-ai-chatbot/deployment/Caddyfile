@@ -1,0 +1,41 @@
+# =============================================================================
+# Abhinav Group AI Property Chatbot — Caddy Gateway Configuration
+# Handles SSL certificates and reverse-proxying
+# =============================================================================
+
+{$DOMAIN:api.abhinavgroup.co.in} {
+    # Chatbot API & Health endpoints
+    handle /api/* {
+        reverse_proxy backend:8000
+    }
+    handle /health {
+        reverse_proxy backend:8000
+    }
+
+    # Static widget files
+    handle /static/* {
+        reverse_proxy frontend:80
+    }
+
+    # Security headers
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+}
+
+{$ADMIN_DOMAIN:admin.abhinavgroup.co.in} {
+    # Admin Dashboard
+    handle {
+        reverse_proxy frontend:80
+    }
+
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+}

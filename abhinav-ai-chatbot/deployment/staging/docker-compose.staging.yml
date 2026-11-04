@@ -1,0 +1,39 @@
+# =============================================================================
+# Abhinav Group AI Property Chatbot — Staging Environment
+# =============================================================================
+
+version: '3.8'
+
+services:
+  postgres-staging:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: abhinav_staging
+      POSTGRES_USER: abhinav_user
+      POSTGRES_PASSWORD: staging_password_change_me
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata_staging:/var/lib/postgresql/data
+
+  backend-staging:
+    build:
+      context: ../..
+      dockerfile: deployment/Dockerfile.backend
+    restart: unless-stopped
+    ports:
+      - "8001:8000"
+    environment:
+      APP_ENV: staging
+      DATABASE_URL: postgresql+asyncpg://abhinav_user:staging_password_change_me@postgres-staging:5432/abhinav_staging
+      APP_SECRET_KEY: staging_secret_key_minimum_32_characters_x1
+      JWT_SECRET_KEY: staging_jwt_secret_minimum_32_characters_x1
+      AI_PROVIDER: mock
+      ALLOWED_ORIGINS: "*"
+      MDOC_ENABLED: "false"
+    depends_on:
+      - postgres-staging
+
+volumes:
+  pgdata_staging:
