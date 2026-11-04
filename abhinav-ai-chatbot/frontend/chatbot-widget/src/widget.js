@@ -340,7 +340,7 @@
   }
 
   function showLeadCard() {
-    if (state.leadCaptured) return;
+    if (state.leadCaptured || document.getElementById('ag-lead-form')) return;
     var card = document.createElement('div');
     card.className = 'ag-lead-card';
     card.id = 'ag-lead-form';

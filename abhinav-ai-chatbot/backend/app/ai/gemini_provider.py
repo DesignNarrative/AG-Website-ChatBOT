@@ -73,7 +73,7 @@ class GeminiProvider(BaseAIProvider):
         }
 
         try:
-            async with httpx.AsyncClient(timeout=20.0) as client:
+            async with httpx.AsyncClient(timeout=35.0) as client:
                 res = await client.post(url, json=payload)
 
                 if res.status_code != 200:

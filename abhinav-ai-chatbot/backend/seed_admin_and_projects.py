@@ -67,6 +67,13 @@ if count == 0:
             "Pune's first 24x7 integrated shopping, dining, and multi-level parking commercial complex.",
             "APPROVED", 1, 0, 1, now, now
         ),
+        (
+            str(uuid.uuid4()), "pebbles-business-bay", "Pebbles Business Bay", "COMMERCIAL", "ONGOING",
+            "Wakad, Pune", "Sr. No. 132(P), 121(P), Opp. Phoenix Mall of the Millennium, Near My Car showroom / Bhumkar Chowk, Wakad, Pune - 411057", "Pune", "Maharashtra",
+            "Showrooms, Retail Spaces & Corporate Offices", "Registered", 1, 0, 0,
+            "Premier commercial landmark in Wakad, Pune, opposite Phoenix Mall of the Millennium near Bhumkar Chowk. High-street retail showrooms and corporate office spaces with high footfall and expressway connectivity.",
+            "APPROVED", 1, 1, 1, now, now
+        ),
     ]
 
     for p in projects:
