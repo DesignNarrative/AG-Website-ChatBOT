@@ -62,13 +62,13 @@ export function AuthProvider({ children }) {
   }, [decodeAndSetUser])
 
   const login = async (username, password) => {
-    const formData = new URLSearchParams()
-    formData.append('username', username)
-    formData.append('password', password)
+    const payload = {
+      email: username.trim(),
+      username: username.trim(),
+      password: password,
+    }
 
-    const response = await apiClient.post('/api/v1/auth/login', formData, {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    })
+    const response = await apiClient.post('/api/v1/auth/login', payload)
 
     const { access_token } = response.data
     localStorage.setItem(TOKEN_KEY, access_token)

@@ -26,7 +26,17 @@ export default function Login() {
       await login(username.trim(), password)
       navigate(from, { replace: true })
     } catch (err) {
-      const msg = err.response?.data?.detail || 'Invalid username or password'
+      let msg = 'Invalid username or password'
+      const detail = err.response?.data?.detail
+      if (typeof detail === 'string') {
+        msg = detail
+      } else if (Array.isArray(detail)) {
+        msg = detail.map((e) => (typeof e === 'string' ? e : e.msg || JSON.stringify(e))).join(', ')
+      } else if (detail && typeof detail === 'object') {
+        msg = detail.msg || JSON.stringify(detail)
+      } else if (err.message) {
+        msg = err.message
+      }
       toast.error(msg)
     } finally {
       setLoading(false)

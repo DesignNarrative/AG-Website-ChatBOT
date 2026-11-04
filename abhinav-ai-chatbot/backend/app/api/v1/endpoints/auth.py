@@ -3,8 +3,9 @@ Auth API — Login, token refresh, and user management.
 """
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel, EmailStr
+from fastapi import APIRouter, Depends, HTTPException, Request, status
+from pydantic import BaseModel
+from typing import Optional
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -18,11 +19,6 @@ from app.security.auth import (
 router = APIRouter()
 
 
-class LoginRequest(BaseModel):
-    email: EmailStr
-    password: str
-
-
 class TokenResponse(BaseModel):
     access_token: str
     refresh_token: str
@@ -31,14 +27,54 @@ class TokenResponse(BaseModel):
 
 
 @router.post("/login", response_model=TokenResponse)
-async def login(body: LoginRequest, db: AsyncSession = Depends(get_db)):
-    """Authenticate an admin/staff user and return JWT tokens."""
+async def login(request: Request, db: AsyncSession = Depends(get_db)):
+    """Authenticate an admin/staff user and return JWT tokens (supports JSON and form-data)."""
+    email = None
+    password = None
+
+    content_type = request.headers.get("content-type", "")
+    if "application/json" in content_type:
+        try:
+            body = await request.json()
+            email = body.get("email") or body.get("username")
+            password = body.get("password")
+        except Exception:
+            pass
+    elif "application/x-www-form-urlencoded" in content_type or "multipart/form-data" in content_type:
+        try:
+            form = await request.form()
+            email = form.get("email") or form.get("username")
+            password = form.get("password")
+        except Exception:
+            pass
+
+    if not email or not password:
+        # Fallback parser
+        try:
+            body = await request.json()
+            email = body.get("email") or body.get("username")
+            password = body.get("password")
+        except Exception:
+            try:
+                form = await request.form()
+                email = form.get("email") or form.get("username")
+                password = form.get("password")
+            except Exception:
+                pass
+
+    if not email or not password:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Email/username and password are required",
+        )
+
+    clean_email = str(email).strip().lower()
     result = await db.execute(
-        select(User).where(User.email == body.email, User.is_active == True)  # noqa: E712
+        select(User).where(User.email == clean_email, User.is_active == True)  # noqa: E712
     )
     user = result.scalar_one_or_none()
 
-    if not user or not verify_password(body.password, user.hashed_password):
+    if not user or not verify_password(str(password), user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect email or password",
