@@ -204,7 +204,7 @@ def get_ai_provider() -> BaseAIProvider:
             return MockAIProvider()
         try:
             from app.ai.gemini_provider import GeminiProvider
-            model = getattr(s, "gemini_chat_model", "gemini-1.5-flash")
+            model = getattr(s, "gemini_chat_model", "gemini-3.5-flash")
             return GeminiProvider(api_key=api_key, model=model)
         except Exception as exc:
             import structlog

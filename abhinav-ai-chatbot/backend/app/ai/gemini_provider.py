@@ -1,13 +1,8 @@
 """
-Gemini AI provider — uses google-generativeai SDK.
-
+Gemini AI provider — uses Google Generative Language REST API via httpx.
 Model selection:
-  chat  → gemini-1.5-flash   (fast, cheap, good for chat)
-  embed → models/text-embedding-004  (768-dim, best for semantic search)
-
-Environment variables required:
-  GEMINI_API_KEY   — from Google AI Studio (aistudio.google.com)
-  GEMINI_MODEL     — optional override (default: gemini-1.5-flash)
+  chat  → gemini-3.5-flash
+  embed → gemini-embedding-001
 """
 from __future__ import annotations
 
@@ -16,153 +11,113 @@ import logging
 import time
 from typing import List, Optional
 
+import httpx
 from app.ai.provider import AIMessage, AIResponse, BaseAIProvider
 
 logger = logging.getLogger(__name__)
 
-EMBED_DIM = 768
-DEFAULT_CHAT_MODEL = "gemini-1.5-flash"
-EMBED_MODEL = "models/text-embedding-004"
+DEFAULT_CHAT_MODEL = "gemini-3.5-flash"
+EMBED_MODEL = "gemini-embedding-001"
+BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models"
 
 
 class GeminiProvider(BaseAIProvider):
-    """Google Gemini provider using the google-generativeai SDK."""
+    """Google Gemini provider using direct REST API for maximum reliability and speed."""
 
     provider_name = "gemini"
 
     def __init__(self, api_key: str, model: str = DEFAULT_CHAT_MODEL) -> None:
         self._api_key = api_key
-        self._model_name = model
-        self._client = None  # lazy-init; imported inside methods to avoid import at module load
+        self._model_name = model or DEFAULT_CHAT_MODEL
         self._embed_cache: dict[str, list[float]] = {}
 
-    # ------------------------------------------------------------------
-    # Internal helpers
-    # ------------------------------------------------------------------
+    def _build_contents(self, messages: List[AIMessage], system_prompt: Optional[str] = None):
+        contents = []
 
-    def _get_client(self):
-        """Lazy-load and configure the genai client."""
-        if self._client is None:
-            try:
-                import google.generativeai as genai  # type: ignore
-                genai.configure(api_key=self._api_key)
-                self._client = genai.GenerativeModel(self._model_name)
-            except ImportError:
-                raise RuntimeError(
-                    "google-generativeai is not installed. "
-                    "Run: pip install google-generativeai"
-                )
-        return self._client
-
-    def _build_gemini_history(
-        self, messages: List[AIMessage]
-    ) -> tuple[str | None, list[dict]]:
-        """
-        Splits message list into:
-          - system_prompt (first message if role == 'system')
-          - history list of {'role': 'user'|'model', 'parts': [text]}
-        Gemini uses 'model' instead of 'assistant' for the bot role.
-        """
-        system_prompt: Optional[str] = None
-        history: list[dict] = []
+        if system_prompt:
+            contents.append({
+                "role": "user",
+                "parts": [{"text": f"[SYSTEM INSTRUCTIONS]\n{system_prompt}\n[/SYSTEM INSTRUCTIONS]\nPlease acknowledge and follow these instructions."}]
+            })
+            contents.append({
+                "role": "model",
+                "parts": [{"text": "Understood. I will act strictly according to the Abhinav Group property sales instructions."}]
+            })
 
         for msg in messages:
-            if msg.role == "system":
-                system_prompt = msg.content
-            elif msg.role == "user":
-                history.append({"role": "user", "parts": [msg.content]})
-            elif msg.role == "assistant":
-                history.append({"role": "model", "parts": [msg.content]})
+            role = "user" if msg.role in ("user", "system") else "model"
+            contents.append({
+                "role": role,
+                "parts": [{"text": msg.content}]
+            })
 
-        return system_prompt, history
-
-    # ------------------------------------------------------------------
-    # BaseAIProvider interface
-    # ------------------------------------------------------------------
+        return contents
 
     async def chat(
         self,
         messages: List[AIMessage],
         system_prompt: Optional[str] = None,
-        temperature: float = 0.3,
+        temperature: float = 0.2,
         max_tokens: int = 1024,
     ) -> AIResponse:
-        """Send a chat request to Gemini and return a structured response."""
-        import asyncio
-
         start = time.monotonic()
+        url = f"{BASE_URL}/{self._model_name}:generateContent?key={self._api_key}"
+
+        contents = self._build_contents(messages, system_prompt)
+        payload = {
+            "contents": contents,
+            "generationConfig": {
+                "temperature": temperature,
+                "maxOutputTokens": max_tokens,
+            }
+        }
 
         try:
-            import google.generativeai as genai  # type: ignore
-            from google.generativeai.types import HarmBlockThreshold, HarmCategory  # type: ignore
+            async with httpx.AsyncClient(timeout=20.0) as client:
+                res = await client.post(url, json=payload)
 
-            genai.configure(api_key=self._api_key)
+                if res.status_code != 200:
+                    logger.error("gemini_api_error", status_code=res.status_code, body=res.text)
+                    elapsed_ms = int((time.monotonic() - start) * 1000)
+                    return AIResponse(
+                        content=(
+                            "Thank you for contacting Abhinav Group. "
+                            "For immediate assistance, please connect with our sales team directly at +91 9890393838."
+                        ),
+                        model=self._model_name,
+                        provider=self.provider_name,
+                        is_fallback=True,
+                        response_time_ms=elapsed_ms,
+                    )
 
-            # Merge system prompt into message list
-            full_messages: List[AIMessage] = []
-            sp = system_prompt or ""
-            # Prepend system prompt as a user→model pair (Gemini doesn't have native system role)
-            if sp:
-                full_messages.append(AIMessage(role="user", content=f"[SYSTEM INSTRUCTIONS]\n{sp}\n[/SYSTEM INSTRUCTIONS]\n\nAcknowledge the instructions and say you are ready."))
-                full_messages.append(AIMessage(role="assistant", content="Understood. I am ready to assist with Abhinav Group property enquiries."))
-            full_messages.extend(messages)
+                data = res.json()
+                content = ""
+                candidates = data.get("candidates", [])
+                if candidates:
+                    parts = candidates[0].get("content", {}).get("parts", [])
+                    if parts:
+                        content = parts[0].get("text", "").strip()
 
-            _, history = self._build_gemini_history(full_messages)
+                elapsed_ms = int((time.monotonic() - start) * 1000)
+                usage = data.get("usageMetadata", {})
+                tokens = usage.get("totalTokenCount")
 
-            # Generation config
-            generation_config = genai.GenerationConfig(
-                temperature=temperature,
-                max_output_tokens=max_tokens,
-                candidate_count=1,
-            )
-
-            # Safety settings — reduce over-refusal for property questions
-            safety_settings = {
-                HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-                HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-            }
-
-            model = genai.GenerativeModel(
-                self._model_name,
-                generation_config=generation_config,
-                safety_settings=safety_settings,
-            )
-
-            # Build chat and send last user message
-            if len(history) > 1:
-                chat_session = model.start_chat(history=history[:-1])
-                last_content = history[-1]["parts"][0]
-                # Run in executor so we don't block the event loop
-                response = await asyncio.get_event_loop().run_in_executor(
-                    None, lambda: chat_session.send_message(last_content)
+                return AIResponse(
+                    content=content,
+                    model=self._model_name,
+                    provider=self.provider_name,
+                    is_fallback=False,
+                    response_time_ms=elapsed_ms,
+                    tokens_used=tokens,
                 )
-            else:
-                last_content = history[0]["parts"][0] if history else "Hello"
-                response = await asyncio.get_event_loop().run_in_executor(
-                    None, lambda: model.generate_content(last_content)
-                )
-
-            content = response.text.strip() if response.text else ""
-            elapsed_ms = int((time.monotonic() - start) * 1000)
-
-            return AIResponse(
-                content=content,
-                model=self._model_name,
-                provider=self.provider_name,
-                is_fallback=False,
-                response_time_ms=elapsed_ms,
-                tokens_used=None,  # Gemini SDK doesn't always expose token counts
-            )
 
         except Exception as exc:
             elapsed_ms = int((time.monotonic() - start) * 1000)
-            logger.error("Gemini chat error: %s", exc, exc_info=True)
+            logger.error("gemini_chat_exception", error=str(exc))
             return AIResponse(
                 content=(
-                    "I'm having trouble connecting to my AI service right now. "
-                    "Please try again in a moment, or call us at +91 9890393838."
+                    "Thank you for contacting Abhinav Group. "
+                    "For immediate assistance with our projects, please call our sales office at +91 9890393838."
                 ),
                 model=self._model_name,
                 provider=self.provider_name,
@@ -171,40 +126,29 @@ class GeminiProvider(BaseAIProvider):
             )
 
     async def embed(self, text: str) -> List[float]:
-        """Return a 768-dim embedding vector for text using text-embedding-004."""
-        import asyncio
-
-        # Cache based on hash
         cache_key = hashlib.md5(text.encode()).hexdigest()
         if cache_key in self._embed_cache:
             return self._embed_cache[cache_key]
 
+        url = f"{BASE_URL}/{EMBED_MODEL}:embedContent?key={self._api_key}"
+        payload = {"content": {"parts": [{"text": text}]}}
+
         try:
-            import google.generativeai as genai  # type: ignore
-
-            genai.configure(api_key=self._api_key)
-
-            result = await asyncio.get_event_loop().run_in_executor(
-                None,
-                lambda: genai.embed_content(
-                    model=EMBED_MODEL,
-                    content=text,
-                    task_type="RETRIEVAL_DOCUMENT",
-                )
-            )
-            embedding = result["embedding"]  # list of 768 floats
-            self._embed_cache[cache_key] = embedding
-            return embedding
-
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                res = await client.post(url, json=payload)
+                if res.status_code == 200:
+                    values = res.json().get("embedding", {}).get("values", [])
+                    if values:
+                        self._embed_cache[cache_key] = values
+                        return values
         except Exception as exc:
-            logger.error("Gemini embed error: %s", exc, exc_info=True)
-            # Return zero vector on failure so the system degrades gracefully
-            return [0.0] * EMBED_DIM
+            logger.error("gemini_embed_exception", error=str(exc))
+
+        return [0.0] * 768
 
     async def embed_batch(self, texts: List[str]) -> List[List[float]]:
-        """Embed multiple texts. Calls embed() for each (Gemini SDK batch is limited)."""
         results = []
-        for text in texts:
-            embedding = await self.embed(text)
-            results.append(embedding)
+        for t in texts:
+            emb = await self.embed(t)
+            results.append(emb)
         return results
