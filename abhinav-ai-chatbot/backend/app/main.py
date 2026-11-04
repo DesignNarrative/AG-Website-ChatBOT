@@ -145,7 +145,17 @@ if os.path.isdir(_WIDGET_DIST):
     app.mount("/static", StaticFiles(directory=_WIDGET_DIST), name="static")
 
 if os.path.isdir(_ADMIN_DIST):
-    app.mount("/admin", StaticFiles(directory=_ADMIN_DIST, html=True), name="admin")
+    _assets_dir = os.path.join(_ADMIN_DIST, "assets")
+    if os.path.isdir(_assets_dir):
+        app.mount("/admin/assets", StaticFiles(directory=_assets_dir), name="admin_assets")
+
+    @app.get("/admin", include_in_schema=False)
+    @app.get("/admin/{full_path:path}", include_in_schema=False)
+    async def admin_spa(full_path: str = ""):
+        candidate = os.path.join(_ADMIN_DIST, full_path)
+        if full_path and os.path.isfile(candidate):
+            return FileResponse(candidate)
+        return FileResponse(os.path.join(_ADMIN_DIST, "index.html"))
 
 @app.get("/widget-test", include_in_schema=False)
 async def widget_test_page():

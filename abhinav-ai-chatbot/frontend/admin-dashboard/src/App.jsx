@@ -16,7 +16,7 @@ import Settings from './pages/Settings'
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/admin">
       <AuthProvider>
         <Routes>
           {/* Public login */}
