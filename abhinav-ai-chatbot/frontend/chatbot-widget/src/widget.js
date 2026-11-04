@@ -269,6 +269,33 @@
     return d.getHours() + ':' + ('0' + d.getMinutes()).slice(-2) + (d.getHours() >= 12 ? ' PM' : ' AM');
   }
 
+  /* ── Clean Message Formatting (Strip raw markdown artifacts like ###, ***) ── */
+  function formatWidgetMessage(raw) {
+    if (!raw) return '';
+    // Strip markdown heading hashes (###, ##, #) at line start
+    var cleaned = raw.replace(/^[#]{1,6}\s*/gm, '');
+    // Strip horizontal dividers (---, ***, ___)
+    cleaned = cleaned.replace(/^[*\-_]{3,}\s*$/gm, '');
+    // Strip triple or more asterisks
+    cleaned = cleaned.replace(/\*{3,}/g, '');
+    // Trim extra consecutive newlines
+    cleaned = cleaned.replace(/\n{3,}/g, '\n\n').trim();
+
+    // Escape HTML first for XSS safety
+    var safe = escapeHtml(cleaned);
+
+    // Convert **bold** to <strong>bold</strong>
+    safe = safe.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+    // Convert bullets (* item or - item) at start of lines into clean bullet • item
+    safe = safe.replace(/^[*\-]\s+/gm, '• ');
+
+    // Convert newlines to <br>
+    safe = safe.replace(/\n/g, '<br>');
+
+    return safe;
+  }
+
   /* ── Render Messages ────────────────────────────────────── */
   function appendMessage(role, text, extra) {
     extra = extra || {};
@@ -282,7 +309,7 @@
 
     var bubble = document.createElement('div');
     bubble.className = 'ag-bubble';
-    bubble.textContent = text;
+    bubble.innerHTML = formatWidgetMessage(text);
     div.appendChild(bubble);
 
     var timeEl = document.createElement('div');

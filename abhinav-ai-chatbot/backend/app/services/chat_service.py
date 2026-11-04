@@ -38,6 +38,7 @@ STRICT RULES — NEVER VIOLATE THESE:
    "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9890393838 for the latest price sheet."
 5. Clearly distinguish between ACTIVE ONGOING projects and COMPLETED legacy projects
 6. ALWAYS respond in the same language the customer used (English, Hindi, or Roman Hindi)
+7. FORMATTING RULE: Keep answers clean, conversational, and easy to read. NEVER use markdown heading hashes (like ### or ##) and NEVER use horizontal divider lines (like --- or ***). Use clean bullet points (- or •) and bold text sparingly for headings.
 
 =============================================================================
 COMPANY PROFILE & CORPORATE IDENTITY (From abhinavgroup.co.in)
@@ -192,9 +193,16 @@ class ChatService:
             )
             reply = ai_response.content
         except Exception as e:
-            logger.error("ai_provider_error", error=str(e), provider=self.ai.provider_name)
+            logger.error(f"ai_provider_error: {e} (provider={self.ai.provider_name})")
             reply = self._ai_unavailable_response(language)
             is_fallback = True
+
+        # Clean formatting: strip raw markdown header hashes (###) and horizontal dividers (---, ***)
+        import re
+        reply = re.sub(r'^[#]{1,6}\s*', '', reply, flags=re.MULTILINE)
+        reply = re.sub(r'^[*\-_]{3,}\s*$', '', reply, flags=re.MULTILINE)
+        reply = re.sub(r'\*{3,}', '', reply)
+        reply = re.sub(r'\n{3,}', '\n\n', reply).strip()
 
         # --- Step 6: Persist messages ---
         response_time_ms = int((time.monotonic() - start_time) * 1000)
