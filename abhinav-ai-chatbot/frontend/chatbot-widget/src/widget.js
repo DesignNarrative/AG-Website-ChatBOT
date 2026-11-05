@@ -173,8 +173,9 @@
       '.ag-lead-btn:hover{opacity:0.92}',
 
       /* Project card */
-      '.ag-project-card{background:white;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,0.08);margin-top:8px;margin-bottom:6px;animation:fadeUp 0.25s ease}',
-      '.ag-project-card img{width:100%;height:140px;object-fit:cover;display:block}',
+      '.ag-project-card{background:white;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,0.08);margin-top:8px;margin-bottom:6px;animation:fadeUp 0.25s ease;display:flex;flex-direction:column}',
+      '.ag-project-card-img-wrap{width:100%;height:160px;background:#f1f5f9;overflow:hidden;position:relative}',
+      '.ag-project-card-img{width:100%;height:160px;min-height:160px;max-height:160px;object-fit:cover;display:block}',
       '.ag-project-card-body{padding:12px 14px}',
       '.ag-project-card-title{font-weight:700;color:' + BRAND_COLOR + ';font-size:14px;margin:0 0 4px}',
       '.ag-project-card-info{font-size:12px;color:#64748b;margin:0 0 10px;line-height:1.4}',
@@ -335,12 +336,16 @@
   function appendProjectCard(card) {
     var div = document.createElement('div');
     div.className = 'ag-project-card';
-    var imgUrl = card.image_url;
-    if (imgUrl && !imgUrl.startsWith('http://') && !imgUrl.startsWith('https://')) {
-      imgUrl = API_BASE + (imgUrl.startsWith('/') ? '' : '/') + imgUrl;
+    var rawUrl = card.image_url || '';
+    var fullUrl = rawUrl;
+    if (fullUrl && !fullUrl.startsWith('http://') && !fullUrl.startsWith('https://')) {
+      var base = API_BASE || (typeof window !== 'undefined' && window.location.origin ? window.location.origin : '');
+      fullUrl = base ? base.replace(/\/$/, '') + (fullUrl.startsWith('/') ? '' : '/') + fullUrl : fullUrl;
     }
-    var imgHtml = imgUrl
-      ? '<img src="' + escapeHtml(imgUrl) + '" alt="' + escapeHtml(card.name) + '" loading="lazy">'
+    var imgHtml = fullUrl
+      ? '<div class="ag-project-card-img-wrap">' +
+        '<img class="ag-project-card-img" src="' + escapeHtml(fullUrl) + '" alt="' + escapeHtml(card.name) + '" loading="eager" decoding="async" onerror="if(!this._retried && \'' + escapeHtml(rawUrl) + '\' !== this.src){this._retried=true; this.src=\'' + escapeHtml(rawUrl) + '\';}">' +
+        '</div>'
       : '';
     div.innerHTML = imgHtml +
       '<div class="ag-project-card-body">' +
@@ -359,6 +364,17 @@
       });
     }
     el.messages.appendChild(div);
+
+    var imgEl = div.querySelector('.ag-project-card-img');
+    if (imgEl) {
+      if (imgEl.complete) {
+        scrollToBottom();
+      } else {
+        imgEl.addEventListener('load', function () {
+          scrollToBottom();
+        });
+      }
+    }
   }
 
   function showTyping() {
@@ -517,14 +533,15 @@
           'project_enquiry_curve', 'project_enquiry_business_bay',
           'project_enquiry_aeromall', 'config_enquiry', 'nri_enquiry'
         ];
-        if (!state.leadCaptured && leadIntents.indexOf(data.intent) !== -1) {
+        var hasProjectCard = data.project_cards && data.project_cards.length;
+        if (!state.leadCaptured && leadIntents.indexOf(data.intent) !== -1 && !hasProjectCard) {
           setTimeout(showLeadCard, 600);
         }
 
         // Track message count for proactive lead prompt (after 2 exchanges / 4 messages)
         state.messages.push({ role: 'user', text: text });
         state.messages.push({ role: 'bot', text: data.reply });
-        if (!state.leadCaptured && state.messages.length >= 4) {
+        if (!state.leadCaptured && state.messages.length >= 4 && !hasProjectCard) {
           setTimeout(showLeadCard, 800);
         }
       })

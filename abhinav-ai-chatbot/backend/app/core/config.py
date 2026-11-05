@@ -52,7 +52,7 @@ class Settings(BaseSettings):
 
     # Gemini
     gemini_api_key: Optional[str] = None
-    gemini_chat_model: str = "gemini-3.5-flash"
+    gemini_chat_model: str = "gemini-flash-lite-latest"
     gemini_embedding_model: str = "gemini-embedding-001"
 
     # OpenAI

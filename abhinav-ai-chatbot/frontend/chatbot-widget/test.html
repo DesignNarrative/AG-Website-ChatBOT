@@ -70,7 +70,7 @@ window.AbhinavChatConfig = {
     ============================================================ -->
     <script>
     window.AbhinavChatConfig = {
-        apiBase:        "http://localhost:8000",   // Local dev backend
+        apiBase:        (window.location.origin && window.location.origin.indexOf('http') === 0) ? window.location.origin : "http://localhost:8000",   // Local dev backend
         widgetKey:      "dev-test-key",
         sourcePage:     window.location.href,
         lang:           "auto",
@@ -79,7 +79,7 @@ window.AbhinavChatConfig = {
         autoOpenDelay:  5000
     };
     </script>
-    <script src="/static/abhinav-chatbot.min.js?v=2.2" onerror="this.onerror=null;this.src='dist/abhinav-chatbot.min.js?v=2.2'" async></script>
+    <script src="/static/abhinav-chatbot.min.js?v=2.5" onerror="this.onerror=null;this.src='dist/abhinav-chatbot.min.js?v=2.5'" async></script>
     <!-- End widget -->
 
 </body>
