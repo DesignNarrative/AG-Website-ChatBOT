@@ -55,6 +55,7 @@
       lead_prompt: 'Would you like our sales team to contact you with more details?',
       lead_name: 'Please share your name:',
       lead_phone: 'Your 10-digit mobile number:',
+      lead_email: 'Email address (optional):',
       lead_confirm: 'Thank you! Our team will contact you shortly. 📞',
       lead_btn: 'Get a Callback',
       typing: 'Typing...',
@@ -79,6 +80,7 @@
       lead_prompt: 'क्या आप चाहते हैं कि हमारी सेल्स टीम आपसे संपर्क करे?',
       lead_name: 'कृपया अपना नाम बताएं:',
       lead_phone: 'आपका 10 अंकों का मोबाइल नंबर:',
+      lead_email: 'ईमेल आईडी (वैकल्पिक):',
       lead_confirm: 'धन्यवाद! हमारी टीम जल्द संपर्क करेगी। 📞',
       lead_btn: 'कॉलबैक के लिए अनुरोध करें',
       typing: 'टाइप हो रहा है...',
@@ -371,7 +373,12 @@
   }
 
   function showLeadCard() {
-    if (state.leadCaptured || document.getElementById('ag-lead-form')) return;
+    if (state.leadCaptured) return;
+    // If an unanswered form exists higher up in the chat, reposition it to the active bottom
+    var existing = document.getElementById('ag-lead-form');
+    if (existing) {
+      existing.remove();
+    }
     var card = document.createElement('div');
     card.className = 'ag-lead-card';
     card.id = 'ag-lead-form';
@@ -380,6 +387,8 @@
       '<input class="ag-lead-input" id="ag-lead-name" type="text" placeholder="Your name" autocomplete="name">' +
       '<p style="margin-top:10px">' + t('lead_phone') + '</p>' +
       '<input class="ag-lead-input" id="ag-lead-phone" type="tel" placeholder="10-digit mobile" autocomplete="tel" maxlength="13">' +
+      '<p style="margin-top:10px">' + t('lead_email') + '</p>' +
+      '<input class="ag-lead-input" id="ag-lead-email" type="email" placeholder="name@example.com (optional)" autocomplete="email">' +
       '<button class="ag-lead-btn" id="ag-lead-submit">' + t('lead_btn') + '</button>';
     el.messages.appendChild(card);
     scrollToBottom();
@@ -396,6 +405,7 @@
   function submitLead() {
     var name  = (document.getElementById('ag-lead-name').value || '').trim();
     var phone = (document.getElementById('ag-lead-phone').value || '').trim().replace(/\D/g, '');
+    var email = (document.getElementById('ag-lead-email') ? document.getElementById('ag-lead-email').value || '' : '').trim();
 
     if (!name) {
       document.getElementById('ag-lead-name').style.borderColor = 'red';
@@ -406,13 +416,15 @@
       return;
     }
 
-    state.leadData = { name: name, phone: phone };
-    document.getElementById('ag-lead-form').remove();
+    state.leadData = { name: name, phone: phone, email: email };
+    var formEl = document.getElementById('ag-lead-form');
+    if (formEl) formEl.remove();
 
     // POST to leads API
     apiPost('/api/v1/leads/', {
       name: name,
       phone: phone,
+      email: email || undefined,
       consent_to_contact: true,
       source_page: SOURCE_PAGE,
       session_token: state.sessionToken,
@@ -483,17 +495,21 @@
           renderQuickReplies(data.quick_replies);
         }
 
-        // Offer lead capture after pricing / escalation intents
-        var leadIntents = ['pricing_enquiry', 'escalation', 'brochure_request', 'project_enquiry_samsara',
-          'project_enquiry_greenfield', 'project_enquiry_curve', 'project_enquiry_aeromall'];
+        // Offer lead capture after pricing, escalation, brochure, project, or configuration inquiries
+        var leadIntents = [
+          'pricing_enquiry', 'escalation', 'brochure_request',
+          'project_enquiry_samsara', 'project_enquiry_greenfield',
+          'project_enquiry_curve', 'project_enquiry_business_bay',
+          'project_enquiry_aeromall', 'config_enquiry', 'nri_enquiry'
+        ];
         if (!state.leadCaptured && leadIntents.indexOf(data.intent) !== -1) {
-          setTimeout(showLeadCard, 1200);
+          setTimeout(showLeadCard, 600);
         }
 
-        // Track message count for proactive lead prompt
+        // Track message count for proactive lead prompt (after 2 exchanges / 4 messages)
         state.messages.push({ role: 'user', text: text });
         state.messages.push({ role: 'bot', text: data.reply });
-        if (!state.leadCaptured && state.messages.length >= 6) {
+        if (!state.leadCaptured && state.messages.length >= 4) {
           setTimeout(showLeadCard, 800);
         }
       })

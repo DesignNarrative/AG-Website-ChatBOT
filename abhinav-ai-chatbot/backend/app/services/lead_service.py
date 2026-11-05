@@ -30,6 +30,10 @@ class LeadService:
         # Check for duplicates within the dedup window
         existing = await self._find_duplicate(phone_normalized, data.get("interested_project"))
 
+        summary = data.get("enquiry_summary") or ""
+        if data.get("email"):
+            summary = f"Email: {data.get('email')} | {summary}".strip(" |")
+
         lead = Lead(
             name=data.get("name"),
             phone=data["phone"],
@@ -42,7 +46,7 @@ class LeadService:
             budget_max=data.get("budget_max"),
             preferred_location=data.get("preferred_location"),
             purchase_timeline=data.get("purchase_timeline"),
-            enquiry_summary=data.get("enquiry_summary"),
+            enquiry_summary=summary or None,
             is_nri=data.get("is_nri", False),
             consent_to_contact=data.get("consent_to_contact", False),
             source_page=data.get("source_page"),

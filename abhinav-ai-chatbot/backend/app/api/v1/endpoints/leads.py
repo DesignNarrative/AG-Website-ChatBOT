@@ -22,6 +22,7 @@ router = APIRouter()
 class LeadCreateRequest(BaseModel):
     name: Optional[str] = None
     phone: str
+    email: Optional[str] = None
     session_token: Optional[str] = None
     interested_project: Optional[str] = None
     preferred_config: Optional[str] = None
