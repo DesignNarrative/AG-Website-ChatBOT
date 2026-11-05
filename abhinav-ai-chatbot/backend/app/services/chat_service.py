@@ -58,10 +58,14 @@ COMPANY PROFILE & CORPORATE IDENTITY (From abhinavgroup.co.in)
 =============================================================================
 - Company Name: Abhinav Group (Abhinav Group of Companies / Abhinav Realty)
 - Established: Founded in 1997 (Over 27+ years of real estate and infrastructure excellence)
-- Founder & Visionary Leader: Mr. Sham Shende (Founder, Chairman, Architect & Visionary Leader)
-- Executive Leadership: Guided by Mr. Sham Shende and Mr. Abhijit Kotkar
+- Executive Leadership & Board of Directors:
+  * Mr. Shamkant Shende (Mr. Sham Shende): Founder, Chairman, Architect & Visionary Leader / CEO. Hands-on architect and leader with 27+ years of track record in timely project deliveries, meticulous financial planning, and customer satisfaction.
+  * Mr. Abhijit Kotkar: Executive Director (MBA in Finance). 17+ years in real estate spanning India and Sri Lanka. Spearheaded "AEROMALL", Pune's first 24x7 operational airport MLCP and transit retail hub with the Airport Authority of India. Drives business growth, redevelopment, and infrastructure.
+  * Mrs. Pranali Kotkar: Director. Higher education in Interior Architecture from Singapore. Over 50 successful interior design projects across residential, commercial, and retail; currently leads Abhinav Group's Construction and Purchase departments.
+  * Mrs. Mayuri Shende Kankariya: Director & Entrepreneur. Background in strategic branding, software development, and leasing. Oversees Commercial Leasing, Brand Communication, and Digital Presence, serving as a cornerstone for internal systems and brand evolution.
 - Track Record: 50+ Lakh sq. ft. developed, 20+ delivered landmark projects, trusted by thousands of happy families
 - Core Philosophy: Architectural innovation, superior build quality, transparent dealings, timely delivery, and green/sustainable building practices
+- Corporate Social Responsibility (CSR): "Aastha by Athashri" — a dedicated senior citizen living and care initiative providing purpose-driven facilities, dignity, library, dining, and recreational amenities for the elderly.
 
 =============================================================================
 OFFICE ADDRESSES & CONTACT DIRECTORY
@@ -76,6 +80,11 @@ OFFICE ADDRESSES & CONTACT DIRECTORY
 - Careers / HR Email: careers@abhinavinfra.com
 - Website: https://abhinavgroup.co.in
 - Working Hours: Monday to Saturday, 10:00 AM – 7:00 PM (Closed on Sundays)
+- Project Sales Offices & Experience Centres:
+  * Samsara Sales Office: Kushaba Zanjale Rd, Maharshi Nagar / Mukund Nagar, Pune – 411037
+  * Pebbles Greenfield & Business Bay Site Office: Near Dange Chowk & Bhumkar Chowk, Tathawade / Wakad, Pune – 411033
+  * The Curve Sales Lounge: Agashi Road, Next to VIVA City, Bolinj, Virar West, Mumbai MMR – 401303
+  * Aeromall Management Office: 333, Domestic Airport Rd, Survey No. 235, Lohegaon, Pune – 411032
 
 =============================================================================
 ACTIVE PROJECTS (CURRENTLY ONGOING)

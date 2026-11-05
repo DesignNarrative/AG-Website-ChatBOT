@@ -17,11 +17,11 @@ from app.ai.provider import AIMessage, AIResponse, BaseAIProvider
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_CHAT_MODEL = "gemini-3.5-flash-lite"
+DEFAULT_CHAT_MODEL = "gemini-flash-lite-latest"
 CANDIDATE_CHAT_MODELS = [
-    "gemini-3.5-flash-lite",
     "gemini-flash-lite-latest",
-    "gemini-3.5-flash",
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite",
 ]
 EMBED_MODEL = "gemini-embedding-001"
 BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models"
@@ -88,7 +88,7 @@ class GeminiProvider(BaseAIProvider):
         for model in models_to_try:
             url = f"{BASE_URL}/{model}:generateContent?key={self._api_key}"
             try:
-                async with httpx.AsyncClient(timeout=35.0) as client:
+                async with httpx.AsyncClient(timeout=12.0) as client:
                     res = await client.post(url, json=payload)
 
                     if res.status_code == 200:
@@ -97,8 +97,9 @@ class GeminiProvider(BaseAIProvider):
                         candidates = data.get("candidates", [])
                         if candidates:
                             parts = candidates[0].get("content", {}).get("parts", [])
-                            if parts:
-                                content = parts[0].get("text", "").strip()
+                            # Concatenate text from ALL parts so responses are never truncated mid-sentence
+                            text_parts = [p.get("text", "") for p in parts if "text" in p and p.get("text")]
+                            content = "".join(text_parts).strip()
 
                         elapsed_ms = int((time.monotonic() - start) * 1000)
                         usage = data.get("usageMetadata", {})
