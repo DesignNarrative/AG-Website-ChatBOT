@@ -129,12 +129,12 @@
       '#abhinav-close-btn:hover{background:rgba(255,255,255,0.35)}',
 
       /* Messages area */
-      '#abhinav-messages{flex:1;overflow-y:auto;padding:16px 12px;display:flex;flex-direction:column;gap:10px;background:#f8fafc;scroll-behavior:smooth}',
+      '#abhinav-messages{flex:1;overflow-y:auto;padding:16px 12px;display:flex;flex-direction:column;gap:10px;background:#f8fafc}',
       '#abhinav-messages::-webkit-scrollbar{width:4px}',
       '#abhinav-messages::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}',
 
       /* Message bubbles */
-      '.ag-msg{display:flex;flex-direction:column;max-width:82%;animation:fadeUp 0.25s ease}',
+      '.ag-msg{display:flex;flex-direction:column;max-width:82%;animation:fadeUp 0.25s ease;flex-shrink:0}',
       '@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}',
       '.ag-msg.user{align-self:flex-end;align-items:flex-end}',
       '.ag-msg.bot{align-self:flex-start;align-items:flex-start}',
@@ -144,14 +144,14 @@
       '.ag-time{font-size:10px;color:#94a3b8;margin-top:3px;padding:0 4px}',
 
       /* Typing indicator */
-      '#abhinav-typing{align-self:flex-start;background:white;border-radius:18px;border-bottom-left-radius:4px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.08)}',
+      '#abhinav-typing{align-self:flex-start;background:white;border-radius:18px;border-bottom-left-radius:4px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.08);flex-shrink:0}',
       '#abhinav-typing span{display:inline-block;width:7px;height:7px;border-radius:50%;background:#94a3b8;margin:0 2px;animation:bounce 1.2s infinite}',
       '#abhinav-typing span:nth-child(2){animation-delay:0.2s}',
       '#abhinav-typing span:nth-child(3){animation-delay:0.4s}',
       '@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}',
 
       /* Quick replies */
-      '#abhinav-quick-replies{padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;background:#f8fafc;border-top:1px solid #e2e8f0}',
+      '#abhinav-quick-replies{padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;background:#f8fafc;border-top:1px solid #e2e8f0;flex-shrink:0}',
       '.ag-qr{background:white;border:1.5px solid ' + BRAND_COLOR + ';color:' + BRAND_COLOR + ';border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap}',
       '.ag-qr:hover{background:' + BRAND_COLOR + ';color:white;box-shadow:0 2px 8px rgba(2,132,199,0.25)}',
 
@@ -165,7 +165,7 @@
       '#abhinav-send svg{width:18px;height:18px;fill:white}',
 
       /* Lead capture form */
-      '.ag-lead-card{background:white;border:1.5px solid ' + BRAND_COLOR + ';border-radius:12px;padding:14px;margin-top:4px;animation:fadeUp 0.25s ease;box-shadow:0 2px 8px rgba(2,132,199,0.15)}',
+      '.ag-lead-card{background:white;border:1.5px solid ' + BRAND_COLOR + ';border-radius:12px;padding:14px;margin-top:4px;animation:fadeUp 0.25s ease;box-shadow:0 2px 8px rgba(2,132,199,0.15);flex-shrink:0}',
       '.ag-lead-card p{margin:0 0 10px;color:#1e293b;font-size:13px}',
       '.ag-lead-input{width:100%;border:1.5px solid #cbd5e1;border-radius:8px;padding:9px 12px;font-size:13px;outline:none;box-sizing:border-box;font-family:inherit;transition:border-color 0.2s}',
       '.ag-lead-input:focus{border-color:' + BRAND_COLOR + '}',
@@ -173,10 +173,10 @@
       '.ag-lead-btn:hover{opacity:0.92}',
 
       /* Project card */
-      '.ag-project-card{background:white;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,0.08);margin-top:8px;margin-bottom:6px;animation:fadeUp 0.25s ease;display:flex;flex-direction:column}',
-      '.ag-project-card-img-wrap{width:100%;height:160px;background:#f1f5f9;overflow:hidden;position:relative}',
+      '.ag-project-card{background:white;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,0.08);margin-top:8px;margin-bottom:6px;animation:fadeUp 0.25s ease;display:flex;flex-direction:column;flex-shrink:0;min-height:240px}',
+      '.ag-project-card-img-wrap{width:100%;height:160px;background:#f1f5f9;overflow:hidden;position:relative;flex-shrink:0}',
       '.ag-project-card-img{width:100%;height:160px;min-height:160px;max-height:160px;object-fit:cover;display:block}',
-      '.ag-project-card-body{padding:12px 14px}',
+      '.ag-project-card-body{padding:12px 14px;flex-shrink:0}',
       '.ag-project-card-title{font-weight:700;color:' + BRAND_COLOR + ';font-size:14px;margin:0 0 4px}',
       '.ag-project-card-info{font-size:12px;color:#64748b;margin:0 0 10px;line-height:1.4}',
       '.ag-project-card-btn{display:inline-block;background:linear-gradient(135deg,' + BRAND_COLOR + ',#0369a1);color:white;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:600;text-decoration:none;cursor:pointer;border:none;transition:opacity 0.2s}',
@@ -469,7 +469,14 @@
   }
 
   function scrollToBottom() {
-    el.messages.scrollTop = el.messages.scrollHeight;
+    if (el.messages) {
+      el.messages.scrollTop = el.messages.scrollHeight;
+    }
+    setTimeout(function () {
+      if (el.messages) {
+        el.messages.scrollTop = el.messages.scrollHeight;
+      }
+    }, 50);
   }
 
   function escapeHtml(str) {
@@ -533,16 +540,15 @@
           'project_enquiry_curve', 'project_enquiry_business_bay',
           'project_enquiry_aeromall', 'config_enquiry', 'nri_enquiry'
         ];
-        var hasProjectCard = data.project_cards && data.project_cards.length;
-        if (!state.leadCaptured && leadIntents.indexOf(data.intent) !== -1 && !hasProjectCard) {
-          setTimeout(showLeadCard, 600);
+        if (!state.leadCaptured && leadIntents.indexOf(data.intent) !== -1) {
+          setTimeout(showLeadCard, 700);
         }
 
         // Track message count for proactive lead prompt (after 2 exchanges / 4 messages)
         state.messages.push({ role: 'user', text: text });
         state.messages.push({ role: 'bot', text: data.reply });
-        if (!state.leadCaptured && state.messages.length >= 4 && !hasProjectCard) {
-          setTimeout(showLeadCard, 800);
+        if (!state.leadCaptured && state.messages.length >= 4) {
+          setTimeout(showLeadCard, 900);
         }
       })
       .catch(function (err) {
