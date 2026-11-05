@@ -23,8 +23,8 @@
   var SOURCE_PAGE = cfg.sourcePage || window.location.href;
   var LANG        = cfg.lang      || 'auto';      // 'en' | 'hi' | 'auto'
   var POSITION    = cfg.position  || 'bottom-right';
-  var BRAND_COLOR = cfg.brandColor || '#1a2f5a';  // Abhinav deep navy
-  var ACCENT_COLOR = cfg.accentColor || '#d4a017'; // Gold accent
+  var BRAND_COLOR = cfg.brandColor || '#0284c7';  // Sky Blue primary
+  var ACCENT_COLOR = cfg.accentColor || '#38bdf8'; // Sky Blue accent
 
   /* ── State ─────────────────────────────────────────────── */
   var state = {
@@ -103,33 +103,33 @@
       '#abhinav-chat-widget.pos-bottom-left{bottom:24px;left:24px}',
 
       /* Launcher bubble */
-      '#abhinav-launcher{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,' + BRAND_COLOR + ',' + ACCENT_COLOR + ');cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.3);border:none;transition:transform 0.2s,box-shadow 0.2s;position:relative}',
-      '#abhinav-launcher:hover{transform:scale(1.08);box-shadow:0 6px 25px rgba(0,0,0,0.4)}',
+      '#abhinav-launcher{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,' + BRAND_COLOR + ',' + ACCENT_COLOR + ');cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(2,132,199,0.4);border:none;transition:transform 0.2s,box-shadow 0.2s;position:relative}',
+      '#abhinav-launcher:hover{transform:scale(1.08);box-shadow:0 6px 25px rgba(2,132,199,0.5)}',
       '#abhinav-launcher svg{width:28px;height:28px;fill:white;transition:opacity 0.2s}',
       '#abhinav-launcher .badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:#e53935;color:white;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;animation:pulse 2s infinite}',
       '@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}',
 
       /* Chat panel */
-      '#abhinav-chat-panel{width:360px;height:560px;background:white;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.2);display:flex;flex-direction:column;overflow:hidden;transition:all 0.3s ease;transform-origin:bottom right}',
+      '#abhinav-chat-panel{width:360px;height:560px;background:white;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.18);display:flex;flex-direction:column;overflow:hidden;transition:all 0.3s ease;transform-origin:bottom right}',
       '#abhinav-chat-panel.hidden{opacity:0;transform:scale(0.85) translateY(20px);pointer-events:none;position:absolute;bottom:70px;right:0}',
       '#abhinav-chat-panel.visible{opacity:1;transform:scale(1) translateY(0);position:absolute;bottom:70px;right:0}',
 
       /* Header */
-      '#abhinav-header{background:linear-gradient(135deg,' + BRAND_COLOR + ' 0%,#243d6e 100%);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}',
-      '#abhinav-header-logo{width:38px;height:38px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;font-weight:700;color:' + BRAND_COLOR + ';font-size:14px;flex-shrink:0}',
+      '#abhinav-header{background:linear-gradient(135deg,' + BRAND_COLOR + ' 0%,#0369a1 100%);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}',
+      '#abhinav-header-logo{width:38px;height:38px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;font-weight:700;color:' + BRAND_COLOR + ';font-size:14px;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,0.1)}',
       '#abhinav-header-info{flex:1;min-width:0}',
       '#abhinav-header-title{color:white;font-weight:700;font-size:15px;margin:0}',
-      '#abhinav-header-subtitle{color:rgba(255,255,255,0.75);font-size:11px;margin:0}',
+      '#abhinav-header-subtitle{color:rgba(255,255,255,0.85);font-size:11px;margin:0}',
       '#abhinav-header-status{display:flex;align-items:center;gap:5px;margin-top:2px}',
       '#abhinav-header-status .dot{width:7px;height:7px;border-radius:50%;background:#4caf50;animation:pulse 2s infinite}',
-      '#abhinav-header-status span{color:rgba(255,255,255,0.8);font-size:11px}',
-      '#abhinav-close-btn{background:rgba(255,255,255,0.15);border:none;color:white;cursor:pointer;padding:6px;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s}',
-      '#abhinav-close-btn:hover{background:rgba(255,255,255,0.3)}',
+      '#abhinav-header-status span{color:rgba(255,255,255,0.9);font-size:11px}',
+      '#abhinav-close-btn{background:rgba(255,255,255,0.2);border:none;color:white;cursor:pointer;padding:6px;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s}',
+      '#abhinav-close-btn:hover{background:rgba(255,255,255,0.35)}',
 
       /* Messages area */
-      '#abhinav-messages{flex:1;overflow-y:auto;padding:16px 12px;display:flex;flex-direction:column;gap:10px;background:#f5f7fa;scroll-behavior:smooth}',
+      '#abhinav-messages{flex:1;overflow-y:auto;padding:16px 12px;display:flex;flex-direction:column;gap:10px;background:#f8fafc;scroll-behavior:smooth}',
       '#abhinav-messages::-webkit-scrollbar{width:4px}',
-      '#abhinav-messages::-webkit-scrollbar-thumb{background:#ccc;border-radius:4px}',
+      '#abhinav-messages::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}',
 
       /* Message bubbles */
       '.ag-msg{display:flex;flex-direction:column;max-width:82%;animation:fadeUp 0.25s ease}',
@@ -138,49 +138,49 @@
       '.ag-msg.bot{align-self:flex-start;align-items:flex-start}',
       '.ag-bubble{padding:10px 14px;border-radius:18px;font-size:14px;line-height:1.5;white-space:pre-wrap;word-break:break-word}',
       '.ag-msg.user .ag-bubble{background:' + BRAND_COLOR + ';color:white;border-bottom-right-radius:4px}',
-      '.ag-msg.bot .ag-bubble{background:white;color:#2d3748;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.1)}',
-      '.ag-time{font-size:10px;color:#9ca3af;margin-top:3px;padding:0 4px}',
+      '.ag-msg.bot .ag-bubble{background:white;color:#1e293b;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.08)}',
+      '.ag-time{font-size:10px;color:#94a3b8;margin-top:3px;padding:0 4px}',
 
       /* Typing indicator */
-      '#abhinav-typing{align-self:flex-start;background:white;border-radius:18px;border-bottom-left-radius:4px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.1)}',
-      '#abhinav-typing span{display:inline-block;width:7px;height:7px;border-radius:50%;background:#9ca3af;margin:0 2px;animation:bounce 1.2s infinite}',
+      '#abhinav-typing{align-self:flex-start;background:white;border-radius:18px;border-bottom-left-radius:4px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.08)}',
+      '#abhinav-typing span{display:inline-block;width:7px;height:7px;border-radius:50%;background:#94a3b8;margin:0 2px;animation:bounce 1.2s infinite}',
       '#abhinav-typing span:nth-child(2){animation-delay:0.2s}',
       '#abhinav-typing span:nth-child(3){animation-delay:0.4s}',
       '@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}',
 
       /* Quick replies */
-      '#abhinav-quick-replies{padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;background:#f5f7fa;border-top:1px solid #e5e7eb}',
+      '#abhinav-quick-replies{padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;background:#f8fafc;border-top:1px solid #e2e8f0}',
       '.ag-qr{background:white;border:1.5px solid ' + BRAND_COLOR + ';color:' + BRAND_COLOR + ';border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap}',
-      '.ag-qr:hover{background:' + BRAND_COLOR + ';color:white}',
+      '.ag-qr:hover{background:' + BRAND_COLOR + ';color:white;box-shadow:0 2px 8px rgba(2,132,199,0.25)}',
 
       /* Input area */
-      '#abhinav-input-area{padding:12px;background:white;border-top:1px solid #e5e7eb;display:flex;gap:8px;flex-shrink:0;align-items:flex-end}',
-      '#abhinav-input{flex:1;border:1.5px solid #e5e7eb;border-radius:24px;padding:10px 16px;font-size:14px;outline:none;resize:none;max-height:100px;font-family:inherit;transition:border-color 0.2s;line-height:1.4}',
+      '#abhinav-input-area{padding:12px;background:white;border-top:1px solid #e2e8f0;display:flex;gap:8px;flex-shrink:0;align-items:flex-end}',
+      '#abhinav-input{flex:1;border:1.5px solid #cbd5e1;border-radius:24px;padding:10px 16px;font-size:14px;outline:none;resize:none;max-height:100px;font-family:inherit;transition:border-color 0.2s;line-height:1.4}',
       '#abhinav-input:focus{border-color:' + BRAND_COLOR + '}',
       '#abhinav-send{width:40px;height:40px;border-radius:50%;background:' + BRAND_COLOR + ';border:none;color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s;align-self:flex-end}',
-      '#abhinav-send:hover{background:#243d6e}',
-      '#abhinav-send:disabled{background:#9ca3af;cursor:not-allowed}',
+      '#abhinav-send:hover{background:#0369a1}',
+      '#abhinav-send:disabled{background:#94a3b8;cursor:not-allowed}',
       '#abhinav-send svg{width:18px;height:18px;fill:white}',
 
       /* Lead capture form */
-      '.ag-lead-card{background:white;border:1.5px solid ' + ACCENT_COLOR + ';border-radius:12px;padding:14px;margin-top:4px;animation:fadeUp 0.25s ease}',
-      '.ag-lead-card p{margin:0 0 10px;color:#2d3748;font-size:13px}',
-      '.ag-lead-input{width:100%;border:1.5px solid #e5e7eb;border-radius:8px;padding:9px 12px;font-size:13px;outline:none;box-sizing:border-box;font-family:inherit;transition:border-color 0.2s}',
+      '.ag-lead-card{background:white;border:1.5px solid ' + BRAND_COLOR + ';border-radius:12px;padding:14px;margin-top:4px;animation:fadeUp 0.25s ease;box-shadow:0 2px 8px rgba(2,132,199,0.15)}',
+      '.ag-lead-card p{margin:0 0 10px;color:#1e293b;font-size:13px}',
+      '.ag-lead-input{width:100%;border:1.5px solid #cbd5e1;border-radius:8px;padding:9px 12px;font-size:13px;outline:none;box-sizing:border-box;font-family:inherit;transition:border-color 0.2s}',
       '.ag-lead-input:focus{border-color:' + BRAND_COLOR + '}',
-      '.ag-lead-btn{margin-top:10px;width:100%;background:' + ACCENT_COLOR + ';color:' + BRAND_COLOR + ';border:none;border-radius:8px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity 0.2s}',
-      '.ag-lead-btn:hover{opacity:0.9}',
+      '.ag-lead-btn{margin-top:10px;width:100%;background:linear-gradient(135deg,' + BRAND_COLOR + ',#0369a1);color:white;border:none;border-radius:8px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity 0.2s}',
+      '.ag-lead-btn:hover{opacity:0.92}',
 
       /* Project card */
       '.ag-project-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);margin-top:6px;animation:fadeUp 0.25s ease}',
       '.ag-project-card img{width:100%;height:120px;object-fit:cover}',
       '.ag-project-card-body{padding:10px 12px}',
       '.ag-project-card-title{font-weight:700;color:' + BRAND_COLOR + ';font-size:14px;margin:0 0 4px}',
-      '.ag-project-card-info{font-size:12px;color:#6b7280;margin:0 0 8px}',
+      '.ag-project-card-info{font-size:12px;color:#64748b;margin:0 0 8px}',
       '.ag-project-card-btn{display:inline-block;background:' + BRAND_COLOR + ';color:white;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;text-decoration:none;cursor:pointer;border:none}',
 
       /* Footer */
-      '#abhinav-footer{padding:6px;text-align:center;background:white;border-top:1px solid #f0f0f0}',
-      '#abhinav-footer a{font-size:10px;color:#9ca3af;text-decoration:none}',
+      '#abhinav-footer{padding:6px;text-align:center;background:white;border-top:1px solid #f1f5f9}',
+      '#abhinav-footer a{font-size:10px;color:#94a3b8;text-decoration:none}',
       '#abhinav-footer a:hover{color:' + BRAND_COLOR + '}',
 
       /* Mobile responsive */
@@ -359,7 +359,11 @@
       var btn = document.createElement('button');
       btn.className = 'ag-qr';
       btn.textContent = reply;
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', function (e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
         sendMessage(reply);
       });
       el.quickReplies.appendChild(btn);
@@ -380,7 +384,13 @@
     el.messages.appendChild(card);
     scrollToBottom();
 
-    document.getElementById('ag-lead-submit').addEventListener('click', submitLead);
+    document.getElementById('ag-lead-submit').addEventListener('click', function (e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      submitLead();
+    });
   }
 
   function submitLead() {
@@ -536,14 +546,27 @@
 
   /* ── Event Listeners ────────────────────────────────────── */
   function bindEvents() {
-    el.launcher.addEventListener('click', toggleWidget);
-    el.closeBtn.addEventListener('click', closeWidget);
-    el.sendBtn.addEventListener('click', function () { sendMessage(); });
+    el.launcher.addEventListener('click', function (e) {
+      if (e) e.stopPropagation();
+      toggleWidget();
+    });
+    el.closeBtn.addEventListener('click', function (e) {
+      if (e) e.stopPropagation();
+      closeWidget();
+    });
+    el.sendBtn.addEventListener('click', function (e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      sendMessage();
+    });
 
     // Send on Enter (Shift+Enter = newline)
     el.input.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
+        e.stopPropagation();
         sendMessage();
       }
     });
@@ -559,9 +582,19 @@
       if (e.key === 'Escape' && state.open) closeWidget();
     });
 
-    // Close on outside click
+    // Close on outside click (robust check against detached buttons & internal elements)
     document.addEventListener('click', function (e) {
-      if (state.open && !el.widget.contains(e.target)) closeWidget();
+      if (!state.open) return;
+      if (!e || !e.target) return;
+      // If clicked inside the launcher, ignore
+      if (el.launcher && (el.launcher === e.target || el.launcher.contains(e.target))) return;
+      // If clicked inside the chat panel, ignore
+      if (el.widget && el.widget.contains(e.target)) return;
+      // If clicked node was removed from DOM during event handling (e.g. quick reply cleared), ignore
+      if (!document.body.contains(e.target)) return;
+      // Check closest container if browser supports it
+      if (e.target.closest && (e.target.closest('#abhinav-chat-panel') || e.target.closest('#abhinav-launcher') || e.target.closest('#abhinav-chat-widget'))) return;
+      closeWidget();
     });
   }
 

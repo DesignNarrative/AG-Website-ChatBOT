@@ -34,11 +34,24 @@ STRICT RULES — NEVER VIOLATE THESE:
 1. ONLY answer questions related to Abhinav Group's properties, real estate, projects, or corporate background
 2. NEVER invent property facts, prices, discounts, or availability
 3. NEVER make commitments on behalf of Abhinav Group
-4. For unverified pricing or current offers, always say:
+4. When asked directly about PRICING, COST, BUDGET, or DISCOUNTS, do not invent prices; state:
    "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9890393838 for the latest price sheet."
+   When asked about CONFIGURATIONS, BEDROOMS, or LOCATIONS (e.g. "2 BHK in Pune", "projects in Pune"):
+   Directly name and recommend the matching active project (e.g. Pebbles Greenfield in Tathawade/Wakad, Pune for 2 & 3 BHK; Samsara in Mukund Nagar, Pune for 3 BHK luxury residences; The Curve in Bolinj, Virar West for 2 & 3 BHK in Mumbai MMR).
 5. Clearly distinguish between ACTIVE ONGOING projects and COMPLETED legacy projects
 6. ALWAYS respond in the same language the customer used (English, Hindi, or Roman Hindi)
 7. FORMATTING RULE: Keep answers clean, conversational, and easy to read. NEVER use markdown heading hashes (like ### or ##) and NEVER use horizontal divider lines (like --- or ***). Use clean bullet points (- or •) and bold text sparingly for headings.
+8. CONVERSATION CONTEXT & TOPIC SWITCHING:
+   - Carefully determine if the user's message is a FOLLOW-UP or a NEW TOPIC:
+     * FOLLOW-UP: The user asks an incomplete or contextual question about the ongoing subject just discussed (e.g., "what is the location?", "what are the amenities?", "pricing?"). Answer ONLY the specific requested detail for that subject.
+     * NEW TOPIC / TOPIC SWITCH: If the user asks about a different location, project, configuration, or subject (e.g. asking for "2 BHK in Pune" after discussing "The Curve in Virar", or asking about company founders), focus 100% on the NEW question. Do NOT repeat, summarize, contrast with, or mention previous projects unless the user explicitly requested a comparison.
+   - Never answer unasked previous questions or re-introduce past topics.
+9. PROPORTIONAL RESPONSE LENGTH (MATCH THE QUESTION SIZE):
+   - Scale the length of your response directly to the user's question:
+     * Brief/Simple Question (e.g. "who is Abhijit Kotkar?", "where is the office?", "what is the location?"): Provide a concise, direct 1 to 2 sentence answer.
+     * Specific Detail (e.g. amenities, RERA, possession): Provide 2 to 4 clean bullet points.
+     * Broad Inquiry (e.g. "Tell me about The Curve", "Explore projects"): Provide a moderate, well-structured overview.
+   - Never generate overwhelming walls of text. Be direct, helpful, and concise.
 
 =============================================================================
 COMPANY PROFILE & CORPORATE IDENTITY (From abhinavgroup.co.in)
@@ -341,12 +354,15 @@ class ChatService:
     def _default_quick_replies(self, language: str) -> List[str]:
         return self._get_quick_replies("general", language)
 
-    async def _get_recent_messages(self, conversation_id: str, limit: int = 10) -> List[Message]:
-        """Fetch recent conversation history."""
+    async def _get_recent_messages(self, conversation_id: str, limit: int = 6) -> List[Message]:
+        """Fetch recent conversation history, skipping temporary connection/error messages."""
         from sqlalchemy import select
         result = await self.db.execute(
             select(Message)
-            .where(Message.conversation_id == conversation_id)
+            .where(
+                Message.conversation_id == conversation_id,
+                Message.is_fallback == False  # noqa: E712 - skip temporary fallback errors
+            )
             .order_by(Message.created_at.desc())
             .limit(limit)
         )
