@@ -330,7 +330,11 @@
       });
     }
 
-    scrollToBottom();
+    if (role === 'user') {
+      scrollToBottom();
+    } else {
+      scrollToMessageStart(div);
+    }
   }
 
   function appendProjectCard(card) {
@@ -364,17 +368,6 @@
       });
     }
     el.messages.appendChild(div);
-
-    var imgEl = div.querySelector('.ag-project-card-img');
-    if (imgEl) {
-      if (imgEl.complete) {
-        scrollToBottom();
-      } else {
-        imgEl.addEventListener('load', function () {
-          scrollToBottom();
-        });
-      }
-    }
   }
 
   function showTyping() {
@@ -422,7 +415,6 @@
       '<input class="ag-lead-input" id="ag-lead-email" type="email" placeholder="name@example.com (optional)" autocomplete="email">' +
       '<button class="ag-lead-btn" id="ag-lead-submit">' + t('lead_btn') + '</button>';
     el.messages.appendChild(card);
-    scrollToBottom();
 
     document.getElementById('ag-lead-submit').addEventListener('click', function (e) {
       if (e) {
@@ -466,6 +458,23 @@
     }).catch(function () {
       appendMessage('bot', 'Thank you! You can reach us directly at +91 9890393838.');
     });
+  }
+
+  function scrollToMessageStart(msgEl) {
+    if (!el.messages || !msgEl) return;
+    function align() {
+      if (el.messages && msgEl) {
+        var topPos = msgEl.offsetTop;
+        if (msgEl.offsetParent !== el.messages) {
+          topPos = msgEl.offsetTop - el.messages.offsetTop;
+        }
+        topPos = Math.max(0, topPos - 8);
+        el.messages.scrollTop = topPos;
+      }
+    }
+    align();
+    setTimeout(align, 60);
+    setTimeout(align, 150);
   }
 
   function scrollToBottom() {

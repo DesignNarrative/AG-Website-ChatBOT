@@ -4,6 +4,7 @@ Orchestrates: language detection → intent → RAG retrieval → AI response �
 """
 from __future__ import annotations
 
+import re
 import time
 from typing import Any, Dict, List, Optional
 
@@ -317,7 +318,14 @@ class ChatService:
         # Specific project enquiries — checked BEFORE generic greetings or project_list
         if "samsara" in t:
             return "project_enquiry_samsara"
-        if "business bay" in t:
+        if (
+            "business bay" in t
+            or "busines" in t
+            or "businessbay" in t
+            or "pbb" in words
+            or ("pebbles" in t and any(b in t for b in ["bay", "bey", "commercial", "office", "retail", "showroom"]))
+            or ("commercial" in t and any(w in t for w in ["wakad", "phoenix", "retail", "office", "showroom"]))
+        ):
             return "project_enquiry_business_bay"
         if "greenfield" in t or "pebbles" in t:
             return "project_enquiry_greenfield"
@@ -498,20 +506,27 @@ class ChatService:
         # 2. Detect candidate active project
         target_key: Optional[str] = None
 
+        is_bb = (
+            "business bay" in u
+            or "busines" in u
+            or "businessbay" in u
+            or re.search(r'\bpbb\b', u) is not None
+            or ("pebbles" in u and any(b in u for b in ["bay", "bey", "commercial", "office", "retail", "showroom"]))
+            or ("commercial" in u and any(w in u for w in ["wakad", "phoenix", "retail", "office", "showroom"]))
+        )
+
         if "samsara" in u:
             target_key = "samsara"
         elif "curve" in u or "virar" in u:
             target_key = "curve"
-        elif "business bay" in u:
+        elif is_bb:
             target_key = "business_bay"
-        elif "greenfield" in u or ("pebbles" in u and "business" not in u):
+        elif "greenfield" in u or ("pebbles" in u and not is_bb):
             target_key = "greenfield"
         elif ("2 bhk" in u or "2bhk" in u) and "pune" in u:
             target_key = "greenfield"
         elif ("3 bhk" in u or "3bhk" in u) and "luxury" in u and "pune" in u:
             target_key = "samsara"
-        elif "commercial" in u and "wakad" in u:
-            target_key = "business_bay"
         else:
             # Check if AI reply specifically and uniquely introduces an active project
             has_greenfield = "pebbles greenfield" in r
@@ -522,14 +537,14 @@ class ChatService:
             # If exactly one active project is the sole focus:
             active_count = sum([has_greenfield, has_samsara, has_curve, has_business_bay])
             if active_count == 1:
-                if has_greenfield:
+                if has_business_bay:
+                    target_key = "business_bay"
+                elif has_greenfield:
                     target_key = "greenfield"
                 elif has_samsara:
                     target_key = "samsara"
                 elif has_curve:
                     target_key = "curve"
-                elif has_business_bay:
-                    target_key = "business_bay"
 
         if not target_key:
             return None
