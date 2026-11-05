@@ -155,6 +155,41 @@ Say: "For complete details, current pricing, or to schedule a site visit, please
 Offer to connect them or take their name and mobile number.
 """
 
+ACTIVE_PROJECT_CARDS: Dict[str, Dict[str, Any]] = {
+    "samsara": {
+        "id": "samsara",
+        "name": "Samsara — Luxury Residences",
+        "location": "Mukund Nagar, Central Pune",
+        "config": "3 BHK Ultra-Luxury",
+        "image_url": "/static/images/projects/samsara.jpg",
+        "url": "https://abhinavgroup.co.in/samsara/",
+    },
+    "greenfield": {
+        "id": "greenfield",
+        "name": "Pebbles Greenfield",
+        "location": "Tathawade / Wakad, Pune",
+        "config": "2 & 3 BHK Apartments",
+        "image_url": "/static/images/projects/pebbles-greenfield.jpg",
+        "url": "https://abhinavgroup.co.in/pebbles-greenfields/",
+    },
+    "curve": {
+        "id": "curve",
+        "name": "The Curve — Elite Tower",
+        "location": "Bolinj, Virar West, Mumbai MMR",
+        "config": "2 & 3 BHK Residences",
+        "image_url": "/static/images/projects/the-curve.jpg",
+        "url": "https://abhinavgroup.co.in/the-curve-virar/",
+    },
+    "business_bay": {
+        "id": "business_bay",
+        "name": "Pebbles Business Bay",
+        "location": "Wakad, Pune (Opp. Phoenix Mall)",
+        "config": "Retail Showrooms & Grade-A Offices",
+        "image_url": "/static/images/projects/pebbles-business-bay.jpg",
+        "url": "https://abhinavgroup.co.in/commercial-projects/",
+    },
+}
+
 
 class ChatService:
     """Processes a user message through the full pipeline."""
@@ -226,7 +261,11 @@ class ChatService:
         reply = re.sub(r'\*{3,}', '', reply)
         reply = re.sub(r'\n{3,}', '\n\n', reply).strip()
 
-        # --- Step 6: Persist messages ---
+        # --- Step 6: Select Project Card (if appropriate & not previously shown) ---
+        project_cards = self._select_project_cards(user_message, reply, recent_messages)
+        mentioned_ids = [c["id"] for c in project_cards] if project_cards else None
+
+        # --- Step 7: Persist messages ---
         response_time_ms = int((time.monotonic() - start_time) * 1000)
         await self._persist_messages(
             conversation, user_message, reply, language, intent,
@@ -234,9 +273,10 @@ class ChatService:
             model_used=ai_response.model if ai_response else None,
             response_time_ms=response_time_ms,
             is_fallback=is_fallback,
+            mentioned_project_ids=mentioned_ids,
         )
 
-        # --- Step 7: Determine quick replies ---
+        # --- Step 8: Determine quick replies ---
         quick_replies = self._get_quick_replies(intent, language)
 
         return {
@@ -244,7 +284,7 @@ class ChatService:
             "language": language,
             "intent": intent,
             "quick_replies": quick_replies,
-            "project_cards": None,  # Phase 5: populated from RAG results
+            "project_cards": project_cards,
             "is_fallback": is_fallback,
         }
 
@@ -389,6 +429,7 @@ class ChatService:
         model_used: Optional[str] = None,
         response_time_ms: Optional[int] = None,
         is_fallback: bool = False,
+        mentioned_project_ids: Optional[List[str]] = None,
     ):
         """Save both the user message and AI reply to the database."""
         from datetime import datetime, timezone
@@ -408,6 +449,7 @@ class ChatService:
             content=ai_reply,
             language=language,
             intent=intent,
+            mentioned_project_ids=mentioned_project_ids,
             ai_model_used=model_used,
             tokens_used=tokens_used,
             response_time_ms=response_time_ms,
@@ -419,3 +461,85 @@ class ChatService:
         conversation.language = language
         conversation.last_message_at = datetime.now(timezone.utc)
         conversation.message_count = (conversation.message_count or 0) + 2
+
+    def _select_project_cards(
+        self,
+        user_message: str,
+        reply: str,
+        recent_messages: List[Message],
+    ) -> Optional[List[Dict[str, Any]]]:
+        """
+        Smart Project Card Selector:
+        - Accurately identifies which active project is being discussed.
+        - NEVER mixes up projects.
+        - Shows card ONLY when introducing or asking about the active project.
+        - Does NOT show for follow-up details (location, amenities, RERA, pricing) if already shown in this conversation.
+        - Does NOT show for corporate, leadership, careers, or completed landmarks (Aeromall, Park Grandeur).
+        """
+        u = user_message.lower().strip()
+        r = reply.lower().strip()
+
+        # 1. Filter out questions about corporate, leadership, careers, or offices
+        corporate_keywords = [
+            "who is", "founder", "owner", "chairman", "director", "leadership",
+            "shende", "kotkar", "kankariya", "career", "job", "office", "headquarters", "address"
+        ]
+        if any(k in u for k in corporate_keywords):
+            return None
+
+        # Exclude completed legacy landmark inquiries (Aeromall, Avaanti, Park Grandeur, etc.)
+        if "aeromall" in u or "park grandeur" in u or "avaanti" in u or "urbania" in u:
+            return None
+
+        # Exclude generic project list requests ("Explore Projects", "All projects")
+        if u in ["explore projects", "projects", "all projects", "प्रोजेक्ट देखें", "प्रोजेक्ट्स"]:
+            return None
+
+        # 2. Detect candidate active project
+        target_key: Optional[str] = None
+
+        if "samsara" in u:
+            target_key = "samsara"
+        elif "curve" in u or "virar" in u:
+            target_key = "curve"
+        elif "business bay" in u:
+            target_key = "business_bay"
+        elif "greenfield" in u or ("pebbles" in u and "business" not in u):
+            target_key = "greenfield"
+        elif ("2 bhk" in u or "2bhk" in u) and "pune" in u:
+            target_key = "greenfield"
+        elif ("3 bhk" in u or "3bhk" in u) and "luxury" in u and "pune" in u:
+            target_key = "samsara"
+        elif "commercial" in u and "wakad" in u:
+            target_key = "business_bay"
+        else:
+            # Check if AI reply specifically and uniquely introduces an active project
+            has_greenfield = "pebbles greenfield" in r
+            has_samsara = "samsara" in r
+            has_curve = "the curve" in r
+            has_business_bay = "pebbles business bay" in r or "business bay" in r
+
+            # If exactly one active project is the sole focus:
+            active_count = sum([has_greenfield, has_samsara, has_curve, has_business_bay])
+            if active_count == 1:
+                if has_greenfield:
+                    target_key = "greenfield"
+                elif has_samsara:
+                    target_key = "samsara"
+                elif has_curve:
+                    target_key = "curve"
+                elif has_business_bay:
+                    target_key = "business_bay"
+
+        if not target_key:
+            return None
+
+        # 3. Check if this project card was ALREADY sent in this conversation
+        for m in recent_messages:
+            if m.role == MessageRole.ASSISTANT and m.mentioned_project_ids:
+                if target_key in m.mentioned_project_ids:
+                    # Already presented in this conversation — do not spam follow-up questions
+                    return None
+
+        card_data = ACTIVE_PROJECT_CARDS.get(target_key)
+        return [card_data] if card_data else None

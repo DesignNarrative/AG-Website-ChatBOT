@@ -173,12 +173,13 @@
       '.ag-lead-btn:hover{opacity:0.92}',
 
       /* Project card */
-      '.ag-project-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);margin-top:6px;animation:fadeUp 0.25s ease}',
-      '.ag-project-card img{width:100%;height:120px;object-fit:cover}',
-      '.ag-project-card-body{padding:10px 12px}',
+      '.ag-project-card{background:white;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,0.08);margin-top:8px;margin-bottom:6px;animation:fadeUp 0.25s ease}',
+      '.ag-project-card img{width:100%;height:140px;object-fit:cover;display:block}',
+      '.ag-project-card-body{padding:12px 14px}',
       '.ag-project-card-title{font-weight:700;color:' + BRAND_COLOR + ';font-size:14px;margin:0 0 4px}',
-      '.ag-project-card-info{font-size:12px;color:#64748b;margin:0 0 8px}',
-      '.ag-project-card-btn{display:inline-block;background:' + BRAND_COLOR + ';color:white;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;text-decoration:none;cursor:pointer;border:none}',
+      '.ag-project-card-info{font-size:12px;color:#64748b;margin:0 0 10px;line-height:1.4}',
+      '.ag-project-card-btn{display:inline-block;background:linear-gradient(135deg,' + BRAND_COLOR + ',#0369a1);color:white;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:600;text-decoration:none;cursor:pointer;border:none;transition:opacity 0.2s}',
+      '.ag-project-card-btn:hover{opacity:0.92}',
 
       /* Footer */
       '#abhinav-footer{padding:6px;text-align:center;background:white;border-top:1px solid #f1f5f9}',
@@ -334,15 +335,29 @@
   function appendProjectCard(card) {
     var div = document.createElement('div');
     div.className = 'ag-project-card';
-    var imgHtml = card.image_url
-      ? '<img src="' + escapeHtml(card.image_url) + '" alt="' + escapeHtml(card.name) + '" loading="lazy">'
+    var imgUrl = card.image_url;
+    if (imgUrl && !imgUrl.startsWith('http://') && !imgUrl.startsWith('https://')) {
+      imgUrl = API_BASE + (imgUrl.startsWith('/') ? '' : '/') + imgUrl;
+    }
+    var imgHtml = imgUrl
+      ? '<img src="' + escapeHtml(imgUrl) + '" alt="' + escapeHtml(card.name) + '" loading="lazy">'
       : '';
     div.innerHTML = imgHtml +
       '<div class="ag-project-card-body">' +
       '<p class="ag-project-card-title">' + escapeHtml(card.name) + '</p>' +
       '<p class="ag-project-card-info">' + escapeHtml(card.location || '') + (card.config ? ' · ' + card.config : '') + '</p>' +
-      '<button class="ag-project-card-btn" onclick="window.open(\'' + escapeHtml(card.url || '#') + '\',\'_blank\')">View Project</button>' +
+      '<button class="ag-project-card-btn">' + (state.lang === 'hi' ? 'प्रोजेक्ट देखें' : 'View Project') + '</button>' +
       '</div>';
+    var btn = div.querySelector('.ag-project-card-btn');
+    if (btn) {
+      btn.addEventListener('click', function (e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        if (card.url) window.open(card.url, '_blank');
+      });
+    }
     el.messages.appendChild(div);
   }
 

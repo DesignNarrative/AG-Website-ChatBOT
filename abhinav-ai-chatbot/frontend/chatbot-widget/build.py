@@ -43,6 +43,38 @@ for dest in [DIST_FRONTEND, DIST_WP]:
         f.write(minified)
     print(f"  Written: {os.path.relpath(dest, WORKSPACE)}")
 
+# Copy active project images into dist distributions
+IMG_SRC = os.path.abspath(os.path.join(WORKSPACE, "..", "Active Project images"))
+if not os.path.isdir(IMG_SRC):
+    IMG_SRC = os.path.join(WORKSPACE, "Active Project images")
+
+if os.path.isdir(IMG_SRC):
+    mapping = {
+        'Samsara.jpg': ['samsara.jpg', 'Samsara.jpg'],
+        'Pebbles Greenfield.jpg': ['pebbles-greenfield.jpg', 'Pebbles Greenfield.jpg'],
+        'the Curve.jpg': ['the-curve.jpg', 'the Curve.jpg'],
+        'Pebbles business bay.png': ['pebbles-business-bay.png', 'pebbles-business-bay.jpg']
+    }
+    for dest_dist in [DIST_FRONTEND, DIST_WP]:
+        img_dest = os.path.join(os.path.dirname(dest_dist), "images", "projects")
+        os.makedirs(img_dest, exist_ok=True)
+        for s_file, aliases in mapping.items():
+            sp = os.path.join(IMG_SRC, s_file)
+            if os.path.isfile(sp):
+                for a in aliases:
+                    dp = os.path.join(img_dest, a)
+                    if a.endswith('.jpg') and s_file.endswith('.png'):
+                        try:
+                            from PIL import Image
+                            im = Image.open(sp)
+                            im.thumbnail((800, 600))
+                            im.convert('RGB').save(dp, 'JPEG', quality=85)
+                        except Exception:
+                            shutil.copy2(sp, dp)
+                    else:
+                        shutil.copy2(sp, dp)
+    print("  Project images synced to dist distributions.")
+
 orig_size = len(source.encode("utf-8"))
 mini_size = len(minified.encode("utf-8"))
 reduction = (1 - mini_size / orig_size) * 100
