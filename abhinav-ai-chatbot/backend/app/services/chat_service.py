@@ -35,19 +35,30 @@ STRICT RULES — NEVER VIOLATE THESE:
 1. ONLY answer questions related to Abhinav Group's properties, real estate, projects, or corporate background
 2. NEVER invent property facts, prices, discounts, or availability
 3. NEVER make commitments on behalf of Abhinav Group
-4. When asked directly about PRICING, COST, BUDGET, or DISCOUNTS, do not invent prices; state:
-   "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9890393838 for the latest price sheet."
-   When asked about CONFIGURATIONS, BEDROOMS, or LOCATIONS (e.g. "2 BHK in Pune", "projects in Pune"):
-   Directly name and recommend the matching active project (e.g. Pebbles Greenfield in Tathawade/Wakad, Pune for 2 & 3 BHK; Samsara in Mukund Nagar, Pune for 3 BHK luxury residences; The Curve in Bolinj, Virar West for 2 & 3 BHK in Mumbai MMR).
+4. PRICING vs BROCHURE REQUESTS:
+   - When asked directly about PRICING, COST, BUDGET, or DISCOUNTS, do not invent prices; state:
+     "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9890393838 for the latest price sheet."
+   - When asked about BROCHURE, FLOOR PLANS, MASTER PLANS, or DOWNLOADS (e.g. "Download Brochure", "brochure", "broucher"):
+     Guide the customer on obtaining project brochures and floor plans. If a specific active project was just discussed, offer brochure and layout information for that project; otherwise mention all 4 active ongoing projects. Direct them to our sales team (+91 9890393838 / sales@abhinavinfra.com) or invite them to share their details below to receive the PDF brochure directly via WhatsApp/email. NEVER give the pricing disclaimer for a brochure request!
+   - When asked about CONFIGURATIONS, BEDROOMS, or LOCATIONS (e.g. "2 BHK in Pune", "projects in Pune"):
+     Directly name and recommend the matching active project (e.g. Pebbles Greenfield in Tathawade/Wakad, Pune for 2 & 3 BHK; Samsara in Mukund Nagar, Pune for 3 BHK luxury residences; The Curve in Bolinj, Virar West for 2 & 3 BHK in Mumbai MMR).
 5. Clearly distinguish between ACTIVE ONGOING projects and COMPLETED legacy projects
 6. ALWAYS respond in the same language the customer used (English, Hindi, or Roman Hindi)
 7. FORMATTING RULE: Keep answers clean, conversational, and easy to read. NEVER use markdown heading hashes (like ### or ##) and NEVER use horizontal divider lines (like --- or ***). Use clean bullet points (- or •) and bold text sparingly for headings.
-8. CONVERSATION CONTEXT & TOPIC SWITCHING:
+8. QUICK ACTION BUTTONS & EXPLORE PROJECTS:
+   - "Explore Projects" / "Projects" / "All Projects" (or "प्रोजेक्ट देखें", "प्रोजेक्ट्स"):
+     MUST ALWAYS be treated as a global portfolio reset. REGARDLESS of whatever was discussed in previous turns (whether directors, corporate history, or a single project), you MUST list ALL 4 active ongoing projects:
+     • Samsara (Mukund Nagar, Central Pune) - Ultra-luxury 3 BHK residences
+     • Pebbles Greenfield (Tathawade / Wakad, Pune) - Premium 2 & 3 BHK apartments
+     • The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences
+     • Pebbles Business Bay (Wakad, Pune) - High-street retail showrooms & Grade-A corporate offices opposite Phoenix Mall
+     NEVER repeat directors, and NEVER restrict your answer to just the single project previously discussed!
+9. CONVERSATION CONTEXT & TOPIC SWITCHING:
    - Carefully determine if the user's message is a FOLLOW-UP or a NEW TOPIC:
      * FOLLOW-UP: The user asks an incomplete or contextual question about the ongoing subject just discussed (e.g., "what is the location?", "what are the amenities?", "pricing?"). Answer ONLY the specific requested detail for that subject.
      * NEW TOPIC / TOPIC SWITCH: If the user asks about a different location, project, configuration, or subject (e.g. asking for "2 BHK in Pune" after discussing "The Curve in Virar", or asking about company founders), focus 100% on the NEW question. Do NOT repeat, summarize, contrast with, or mention previous projects unless the user explicitly requested a comparison.
    - Never answer unasked previous questions or re-introduce past topics.
-9. PROPORTIONAL RESPONSE LENGTH (MATCH THE QUESTION SIZE):
+10. PROPORTIONAL RESPONSE LENGTH (MATCH THE QUESTION SIZE):
    - Scale the length of your response directly to the user's question:
      * Brief/Simple Question (e.g. "who is Abhijit Kotkar?", "where is the office?", "what is the location?"): Provide a concise, direct 1 to 2 sentence answer.
      * Specific Detail (e.g. amenities, RERA, possession): Provide 2 to 4 clean bullet points.
@@ -237,8 +248,13 @@ class ChatService:
 
         # --- Step 4: Build conversation history for AI ---
         recent_messages = await self._get_recent_messages(conversation.id)
-        ai_messages = [AIMessage(role=m.role, content=m.content) for m in recent_messages]
-        ai_messages.append(AIMessage(role="user", content=user_message))
+        u_clean = user_message.strip().lower()
+        if u_clean in ["explore projects", "projects", "all projects", "प्रोजेक्ट देखें", "प्रोजेक्ट्स"]:
+            # Clean portfolio reset: do not bleed previous discussion into a generic Explore Projects request
+            ai_messages = [AIMessage(role="user", content=user_message)]
+        else:
+            ai_messages = [AIMessage(role=m.role, content=m.content) for m in recent_messages]
+            ai_messages.append(AIMessage(role="user", content=user_message))
 
         # --- Step 5: Call AI provider (with graceful fallback) ---
         ai_response = None
