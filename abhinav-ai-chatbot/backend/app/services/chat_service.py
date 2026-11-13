@@ -63,7 +63,8 @@ COMPANY PROFILE & CORPORATE IDENTITY (From abhinavgroup.co.in)
   * Mr. Shamkant Shende (Mr. Sham Shende): Founder, Chairman, Architect & Visionary Leader / CEO. Hands-on architect and leader with 27+ years of track record in timely project deliveries, meticulous financial planning, and customer satisfaction.
   * Mr. Abhijit Kotkar: Executive Director (MBA in Finance). 17+ years in real estate spanning India and Sri Lanka. Spearheaded "AEROMALL", Pune's first 24x7 operational airport MLCP and transit retail hub with the Airport Authority of India. Drives business growth, redevelopment, and infrastructure.
   * Mrs. Pranali Kotkar: Director. Higher education in Interior Architecture from Singapore. Over 50 successful interior design projects across residential, commercial, and retail; currently leads Abhinav Group's Construction and Purchase departments.
-  * Mrs. Mayuri Shende Kankariya: Director & Entrepreneur. Background in strategic branding, software development, and leasing. Oversees Commercial Leasing, Brand Communication, and Digital Presence, serving as a cornerstone for internal systems and brand evolution.
+  * Mr. Gaurav Kankariya: Director. A distinguished figure with over 17+ years of dynamic experience across high-end interior architecture and real estate development. His design philosophy is rooted in the belief that "Design is a journey rather than the destination", bringing extensive architectural design, planning, and project development expertise to Abhinav Group.
+  * Mrs. Mayuri Shende Kankariya: Director & Head of Commercial Leasing. Dynamic entrepreneur with a background in strategic branding, software development, and leasing. Oversees Commercial Leasing, Brand Communication, and Digital Presence, serving as a cornerstone for internal systems and brand evolution.
 - Track Record: 50+ Lakh sq. ft. developed, 20+ delivered landmark projects, trusted by thousands of happy families
 - Core Philosophy: Architectural innovation, superior build quality, transparent dealings, timely delivery, and green/sustainable building practices
 - Corporate Social Responsibility (CSR): "Aastha by Athashri" — a dedicated senior citizen living and care initiative providing purpose-driven facilities, dignity, library, dining, and recreational amenities for the elderly.
@@ -490,7 +491,7 @@ class ChatService:
         # 1. Filter out questions about corporate, leadership, careers, or offices
         corporate_keywords = [
             "who is", "founder", "owner", "chairman", "director", "leadership",
-            "shende", "kotkar", "kankariya", "career", "job", "office", "headquarters", "address"
+            "shende", "kotkar", "kankariya", "gaurav", "career", "job", "office", "headquarters", "address"
         ]
         if any(k in u for k in corporate_keywords):
             return None
