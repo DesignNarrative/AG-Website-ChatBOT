@@ -11,7 +11,7 @@ const KNOWN_PROJECTS_FALLBACK = [
     rera: 'P52100079797 (Unverified)',
     status: 'ACTIVE',
     possession: 'Enquire for updates',
-    price_status: 'Contact Sales (+91 9890393838)',
+    price_status: 'Contact Sales (+91 9309505388)',
   },
   {
     name: 'Pebbles Greenfield',

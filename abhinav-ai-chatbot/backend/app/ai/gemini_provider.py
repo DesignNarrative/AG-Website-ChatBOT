@@ -136,7 +136,7 @@ class GeminiProvider(BaseAIProvider):
         return AIResponse(
             content=(
                 "Thank you for contacting Abhinav Group. "
-                "For immediate assistance with our projects, please call our sales team directly at +91 9890393838 "
+                "For immediate assistance with our projects, please call our sales team directly at +91 9309505388 "
                 "or email sales@abhinavinfra.com."
             ),
             model=self._model_name,

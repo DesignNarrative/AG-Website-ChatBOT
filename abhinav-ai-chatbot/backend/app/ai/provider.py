@@ -101,20 +101,20 @@ class MockAIProvider(BaseAIProvider):
             "I can answer questions about our projects, configurations, locations, amenities, "
             "and general real estate topics.\n\n"
             "For other matters, please contact us at:\n"
-            "📞 +91 9890393838\n"
+            "📞 +91 9309505388\n"
             "🌐 abhinavgroup.co.in"
         ),
         "fallback": (
             "I'm sorry, I'm having trouble understanding that right now. "
             "Could you rephrase your question?\n\n"
             "Or you can speak to our sales team directly:\n"
-            "📞 +91 9890393838\n"
+            "📞 +91 9309505388\n"
             "Available Monday to Saturday, 10 AM to 7 PM"
         ),
         "ai_unavailable": (
             "Our AI assistant is temporarily unavailable. "
             "Please contact our sales team directly:\n"
-            "📞 +91 9890393838\n"
+            "📞 +91 9309505388\n"
             "📧 sales@abhinavinfra.com\n\n"
             "We apologise for the inconvenience."
         ),

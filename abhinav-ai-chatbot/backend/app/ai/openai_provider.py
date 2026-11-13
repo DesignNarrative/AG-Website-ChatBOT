@@ -107,7 +107,7 @@ class OpenAIProvider(BaseAIProvider):
             return AIResponse(
                 content=(
                     "I'm having trouble connecting right now. "
-                    "Please try again in a moment, or call us at +91 9890393838."
+                    "Please try again in a moment, or call us at +91 9309505388."
                 ),
                 model=self._model_name,
                 provider=self.provider_name,

@@ -49,7 +49,7 @@ async def list_projects(
                     else str(p.project_status).upper()
                 ),
                 "possession": p.possession_date or "Enquire for updates",
-                "price_status": "Contact Sales (+91 9890393838)",
+                "price_status": "Contact Sales (+91 9309505388)",
                 "description": p.description,
             }
             for p in projects_list

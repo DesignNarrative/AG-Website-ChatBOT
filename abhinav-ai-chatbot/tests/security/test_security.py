@@ -110,9 +110,9 @@ from app.services.lead_service import LeadService
 lead_svc = LeadService(db=_Fake())
 
 # Phone validation & normalization
-test("valid_mobile_10digit", lead_svc._normalize_phone("9890393838") == "+919890393838")
-test("valid_mobile_with_country", lead_svc._normalize_phone("+919890393838") == "+919890393838")
-test("valid_mobile_with_zero", lead_svc._normalize_phone("09890393838") == "+919890393838")
+test("valid_mobile_10digit", lead_svc._normalize_phone("9309505388") == "+919309505388")
+test("valid_mobile_with_country", lead_svc._normalize_phone("+919309505388") == "+919309505388")
+test("valid_mobile_with_zero", lead_svc._normalize_phone("09309505388") == "+919309505388")
 test("invalid_short_phone", lead_svc._normalize_phone("12345") is None)
 test("invalid_alpha_phone", lead_svc._normalize_phone("abcdefghij") is None)
 test("invalid_sql_injection_phone", lead_svc._normalize_phone("'; DROP TABLE leads;--") is None)

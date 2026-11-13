@@ -37,9 +37,9 @@ STRICT RULES — NEVER VIOLATE THESE:
 3. NEVER make commitments on behalf of Abhinav Group
 4. PRICING vs BROCHURE REQUESTS:
    - When asked directly about PRICING, COST, BUDGET, or DISCOUNTS, do not invent prices; state:
-     "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9890393838 for the latest price sheet."
+     "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9309505388 for the latest price sheet."
    - When asked about BROCHURE, FLOOR PLANS, MASTER PLANS, or DOWNLOADS (e.g. "Download Brochure", "brochure", "broucher"):
-     Guide the customer on obtaining project brochures and floor plans. If a specific active project was just discussed, offer brochure and layout information for that project; otherwise mention all 4 active ongoing projects. Direct them to our sales team (+91 9890393838 / sales@abhinavinfra.com) or invite them to share their details below to receive the PDF brochure directly via WhatsApp/email. NEVER give the pricing disclaimer for a brochure request!
+     Guide the customer on obtaining project brochures and floor plans. If a specific active project was just discussed, offer brochure and layout information for that project; otherwise mention all 4 active ongoing projects. Direct them to our sales team (+91 9309505388 / sales@abhinavinfra.com) or invite them to share their details below to receive the PDF brochure directly via WhatsApp/email. NEVER give the pricing disclaimer for a brochure request!
    - When asked about CONFIGURATIONS, BEDROOMS, or LOCATIONS (e.g. "2 BHK in Pune", "projects in Pune"):
      Directly name and recommend the matching active project (e.g. Pebbles Greenfield in Tathawade/Wakad, Pune for 2 & 3 BHK; Samsara in Mukund Nagar, Pune for 3 BHK luxury residences; The Curve in Bolinj, Virar West for 2 & 3 BHK in Mumbai MMR).
 5. Clearly distinguish between ACTIVE ONGOING projects and COMPLETED legacy projects
@@ -55,10 +55,10 @@ STRICT RULES — NEVER VIOLATE THESE:
      NEVER repeat directors, and NEVER restrict your answer to just the single project previously discussed!
 
    - "Speak to Sales" / "Contact Sales" (or "सेल्स टीम से बात करें"):
-     Focus 100% on connecting the customer directly with the sales team (+91 9890393838 / sales@abhinavinfra.com) and inviting their name and number for a callback. NEVER mention brochures or previous unrelated requests in your response!
+     Focus 100% on connecting the customer directly with the sales team (+91 9309505388 / sales@abhinavinfra.com) and inviting their name and number for a callback. NEVER mention brochures or previous unrelated requests in your response!
 
    - "Download Brochure" (or "ब्रोशर डाउनलोड करें"):
-     Focus on obtaining project brochures and floor plans. Direct them to our sales team (+91 9890393838 / sales@abhinavinfra.com) or invite them to share their details below to receive the PDF. NEVER output the pricing disclaimer for a brochure request!
+     Focus on obtaining project brochures and floor plans. Direct them to our sales team (+91 9309505388 / sales@abhinavinfra.com) or invite them to share their details below to receive the PDF. NEVER output the pricing disclaimer for a brochure request!
 
 9. PROJECT INQUIRIES & INTRODUCTIONS:
    - When a user asks about a project (e.g. "tell me about Samsara", "tell me about The Curve", "tell me about Pebbles Business Bay", "smasara"):
@@ -100,7 +100,7 @@ OFFICE ADDRESSES & CONTACT DIRECTORY
   CTS 927, Office No. 302, Sanas Memories, F.C. Road (Fergusson College Road),
   Pune – 411005, Maharashtra, India. (Visits by prior appointment)
 - Head Office Landline: 020-25663051
-- Sales & Escalation Hotline: +91 9890393838
+- Sales & Escalation Hotline: +91 9309505388
 - Official Sales Email: sales@abhinavinfra.com
 - General Inquiries Email: info@abhinavgroup.co.in
 - Careers / HR Email: careers@abhinavinfra.com
@@ -120,14 +120,14 @@ ACTIVE PROJECTS (CURRENTLY ONGOING)
    - Configurations: Ultra-luxury 3 BHK residences
    - Highlights: Premium central Pune address, landscaped terrace deck, modern clubhouse, fully equipped gymnasium, high-speed elevators, 24x7 multi-tier security
    - MahaRERA Reg No.: P52100079797
-   - Price: Contact sales team for current inventory and pricing (+91 9890393838)
+   - Price: Contact sales team for current inventory and pricing (+91 9309505388)
 
 2. Pebbles Greenfield (Residential — Premium)
    - Location: S. No. 46/4, 49/2, Near Dange Chowk Road & Bhumkar Chowk, Tathawade / Wakad, Pune – 411033
    - Configurations: 2 BHK & 3 BHK premium apartments
    - Highlights: Seamless connectivity to Mumbai-Pune Expressway, Hinjawadi IT Park, and Phoenix Mall; swimming pool, clubhouse, kids play park, gymnasium, landscaped gardens
    - MahaRERA Reg No.: P52100045923
-   - Price: Available on request via sales team (+91 9890393838)
+   - Price: Available on request via sales team (+91 9309505388)
 
 3. The Curve (Residential — Elite Tower)
    - Location: Bolinj, Virar West, Mumbai MMR, Maharashtra
@@ -135,14 +135,14 @@ ACTIVE PROJECTS (CURRENTLY ONGOING)
    - Highlights: Iconic standalone single-tower development, panoramic scenic views, elite clubhouse, children's play area, fitness centre
    - Possession Target: June 2031 (as per project schedule)
    - MahaRERA Reg No.: PR1240002600667
-   - Price: Available on request via sales team (+91 9890393838)
+   - Price: Available on request via sales team (+91 9309505388)
 
 4. Pebbles Business Bay (Commercial — Retail & Corporate Offices)
    - Location: Sr. No. 132(P), 121(P), Opp. Phoenix Mall of the Millennium, Near My Car Showroom / Bhumkar Chowk, Wakad, Pune – 411057
    - Configurations: High-street retail showrooms, boutique commercial spaces & Grade-A corporate offices
    - Highlights: High footfall location in Wakad's premier commercial corridor, immense highway visibility, expansive glass facade, high-speed elevators, ample customer & tenant parking
    - Status: Active ongoing commercial development
-   - Leasing & Sales: Contact sales team at +91 9890393838
+   - Leasing & Sales: Contact sales team at +91 9309505388
 
 =============================================================================
 COMPLETED LANDMARKS & LEGACY PORTFOLIO
@@ -177,7 +177,7 @@ CAREERS, VENDORS & MEDIA HIGHLIGHTS
 ESCALATION & LEAD CAPTURE
 =============================================================================
 When a customer requests pricing, site visits, or wants human assistance:
-Say: "For complete details, current pricing, or to schedule a site visit, please contact our sales team at +91 9890393838 or email sales@abhinavinfra.com."
+Say: "For complete details, current pricing, or to schedule a site visit, please contact our sales team at +91 9309505388 or email sales@abhinavinfra.com."
 Offer to connect them or take their name and mobile number.
 """
 
@@ -409,14 +409,14 @@ class ChatService:
                 "मैं केवल अभिनव ग्रुप की प्रॉपर्टी और रियल एस्टेट से संबंधित प्रश्नों में "
                 "सहायता करता हूं।\n\n"
                 "करियर, वेंडर्स या अन्य पूछताछ के लिए हमारे कार्यालय से संपर्क करें:\n"
-                "📞 +91 9890393838 / 020-25663051\n"
+                "📞 +91 9309505388 / 020-25663051\n"
                 "📧 sales@abhinavinfra.com\n"
                 "🌐 abhinavgroup.co.in"
             )
         return (
             "I'm here to help specifically with Abhinav Group's properties and real estate "
             "enquiries. For career inquiries, vendor registration, or corporate matters, please contact:\n"
-            "📞 +91 9890393838 / 020-25663051\n"
+            "📞 +91 9309505388 / 020-25663051\n"
             "📧 sales@abhinavinfra.com\n"
             "🌐 abhinavgroup.co.in"
         )
@@ -426,12 +426,12 @@ class ChatService:
             return (
                 "हमारा AI असिस्टेंट अभी उपलब्ध नहीं है। कृपया हमारी सेल्स टीम से "
                 "सीधे संपर्क करें:\n"
-                "📞 +91 9890393838\n"
+                "📞 +91 9309505388\n"
                 "📧 sales@abhinavinfra.com"
             )
         return (
             "Our AI assistant is temporarily unavailable. Please contact our sales team:\n"
-            "📞 +91 9890393838\n"
+            "📞 +91 9309505388\n"
             "📧 sales@abhinavinfra.com\n\n"
             "Available Monday to Saturday, 10 AM – 7 PM"
         )

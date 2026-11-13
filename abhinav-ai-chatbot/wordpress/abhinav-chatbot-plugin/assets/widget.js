@@ -58,7 +58,7 @@
       lead_confirm: 'Thank you! Our team will contact you shortly. 📞',
       lead_btn: 'Get a Callback',
       typing: 'Typing...',
-      error: 'Connection issue. Please try again or call us at +91 9890393838.',
+      error: 'Connection issue. Please try again or call us at +91 9309505388.',
       powered: 'Powered by Abhinav Group AI',
       close: 'Close chat',
       open: 'Chat with us',
@@ -82,7 +82,7 @@
       lead_confirm: 'धन्यवाद! हमारी टीम जल्द संपर्क करेगी। 📞',
       lead_btn: 'कॉलबैक के लिए अनुरोध करें',
       typing: 'टाइप हो रहा है...',
-      error: 'कनेक्शन त्रुटि। कृपया पुनः प्रयास करें या +91 9890393838 पर कॉल करें।',
+      error: 'कनेक्शन त्रुटि। कृपया पुनः प्रयास करें या +91 9309505388 पर कॉल करें।',
       powered: 'Abhinav Group AI द्वारा संचालित',
       close: 'चैट बंद करें',
       open: 'हमसे चैट करें',
@@ -384,7 +384,7 @@
       appendMessage('bot', t('lead_confirm'));
       renderQuickReplies([t('qr_projects'), t('qr_brochure')]);
     }).catch(function () {
-      appendMessage('bot', 'Thank you! You can reach us directly at +91 9890393838.');
+      appendMessage('bot', 'Thank you! You can reach us directly at +91 9309505388.');
     });
   }
 

@@ -155,7 +155,7 @@ async def test_chat():
             oos = await svc.process_message(cv2, 'I want to apply for a job')
             rlo = oos['reply'].lower()
             chk('oos_intent', oos['intent'] == 'out_of_scope')
-            chk('oos_redirects', any(w in rlo for w in ['property', 'real estate', 'contact', '9890393838']))
+            chk('oos_redirects', any(w in rlo for w in ['property', 'real estate', 'contact', '9309505388']))
     except Exception as e:
         chk('S6_error', False, str(e))
 asyncio.run(test_chat())
@@ -168,9 +168,9 @@ async def test_leads():
         from app.services.lead_service import LeadService
         async with AsyncSessionLocal() as db:
             svc = LeadService(db=db)
-            chk('norm_10', svc._normalize_phone('9890393838') == '+919890393838')
-            chk('norm_p91', svc._normalize_phone('+919890393838') == '+919890393838')
-            chk('norm_91', svc._normalize_phone('919890393838') == '+919890393838')
+            chk('norm_10', svc._normalize_phone('9309505388') == '+919309505388')
+            chk('norm_p91', svc._normalize_phone('+919309505388') == '+919309505388')
+            chk('norm_91', svc._normalize_phone('919309505388') == '+919309505388')
             l1 = await svc.create_lead({'phone': '9800012345', 'name': 'Test', 'consent_to_contact': True, 'interested_project': 'Samsara'})
             await db.commit()
             chk('lead_created', l1.id is not None)

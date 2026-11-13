@@ -191,7 +191,7 @@ export default function Overview() {
 
           <div className="p-3 bg-amber-50 rounded-lg border border-amber-200 text-xs text-amber-800 flex items-center gap-2">
             <PhoneArrowUpRightIcon className="w-5 h-5 flex-shrink-0 text-amber-600" />
-            <span>Sales Escalation: <strong>+91 9890393838</strong></span>
+            <span>Sales Escalation: <strong>+91 9309505388</strong></span>
           </div>
         </div>
       </div>

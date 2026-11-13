@@ -223,7 +223,7 @@ class KnowledgeChunker:
         elif data.get("price_min") or data.get("price_max"):
             # Unverified pricing — add note
             chunks.append(make_chunk(
-                f"{name} — Pricing\nIndicative pricing available — contact sales team for verified current rates.\nPhone: +91 9890393838",
+                f"{name} — Pricing\nIndicative pricing available — contact sales team for verified current rates.\nPhone: +91 9309505388",
                 "project_pricing",
                 is_verified=False,
             ))

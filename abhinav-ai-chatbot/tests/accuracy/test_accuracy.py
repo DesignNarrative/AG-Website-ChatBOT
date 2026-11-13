@@ -143,8 +143,8 @@ def sync_chat(query: str) -> str:
 RESPONSE_TESTS = [
     ("Hello",                       ["abhinav", "property"],                    []),
     ("Show me all projects",        ["samsara", "pebbles", "curve", "aeromall"],[]),
-    ("I want to apply for a job",   ["property", "9890393838"],                 ["resume", "cv", "hire"]),
-    ("vendor registration",         ["property", "9890393838"],                 []),
+    ("I want to apply for a job",   ["property", "9309505388"],                 ["resume", "cv", "hire"]),
+    ("vendor registration",         ["property", "9309505388"],                 []),
     ("Tell me about Pebbles Greenfield", ["pebbles"],                           []),
     ("3 BHK flat in pune",          ["samsara", "pebbles"],                     []),
 ]
@@ -191,12 +191,12 @@ from app.services.lead_service import LeadService
 lead_svc = LeadService(db=_Fake())
 
 PHONE_TESTS = [
-    ("9890393838",    "+919890393838"),
-    ("+919890393838", "+919890393838"),
-    ("919890393838",  "+919890393838"),
-    ("09890393838",   "+919890393838"),
-    ("98 90 39 38 38","+919890393838"),
-    ("98-90-39-38-38","+919890393838"),
+    ("9309505388",    "+919309505388"),
+    ("+919309505388", "+919309505388"),
+    ("919309505388",  "+919309505388"),
+    ("09309505388",   "+919309505388"),
+    ("93 09 50 53 88","+919309505388"),
+    ("93-09-50-53-88","+919309505388"),
     ("8530001674",    "+918530001674"),
     ("+918530001674", "+918530001674"),
 ]
@@ -221,7 +221,7 @@ test("qr_hi_devanagari", has_dev, "No Devanagari in Hindi QRs")
 # ─── T7: System prompt completeness ──────────────────────────────────────────
 from app.services.chat_service import SYSTEM_PROMPT
 sp_text = SYSTEM_PROMPT.lower()
-for keyword in ["samsara", "pebbles greenfield", "the curve", "aeromall", "9890393838",
+for keyword in ["samsara", "pebbles greenfield", "the curve", "aeromall", "9309505388",
                 "career", "vendor", "hindi"]:
     test(f"sysprompt::{keyword}", keyword in sp_text, f"{keyword} not in system prompt")
 

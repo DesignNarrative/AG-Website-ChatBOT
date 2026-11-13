@@ -157,8 +157,8 @@ class TestModels:
     def test_lead_model_defaults(self):
         from app.models.lead import Lead, LeadStatus, MdocSyncStatus
         l = Lead(
-            phone="+919890393838",
-            phone_normalized="+919890393838",
+            phone="+919309505388",
+            phone_normalized="+919309505388",
             consent_to_contact=True,
         )
         assert l.status == LeadStatus.NEW
@@ -385,9 +385,9 @@ class TestLeadService:
         async with AsyncSessionLocal() as db:
             from app.services.lead_service import LeadService
             service = LeadService(db=db)
-            assert service._normalize_phone("9890393838") == "+919890393838"
-            assert service._normalize_phone("+919890393838") == "+919890393838"
-            assert service._normalize_phone("919890393838") == "+919890393838"
+            assert service._normalize_phone("9309505388") == "+919309505388"
+            assert service._normalize_phone("+919309505388") == "+919309505388"
+            assert service._normalize_phone("919309505388") == "+919309505388"
 
     async def test_create_lead_success(self):
         from app.database.session import AsyncSessionLocal, init_db
@@ -555,5 +555,5 @@ class TestScopeRestrictions:
         # Reply must redirect to contact info, not answer the query
         reply = data["reply"].lower()
         assert any(phrase in reply for phrase in [
-            "property", "real estate", "9890393838", "abhinavgroup", "contact"
+            "property", "real estate", "9309505388", "abhinavgroup", "contact"
         ]), f"Out-of-scope reply did not redirect properly: {data['reply']}"

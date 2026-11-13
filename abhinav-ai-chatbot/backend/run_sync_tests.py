@@ -132,7 +132,7 @@ try:
     chk('proj_types', set(t.value for t in ProjectType) >= {'residential', 'commercial'})
     chk('proj_approval_col_exists', 'approval_status' in proj_cols)
 
-    l = Lead(phone='+919890393838', phone_normalized='+919890393838', consent_to_contact=True)
+    l = Lead(phone='+919309505388', phone_normalized='+919309505388', consent_to_contact=True)
     chk('lead_not_dup', not l.is_duplicate)
     chk('lead_consent', l.consent_to_contact)
     chk('lead_status_col_exists', 'status' in lead_cols)
@@ -244,9 +244,9 @@ try:
     # Out-of-scope response content
     oos_en = svc._out_of_scope_response('en')
     oos_hi = svc._out_of_scope_response('hi')
-    chk('oos_en_has_number', '9890393838' in oos_en)
+    chk('oos_en_has_number', '9309505388' in oos_en)
     chk('oos_en_has_website', 'abhinavgroup' in oos_en)
-    chk('oos_hi_has_number', '9890393838' in oos_hi)
+    chk('oos_hi_has_number', '9309505388' in oos_hi)
     chk('oos_hi_is_hindi', any('\u0900' <= c <= '\u097f' for c in oos_hi))
 
     # Quick replies
@@ -261,7 +261,7 @@ try:
     chk('sysprompt_has_greenfield', 'Greenfield' in SYSTEM_PROMPT)
     chk('sysprompt_has_curve', 'Curve' in SYSTEM_PROMPT)
     chk('sysprompt_has_aeromall', 'Aeromall' in SYSTEM_PROMPT)
-    chk('sysprompt_has_phone', '9890393838' in SYSTEM_PROMPT)
+    chk('sysprompt_has_phone', '9309505388' in SYSTEM_PROMPT)
     chk('sysprompt_no_invent', 'NEVER invent' in SYSTEM_PROMPT)
     chk('sysprompt_scope_limit', 'ONLY answer' in SYSTEM_PROMPT)
 
@@ -279,12 +279,12 @@ try:
     svc = LeadService(db=MockDB2())  # type: ignore
 
     # Phone normalization
-    chk('norm_10digit', svc._normalize_phone('9890393838') == '+919890393838')
-    chk('norm_plus91', svc._normalize_phone('+919890393838') == '+919890393838')
-    chk('norm_91prefix', svc._normalize_phone('919890393838') == '+919890393838')
-    chk('norm_with_spaces', svc._normalize_phone('98903 93838') == '+919890393838')
-    chk('norm_with_dashes', svc._normalize_phone('98903-93838') == '+919890393838')
-    chk('norm_zero_prefix', svc._normalize_phone('09890393838') == '+919890393838')
+    chk('norm_10digit', svc._normalize_phone('9309505388') == '+919309505388')
+    chk('norm_plus91', svc._normalize_phone('+919309505388') == '+919309505388')
+    chk('norm_91prefix', svc._normalize_phone('919309505388') == '+919309505388')
+    chk('norm_with_spaces', svc._normalize_phone('93095 05388') == '+919309505388')
+    chk('norm_with_dashes', svc._normalize_phone('93095-05388') == '+919309505388')
+    chk('norm_zero_prefix', svc._normalize_phone('09309505388') == '+919309505388')
 
 except Exception as e:
     chk('S6_error', False, str(e))

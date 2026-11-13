@@ -64,11 +64,11 @@ TEST_CASES: List[TestCase] = [
 
     # --- Pricing ---
     TestCase("T11", "What is the price of Samsara flats?", "en",
-             ["contact", "9890393838", "price", "enquir"],
+             ["contact", "9309505388", "price", "enquir"],
              must_not_contain=["₹100", "1 crore", "exact price"],
              category="pricing"),
     TestCase("T12", "Pebbles Greenfield ka rate kya hai?", "hi",
-             ["contact", "9890393838", "price", "enquir"],
+             ["contact", "9309505388", "price", "enquir"],
              category="pricing"),
 
     # --- NRI ---
@@ -81,10 +81,10 @@ TEST_CASES: List[TestCase] = [
 
     # --- Contact / escalation ---
     TestCase("T15", "I want to speak to a sales person", "en",
-             ["9890393838", "contact", "sales"],
+             ["9309505388", "contact", "sales"],
              category="escalation"),
     TestCase("T16", "Site visit book karna hai", "en",
-             ["9890393838", "contact", "call"],
+             ["9309505388", "contact", "call"],
              category="escalation"),
 
     # --- RERA ---
@@ -94,7 +94,7 @@ TEST_CASES: List[TestCase] = [
 
     # --- Out-of-scope (must be blocked) ---
     TestCase("T18", "I want to apply for a job at Abhinav Group", "en",
-             ["property", "9890393838", "not"],
+             ["property", "9309505388", "not"],
              must_not_contain=["apply", "resume", "cv", "hr"],
              category="out_of_scope"),
     TestCase("T19", "Vendor registration process kya hai?", "en",
@@ -102,7 +102,7 @@ TEST_CASES: List[TestCase] = [
              must_not_contain=["vendor", "supplier", "registration form"],
              category="out_of_scope"),
     TestCase("T20", "What are your office timings?", "en",
-             ["9890393838", "contact", "monday"],
+             ["9309505388", "contact", "monday"],
              category="general"),
 
     # --- Hindi full query ---
@@ -153,12 +153,12 @@ KNOWN PROJECTS:
 3. The Curve — Virar West, Mumbai | 2 & 3 BHK | Possession: June 2031 | RERA: PR1240002600667 (unverified)
 4. Aeromall — Airport Road, Lohegaon, Pune | Pune's first 24×7 Mall (commercial)
 
-Sales contact: +91 9890393838 | Office: 020-25663051
+Sales contact: +91 9309505388 | Office: 020-25663051
 Website: abhinavgroup.co.in
 
 RULES:
 - Only answer property and real estate questions.
-- For price, always direct to sales: +91 9890393838. Never quote specific prices.
+- For price, always direct to sales: +91 9309505388. Never quote specific prices.
 - If asked about careers, vendors, contractors — politely redirect to property enquiries.
 - For RERA numbers, always say "unverified — please verify at maharerait.maharashtra.gov.in"
 - Support English and Hindi equally.

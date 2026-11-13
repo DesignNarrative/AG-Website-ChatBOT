@@ -68,7 +68,7 @@ KNOWN_PROJECTS = {
         "possession_date": "June 2028",  # UNVERIFIED — from third-party sources
         "possession_verified": False,
         "official_url": "https://abhinavgroup.co.in/samsara-project-detail-page/",
-        "sales_contact": "+91 9890393838",
+        "sales_contact": "+91 9309505388",
         "approval_status": "PENDING",
         "amenities_note": "Details on website — verify before publishing",
     },
@@ -90,7 +90,7 @@ KNOWN_PROJECTS = {
         "possession_date": "Mid-2027",   # UNVERIFIED
         "possession_verified": False,
         "official_url": "https://abhinavgroup.co.in/pebbles-greenfields/",
-        "sales_contact": "+91 9890393838",
+        "sales_contact": "+91 9309505388",
         "approval_status": "PENDING",
         "green_certification": "IGBC Certified",
     },
@@ -113,7 +113,7 @@ KNOWN_PROJECTS = {
         "possession_verified": False,
         "official_url": "https://abhinavgroup.co.in/the-curve-virar/",
         "microsite_urls": ["https://thecurvevirar.in", "https://abhinavthecurve.in"],
-        "sales_contact": "+91 9890393838",
+        "sales_contact": "+91 9309505388",
         "approval_status": "PENDING",
     },
     "Aeromall": {
@@ -131,7 +131,7 @@ KNOWN_PROJECTS = {
         "possession_date": None,
         "possession_verified": False,
         "official_url": "https://abhinavgroup.co.in/aeromall-project-detail-page/",
-        "sales_contact": "+91 9890393838",
+        "sales_contact": "+91 9309505388",
         "approval_status": "PENDING",
         "note": "PPP project with AAI — verify exact ownership and commercial terms before publishing",
     },
@@ -143,7 +143,7 @@ COMPANY_INFO = {
     "tagline": "Building trust, building homes",
     "website": "https://abhinavgroup.co.in",
     "office_address": "Office No. 302, Sanas Memories Building, CTS 927, F.C. Road, Shivajinagar, Pune 411005",
-    "sales_phone": "+91 9890393838",
+    "sales_phone": "+91 9309505388",
     "office_phone": "02025663051",
     "email": "sales@abhinavinfra.com",
     "sales_hours": "Monday to Saturday, 10 AM to 7 PM",
@@ -162,7 +162,7 @@ Key information for NRIs purchasing property in India:
 5. TDS on Purchase: Seller deducts TDS at applicable rate for NRI buyers.
 
 For NRI-specific queries, please contact our sales team:
-Phone: +91 9890393838
+Phone: +91 9309505388
 Email: sales@abhinavinfra.com
 Hours: Monday to Saturday, 10 AM to 7 PM IST
 
