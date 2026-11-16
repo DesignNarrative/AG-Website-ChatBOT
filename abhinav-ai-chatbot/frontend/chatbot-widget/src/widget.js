@@ -405,18 +405,39 @@
     });
   }
 
-  function showLeadCard() {
+  function showLeadCard(force) {
     if (state.leadCaptured) return;
-    // If an unanswered form exists higher up in the chat, reposition it to the active bottom
     var existing = document.getElementById('ag-lead-form');
+
+    // Normalize selectedProject to exact dropdown option values
+    var rawProject = (state.lastProject || '').toLowerCase();
+    var selectedProject = '';
+    if (rawProject.indexOf('curve') !== -1) {
+      selectedProject = 'The Curve';
+    } else if (rawProject.indexOf('samsara') !== -1) {
+      selectedProject = 'Samsara';
+    } else if (rawProject.indexOf('business bay') !== -1) {
+      selectedProject = 'Pebbles Business Bay';
+    } else if (rawProject.indexOf('greenfield') !== -1 || rawProject.indexOf('pebbles') !== -1) {
+      selectedProject = 'Pebbles Greenfield';
+    } else if (state.lastProject === 'Other') {
+      selectedProject = 'Other';
+    }
+
     if (existing) {
+      if (!force) {
+        // If form already exists and not forced, update project dropdown to current project without jumping
+        var existingSelect = document.getElementById('ag-lead-project');
+        if (existingSelect && selectedProject && (!existingSelect.value || existingSelect.value === '')) {
+          existingSelect.value = selectedProject;
+        }
+        return;
+      }
       existing.remove();
     }
     var card = document.createElement('div');
     card.className = 'ag-lead-card';
     card.id = 'ag-lead-form';
-
-    var selectedProject = state.lastProject || '';
 
     card.innerHTML =
       '<p>' + t('lead_name') + '</p>' +
@@ -587,30 +608,26 @@
         }
 
         // Track last mentioned project for lead form convenience
-        if (data.intent === 'project_enquiry_samsara') state.lastProject = 'Samsara';
-        else if (data.intent === 'project_enquiry_greenfield') state.lastProject = 'Pebbles Greenfield';
-        else if (data.intent === 'project_enquiry_curve') state.lastProject = 'The Curve';
-        else if (data.intent === 'project_enquiry_business_bay') state.lastProject = 'Pebbles Business Bay';
+        var cardName = (data.project_cards && data.project_cards.length === 1 && data.project_cards[0].name) ? data.project_cards[0].name.toLowerCase() : '';
+        if (data.intent === 'project_enquiry_samsara' || cardName.indexOf('samsara') !== -1) state.lastProject = 'Samsara';
+        else if (data.intent === 'project_enquiry_greenfield' || cardName.indexOf('greenfield') !== -1) state.lastProject = 'Pebbles Greenfield';
+        else if (data.intent === 'project_enquiry_curve' || cardName.indexOf('curve') !== -1) state.lastProject = 'The Curve';
+        else if (data.intent === 'project_enquiry_business_bay' || cardName.indexOf('business bay') !== -1) state.lastProject = 'Pebbles Business Bay';
         else if (data.project_cards && data.project_cards.length === 1 && data.project_cards[0].name) {
           state.lastProject = data.project_cards[0].name;
         }
 
-        // Offer lead capture after pricing, escalation, brochure, project, or configuration inquiries
-        var leadIntents = [
-          'pricing_enquiry', 'escalation', 'brochure_request',
-          'project_enquiry_samsara', 'project_enquiry_greenfield',
-          'project_enquiry_curve', 'project_enquiry_business_bay',
-          'project_enquiry_aeromall', 'config_enquiry', 'nri_enquiry'
-        ];
-        if (!state.leadCaptured && leadIntents.indexOf(data.intent) !== -1) {
-          setTimeout(showLeadCard, 700);
-        }
-
-        // Track message count for proactive lead prompt (after 2 exchanges / 4 messages)
+        // Offer lead capture after explicit intent: pricing, escalation, brochure, or after meaningful chat
         state.messages.push({ role: 'user', text: text });
         state.messages.push({ role: 'bot', text: data.reply });
-        if (!state.leadCaptured && state.messages.length >= 4) {
-          setTimeout(showLeadCard, 900);
+
+        var highIntentList = [
+          'pricing_enquiry', 'escalation', 'brochure_request', 'nri_enquiry'
+        ];
+        if (!state.leadCaptured && highIntentList.indexOf(data.intent) !== -1) {
+          setTimeout(function () { showLeadCard(true); }, 700);
+        } else if (!state.leadCaptured && state.messages.length >= 6) {
+          setTimeout(function () { showLeadCard(false); }, 1000);
         }
       })
       .catch(function (err) {

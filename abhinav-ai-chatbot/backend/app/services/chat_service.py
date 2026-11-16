@@ -61,14 +61,21 @@ STRICT RULES — NEVER VIOLATE THESE:
      Focus on obtaining project brochures and floor plans. Direct them to our sales team (+91 9309505388 / sales@abhinavinfra.com) or invite them to share their details below to receive the PDF. NEVER output the pricing disclaimer for a brochure request!
 
 9. PROJECT INQUIRIES & INTRODUCTIONS:
-   - When a user asks about a project (e.g. "tell me about Samsara", "tell me about The Curve", "tell me about Pebbles Business Bay", "smasara"):
-     Line 1 MUST ALWAYS introduce the project (name, location, and key features).
-     NEVER start Line 1 with a pricing disclaimer. Any pricing disclaimer or sales contact note must ONLY be placed at the very end of the message as a closing line!
+   - When a user asks about a project (e.g. "tell me about Samsara", "tell me about The Curve", "tell me about Pebbles Business Bay", "smasara", "pebbles greenfield"):
+     Line 1 MUST ALWAYS introduce THAT specific project (name, location, and key features).
+     STRICT PROJECT ISOLATION: Focus 100% EXCLUSIVELY on the requested project. NEVER mention, repeat, re-introduce, or describe any previously discussed project (such as Samsara or any other project) unless the user explicitly requested a comparison between them (e.g. "compare Samsara and The Curve").
+     CLOSING LINE:
+     * If the user specifically asked about PRICING / COST / BUDGET, close with:
+       "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9309505388 for the latest price sheet."
+     * If the user asked a GENERAL project question (did NOT ask for price), close with a warm sales contact invite:
+       "For complete details or to schedule a site visit, please contact our sales team at +91 9309505388 or email sales@abhinavinfra.com."
+       Do NOT append the pricing disclaimer if the user did not ask about price!
+     NEVER start Line 1 with a pricing disclaimer.
 
 10. CONVERSATION CONTEXT & TOPIC SWITCHING:
    - Carefully determine if the user's message is a FOLLOW-UP or a NEW TOPIC:
      * FOLLOW-UP: The user asks an incomplete or contextual question about the ongoing subject just discussed (e.g., "what is the location?", "what are the amenities?", "pricing?"). Answer ONLY the specific requested detail for that subject.
-     * NEW TOPIC / TOPIC SWITCH: If the user asks about a different location, project, configuration, or subject (e.g. asking for "2 BHK in Pune" after discussing "The Curve in Virar", or asking about company founders), focus 100% on the NEW question. Do NOT repeat, summarize, contrast with, or mention previous projects unless the user explicitly requested a comparison.
+     * NEW TOPIC / TOPIC SWITCH: If the user asks about a different location, project, configuration, or subject (e.g. asking for "The Curve" after discussing "Samsara", or asking for "2 BHK in Pune" after discussing "Virar"), focus 100% on the NEW question. Do NOT repeat, summarize, contrast with, or mention previous projects. Treat the new project inquiry independently!
    - Never answer unasked previous questions or re-introduce past topics.
 
 11. PROPORTIONAL RESPONSE LENGTH (MATCH THE QUESTION SIZE):
@@ -269,8 +276,39 @@ class ChatService:
             # Clean sales escalation: do not bleed previous brochure talk into Speak to Sales
             ai_messages = [AIMessage(role="user", content=user_message)]
         else:
-            ai_messages = [AIMessage(role=m.role, content=m.content) for m in recent_messages]
-            ai_messages.append(AIMessage(role="user", content=user_message))
+            # Check if user is explicitly focusing on a specific active project
+            current_project_key = None
+            if "curve" in u_clean or "virar" in u_clean:
+                current_project_key = "curve"
+            elif "samsara" in u_clean:
+                current_project_key = "samsara"
+            elif "greenfield" in u_clean or ("pebbles" in u_clean and "bay" not in u_clean):
+                current_project_key = "greenfield"
+            elif "business bay" in u_clean or "pbb" in u_clean:
+                current_project_key = "business_bay"
+
+            is_comparison = any(w in u_clean for w in ["compare", "difference", "versus", "vs", "which is", "better", "both"])
+
+            if current_project_key and not is_comparison:
+                # User is asking about a single specific project.
+                # Only retain history if recent messages were already discussing THIS same project.
+                # Otherwise, reset cleanly for the new project to prevent bleeding past project descriptions.
+                has_current_in_history = any(
+                    (m.role == MessageRole.ASSISTANT and m.mentioned_project_ids and current_project_key in m.mentioned_project_ids)
+                    for m in recent_messages
+                )
+                if has_current_in_history:
+                    filtered_history = [
+                        m for m in recent_messages
+                        if not (m.role == MessageRole.ASSISTANT and m.mentioned_project_ids and current_project_key not in m.mentioned_project_ids)
+                    ]
+                    ai_messages = [AIMessage(role=m.role, content=m.content) for m in filtered_history]
+                    ai_messages.append(AIMessage(role="user", content=user_message))
+                else:
+                    ai_messages = [AIMessage(role="user", content=user_message)]
+            else:
+                ai_messages = [AIMessage(role=m.role, content=m.content) for m in recent_messages]
+                ai_messages.append(AIMessage(role="user", content=user_message))
 
         # --- Step 5: Call AI provider (with graceful fallback) ---
         ai_response = None
