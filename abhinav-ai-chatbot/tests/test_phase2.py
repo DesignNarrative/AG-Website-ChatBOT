@@ -12,11 +12,12 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Force test environment settings
-os.environ.setdefault("APP_ENV", "development")
-os.environ.setdefault("DATABASE_URL", "sqlite+aiosqlite:///./test_abhinav.db")
-os.environ.setdefault("AI_PROVIDER", "mock")
-os.environ.setdefault("MDOC_ENABLED", "false")
-os.environ.setdefault("CELERY_ENABLED", "false")
+os.environ["APP_ENV"] = "development"
+os.environ["DATABASE_URL"] = "sqlite+aiosqlite:///./test_abhinav.db"
+os.environ["AI_PROVIDER"] = "mock"
+os.environ["MDOC_ENABLED"] = "false"
+os.environ["MDOC_MODE"] = "mock"
+os.environ["CELERY_ENABLED"] = "false"
 
 import pytest
 import pytest_asyncio

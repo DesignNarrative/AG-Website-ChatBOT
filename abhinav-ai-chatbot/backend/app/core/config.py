@@ -93,9 +93,10 @@ class Settings(BaseSettings):
     # --- Mdoc CRM ---
     mdoc_enabled: bool = False
     mdoc_mode: Literal["mock", "sandbox", "production"] = "mock"
-    mdoc_api_base_url: str = "https://api.mymdoc.io"
+    mdoc_api_base_url: str = "https://abhinav.maksoftbox.com/MDocBoxAPI/MdocAddEnquiryORTeleCalling/"
+    mdoc_endpoint_url: str = "https://abhinav.maksoftbox.com/MDocBoxAPI/MdocAddEnquiryORTeleCalling/"
     mdoc_api_key: Optional[str] = None
-    mdoc_timeout_seconds: int = 10
+    mdoc_timeout_seconds: int = 15
     mdoc_retry_attempts: int = 3
     mdoc_retry_delay_seconds: int = 5
 

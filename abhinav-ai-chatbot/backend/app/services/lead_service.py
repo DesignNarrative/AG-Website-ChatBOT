@@ -108,7 +108,74 @@ class LeadService:
         return result.scalar_one_or_none()
 
     async def _queue_mdoc_sync(self, lead_id: str):
-        """Queue a Mdoc sync task. Currently logs intent; Phase 8 adds real sync."""
+        """Queue and trigger Mdoc CRM sync asynchronously in the background."""
+        import asyncio
         logger.info("mdoc_sync_queued", lead_id=lead_id, mode=settings.mdoc_mode)
-        # Phase 8: This will call the Mdoc integration adapter
-        # For now, in mock mode: just log
+        try:
+            asyncio.create_task(self.sync_lead_to_mdoc(lead_id))
+        except Exception as e:
+            logger.error("mdoc_queue_task_failed", lead_id=lead_id, error=str(e))
+
+    @classmethod
+    async def sync_lead_to_mdoc(cls, lead_id: str) -> dict:
+        """
+        Background worker that syncs a single lead to Mdoc CRM.
+        Operates with an isolated AsyncSessionLocal to prevent blocking the request pipeline.
+        """
+        from app.database.session import AsyncSessionLocal
+        from app.integrations.mdoc.adapter import MdocAdapter
+        from app.models.lead import MdocSyncRecord
+
+        adapter = MdocAdapter()
+        async with AsyncSessionLocal() as session:
+            try:
+                res = await session.execute(select(Lead).where(Lead.id == lead_id))
+                lead = res.scalar_one_or_none()
+                if not lead:
+                    logger.error("mdoc_sync_lead_not_found", lead_id=lead_id)
+                    return {"status": "failed", "reason": "Lead not found"}
+
+                lead.mdoc_sync_attempts = (lead.mdoc_sync_attempts or 0) + 1
+                result = await adapter.push_lead(lead)
+
+                # Record sync attempt in audit log
+                record = MdocSyncRecord(
+                    lead_id=lead.id,
+                    attempt_number=lead.mdoc_sync_attempts,
+                    status=MdocSyncStatus.SUCCESS if result.get("status") == "success" else MdocSyncStatus.FAILED,
+                    request_payload=result.get("request_payload"),
+                    response_code=result.get("response_code"),
+                    response_body=result.get("response_body"),
+                    error_message=result.get("error"),
+                    mdoc_lead_id=result.get("mdoc_lead_id"),
+                )
+                session.add(record)
+
+                if result.get("status") == "success":
+                    lead.mdoc_sync_status = MdocSyncStatus.SUCCESS
+                    lead.mdoc_lead_id = result.get("mdoc_lead_id")
+                    lead.mdoc_synced_at = datetime.now(timezone.utc)
+                    lead.mdoc_last_error = None
+                    logger.info("mdoc_sync_success", lead_id=lead.id, mdoc_id=lead.mdoc_lead_id)
+                elif result.get("status") == "skipped":
+                    lead.mdoc_sync_status = MdocSyncStatus.SKIPPED
+                else:
+                    lead.mdoc_sync_status = MdocSyncStatus.FAILED
+                    lead.mdoc_last_error = str(result.get("error") or "Sync failed")
+                    logger.warning("mdoc_sync_failed", lead_id=lead.id, error=lead.mdoc_last_error)
+
+                await session.commit()
+                return result
+
+            except Exception as e:
+                logger.error("mdoc_sync_exception", lead_id=lead_id, error=str(e), exc_info=True)
+                try:
+                    res = await session.execute(select(Lead).where(Lead.id == lead_id))
+                    lead = res.scalar_one_or_none()
+                    if lead:
+                        lead.mdoc_sync_status = MdocSyncStatus.FAILED
+                        lead.mdoc_last_error = str(e)
+                        await session.commit()
+                except Exception:
+                    pass
+                return {"status": "failed", "error": str(e)}
