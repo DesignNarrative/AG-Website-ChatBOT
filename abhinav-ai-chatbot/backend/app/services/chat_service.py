@@ -40,8 +40,24 @@ STRICT RULES — NEVER VIOLATE THESE:
      "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9309505388 for the latest price sheet."
    - When asked about BROCHURE, FLOOR PLANS, MASTER PLANS, or DOWNLOADS (e.g. "Download Brochure", "brochure", "broucher"):
      Guide the customer on obtaining project brochures and floor plans. If a specific active project was just discussed, offer brochure and layout information for that project; otherwise mention all 4 active ongoing projects. Direct them to our sales team (+91 9309505388 / sales@abhinavinfra.com) or invite them to share their details below to receive the PDF brochure directly via WhatsApp/email. NEVER give the pricing disclaimer for a brochure request!
-   - When asked about CONFIGURATIONS, BEDROOMS, or LOCATIONS (e.g. "2 BHK in Pune", "projects in Pune"):
-     Directly name and recommend the matching active project (e.g. Pebbles Greenfield in Tathawade/Wakad, Pune for 2 & 3 BHK; Samsara in Mukund Nagar, Pune for 3 BHK luxury residences; The Curve in Bolinj, Virar West for 2 & 3 BHK in Mumbai MMR).
+   - CONFIGURATION MATCHING RULES (STRICT & MANDATORY):
+     * When asked about "3 BHK" (or "3bhk", "3 bedroom", "three bhk", "3 bhk in pune"):
+       You MUST ALWAYS list ALL THREE active ongoing projects that offer 3 BHK residences:
+       • Samsara (Mukund Nagar, Central Pune) - Ultra-luxury 3 BHK residences
+       • Pebbles Greenfield (Tathawade / Wakad, Pune) - Premium 2 & 3 BHK apartments
+       • The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences
+       NEVER omit Samsara when asked about 3 BHK! Samsara is Abhinav Group's dedicated 3 BHK ultra-luxury project.
+
+     * When asked about "2 BHK" (or "2bhk", "2 bedroom", "two bhk", "2 bhk in pune"):
+       Recommend the two active projects that feature 2 BHK apartments:
+       • Pebbles Greenfield (Tathawade / Wakad, Pune) - Premium 2 & 3 BHK apartments
+       • The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences
+       (Never include Samsara for 2 BHK inquiries, as Samsara exclusively offers 3 BHK).
+
+     * CONFIGURATION SWITCHING:
+       If the customer previously asked for "2 BHK" and now asks "i want 3 bhk" (or vice versa), treat this as a NEW, FRESH requirement.
+       NEVER combine them into "For 2 BHK and 3 BHK" and NEVER recycle only the previously listed projects.
+       Provide the full, fresh recommendations matching the new configuration!
 5. Clearly distinguish between ACTIVE ONGOING projects and COMPLETED legacy projects
 6. ALWAYS respond in the same language the customer used (English, Hindi, or Roman Hindi)
 7. FORMATTING RULE: Keep answers clean, conversational, and easy to read. NEVER use markdown heading hashes (like ### or ##) and NEVER use horizontal divider lines (like --- or ***). Use clean bullet points (- or •) and bold text sparingly for headings.
@@ -274,6 +290,12 @@ class ChatService:
             ai_messages = [AIMessage(role="user", content=user_message)]
         elif u_clean in ["speak to sales", "contact sales", "call sales", "sales team से बात करें", "सेल्स टीम से बात करें"]:
             # Clean sales escalation: do not bleed previous brochure talk into Speak to Sales
+            ai_messages = [AIMessage(role="user", content=user_message)]
+        elif any(k in u_clean for k in ["3 bhk", "3bhk", "three bhk", "3 bedroom"]) and not any(k in u_clean for k in ["2 bhk", "2bhk"]):
+            # Clean 3 BHK query: reset to evaluate all 3 BHK projects fresh without anchoring on previous responses
+            ai_messages = [AIMessage(role="user", content=user_message)]
+        elif any(k in u_clean for k in ["2 bhk", "2bhk", "two bhk", "2 bedroom"]) and not any(k in u_clean for k in ["3 bhk", "3bhk"]):
+            # Clean 2 BHK query: reset to evaluate all 2 BHK projects fresh without anchoring on previous responses
             ai_messages = [AIMessage(role="user", content=user_message)]
         else:
             # Check if user is explicitly focusing on a specific active project
