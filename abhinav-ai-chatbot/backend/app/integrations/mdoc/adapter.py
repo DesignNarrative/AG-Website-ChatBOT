@@ -264,15 +264,30 @@ class MdocAdapter:
                         "response_body": body_text[:500],
                         "request_payload": payload,
                     }
-                else:
-                    err_msg = data.get("message") or f"HTTP {status_code}: {body_text[:200]}"
+
+                # Also handle duplicate enquiry in MDOC CRM:
+                # e.g.: {"code":400, "status":"Enquiry with the entered mobile number is already exists & (Enquiry ID is: 1648) with Unknown.", "message":"failed to add enquiry"}
+                body_lower = body_text.lower()
+                if "already exists" in body_lower or "already exist" in body_lower:
+                    m = re.search(r"(?:enquiry|lead)\s*id\s*is:?\s*(\d+)", body_lower)
+                    existing_id = m.group(1) if m else "EXISTING"
+                    logger.info("mdoc_push_duplicate_identified", existing_id=existing_id, mobile=payload.get("MobileNo", "")[-4:])
                     return {
-                        "status": "failed",
-                        "error": err_msg,
-                        "response_code": status_code,
+                        "status": "success",
+                        "mdoc_lead_id": existing_id,
+                        "response_code": 200,
                         "response_body": body_text[:500],
                         "request_payload": payload,
                     }
+
+                err_msg = data.get("message") or f"HTTP {status_code}: {body_text[:200]}"
+                return {
+                    "status": "failed",
+                    "error": err_msg,
+                    "response_code": status_code,
+                    "response_body": body_text[:500],
+                    "request_payload": payload,
+                }
 
         except httpx.TimeoutException as exc:
             logger.warning("mdoc_push_timeout", error=str(exc))

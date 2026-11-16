@@ -4,6 +4,7 @@ Handles lead creation, deduplication, and Mdoc sync.
 """
 from __future__ import annotations
 
+import asyncio
 import re
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict
@@ -34,6 +35,20 @@ class LeadService:
         if data.get("email"):
             summary = f"Email: {data.get('email')} | {summary}".strip(" |")
 
+        # Resolve conversation foreign key safely
+        conversation_fk = None
+        conv_lookup = data.get("session_token") or data.get("conversation_id")
+        conv_found = None
+        if conv_lookup:
+            from app.models.conversation import Conversation
+            res = await self.db.execute(select(Conversation).where(Conversation.session_token == conv_lookup))
+            conv_found = res.scalar_one_or_none()
+            if not conv_found:
+                res = await self.db.execute(select(Conversation).where(Conversation.id == conv_lookup))
+                conv_found = res.scalar_one_or_none()
+            if conv_found:
+                conversation_fk = conv_found.id
+
         lead = Lead(
             name=data.get("name"),
             phone=data["phone"],
@@ -50,7 +65,7 @@ class LeadService:
             is_nri=data.get("is_nri", False),
             consent_to_contact=data.get("consent_to_contact", False),
             source_page=data.get("source_page"),
-            conversation_id=data.get("session_token"),  # will be linked to conversation
+            conversation_id=conversation_fk,
             is_duplicate=existing is not None,
             duplicate_of_id=existing.id if existing else None,
             mdoc_sync_status=MdocSyncStatus.PENDING,
@@ -58,10 +73,19 @@ class LeadService:
         self.db.add(lead)
         await self.db.flush()  # Get the lead ID
 
+        if conv_found:
+            conv_found.lead_id = lead.id
+            if lead.name and not conv_found.customer_name:
+                conv_found.customer_name = lead.name
+            if lead.phone_normalized and not conv_found.customer_phone:
+                conv_found.customer_phone = lead.phone_normalized
+
+        await self.db.commit()
+
         logger.info(
             "lead_created",
             lead_id=lead.id,
-            phone=phone_normalized[-4:],  # Last 4 digits only
+            phone=phone_normalized[-4:] if phone_normalized else "????",
             is_duplicate=lead.is_duplicate,
         )
 
@@ -129,8 +153,14 @@ class LeadService:
         adapter = MdocAdapter()
         async with AsyncSessionLocal() as session:
             try:
-                res = await session.execute(select(Lead).where(Lead.id == lead_id))
-                lead = res.scalar_one_or_none()
+                lead = None
+                for _ in range(5):
+                    res = await session.execute(select(Lead).where(Lead.id == lead_id))
+                    lead = res.scalar_one_or_none()
+                    if lead:
+                        break
+                    await asyncio.sleep(0.2)
+
                 if not lead:
                     logger.error("mdoc_sync_lead_not_found", lead_id=lead_id)
                     return {"status": "failed", "reason": "Lead not found"}
