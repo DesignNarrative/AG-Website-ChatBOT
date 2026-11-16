@@ -55,6 +55,11 @@
       lead_prompt: 'Would you like our sales team to contact you with more details?',
       lead_name: 'Please share your name:',
       lead_phone: 'Your 10-digit mobile number:',
+      lead_email: 'Email address (optional):',
+      lead_project: 'Interested project:',
+      lead_project_select: 'Select a project (optional)',
+      lead_project_other: 'Other',
+      lead_project_other_ph: 'Please specify project name',
       lead_confirm: 'Thank you! Our team will contact you shortly. 📞',
       lead_btn: 'Get a Callback',
       typing: 'Typing...',
@@ -79,6 +84,11 @@
       lead_prompt: 'क्या आप चाहते हैं कि हमारी सेल्स टीम आपसे संपर्क करे?',
       lead_name: 'कृपया अपना नाम बताएं:',
       lead_phone: 'आपका 10 अंकों का मोबाइल नंबर:',
+      lead_email: 'ईमेल आईडी (वैकल्पिक):',
+      lead_project: 'रुचि का प्रोजेक्ट:',
+      lead_project_select: 'प्रोजेक्ट चुनें (वैकल्पिक)',
+      lead_project_other: 'अन्य (Other)',
+      lead_project_other_ph: 'कृपया प्रोजेक्ट का नाम लिखें',
       lead_confirm: 'धन्यवाद! हमारी टीम जल्द संपर्क करेगी। 📞',
       lead_btn: 'कॉलबैक के लिए अनुरोध करें',
       typing: 'टाइप हो रहा है...',
@@ -167,6 +177,7 @@
       '.ag-lead-card p{margin:0 0 10px;color:#2d3748;font-size:13px}',
       '.ag-lead-input{width:100%;border:1.5px solid #e5e7eb;border-radius:8px;padding:9px 12px;font-size:13px;outline:none;box-sizing:border-box;font-family:inherit;transition:border-color 0.2s}',
       '.ag-lead-input:focus{border-color:' + BRAND_COLOR + '}',
+      'select.ag-lead-input{background-color:white;color:#1e293b;cursor:pointer}',
       '.ag-lead-btn{margin-top:10px;width:100%;background:' + ACCENT_COLOR + ';color:' + BRAND_COLOR + ';border:none;border-radius:8px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity 0.2s}',
       '.ag-lead-btn:hover{opacity:0.9}',
 
@@ -341,17 +352,49 @@
 
   function showLeadCard() {
     if (state.leadCaptured) return;
+    var existing = document.getElementById('ag-lead-form');
+    if (existing) {
+      existing.remove();
+    }
     var card = document.createElement('div');
     card.className = 'ag-lead-card';
     card.id = 'ag-lead-form';
+
+    var selectedProject = state.lastProject || '';
+
     card.innerHTML =
       '<p>' + t('lead_name') + '</p>' +
       '<input class="ag-lead-input" id="ag-lead-name" type="text" placeholder="Your name" autocomplete="name">' +
       '<p style="margin-top:10px">' + t('lead_phone') + '</p>' +
       '<input class="ag-lead-input" id="ag-lead-phone" type="tel" placeholder="10-digit mobile" autocomplete="tel" maxlength="13">' +
+      '<p style="margin-top:10px">' + t('lead_email') + '</p>' +
+      '<input class="ag-lead-input" id="ag-lead-email" type="email" placeholder="name@example.com (optional)" autocomplete="email">' +
+      '<p style="margin-top:10px">' + t('lead_project') + '</p>' +
+      '<select class="ag-lead-input" id="ag-lead-project" style="background-color:white;cursor:pointer;">' +
+        '<option value="">' + t('lead_project_select') + '</option>' +
+        '<option value="Samsara"' + (selectedProject === 'Samsara' ? ' selected' : '') + '>Samsara</option>' +
+        '<option value="Pebbles Greenfield"' + (selectedProject === 'Pebbles Greenfield' ? ' selected' : '') + '>Pebbles Greenfield</option>' +
+        '<option value="The Curve"' + (selectedProject === 'The Curve' ? ' selected' : '') + '>The Curve</option>' +
+        '<option value="Pebbles Business Bay"' + (selectedProject === 'Pebbles Business Bay' ? ' selected' : '') + '>Pebbles Business Bay</option>' +
+        '<option value="Other"' + (selectedProject === 'Other' ? ' selected' : '') + '>' + t('lead_project_other') + '</option>' +
+      '</select>' +
+      '<input class="ag-lead-input" id="ag-lead-project-other" type="text" placeholder="' + t('lead_project_other_ph') + '" style="display:' + (selectedProject === 'Other' ? 'block' : 'none') + ';margin-top:8px;">' +
       '<button class="ag-lead-btn" id="ag-lead-submit">' + t('lead_btn') + '</button>';
     el.messages.appendChild(card);
     scrollToBottom();
+
+    var projSelect = document.getElementById('ag-lead-project');
+    var projOther = document.getElementById('ag-lead-project-other');
+    if (projSelect && projOther) {
+      projSelect.addEventListener('change', function () {
+        if (projSelect.value === 'Other') {
+          projOther.style.display = 'block';
+          projOther.focus();
+        } else {
+          projOther.style.display = 'none';
+        }
+      });
+    }
 
     document.getElementById('ag-lead-submit').addEventListener('click', submitLead);
   }
@@ -359,6 +402,15 @@
   function submitLead() {
     var name  = (document.getElementById('ag-lead-name').value || '').trim();
     var phone = (document.getElementById('ag-lead-phone').value || '').trim().replace(/\D/g, '');
+    var email = (document.getElementById('ag-lead-email') ? document.getElementById('ag-lead-email').value || '' : '').trim();
+
+    var projectSelect = document.getElementById('ag-lead-project');
+    var projectVal = (projectSelect ? projectSelect.value || '' : '').trim();
+    if (projectVal === 'Other') {
+      var otherInput = document.getElementById('ag-lead-project-other');
+      var customVal = (otherInput ? otherInput.value || '' : '').trim();
+      projectVal = customVal || 'Other';
+    }
 
     if (!name) {
       document.getElementById('ag-lead-name').style.borderColor = 'red';
@@ -369,13 +421,16 @@
       return;
     }
 
-    state.leadData = { name: name, phone: phone };
-    document.getElementById('ag-lead-form').remove();
+    state.leadData = { name: name, phone: phone, email: email, interested_project: projectVal || undefined };
+    var formEl = document.getElementById('ag-lead-form');
+    if (formEl) formEl.remove();
 
     // POST to leads API
     apiPost('/api/v1/leads/', {
       name: name,
       phone: phone,
+      email: email || undefined,
+      interested_project: projectVal || undefined,
       consent_to_contact: true,
       source_page: SOURCE_PAGE,
       session_token: state.sessionToken,
