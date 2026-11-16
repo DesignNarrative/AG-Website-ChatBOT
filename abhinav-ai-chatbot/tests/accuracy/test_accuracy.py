@@ -98,12 +98,35 @@ LANG_TESTS = [
     ("What are the available configurations?","en"),
     ("3 BHK flat price",                      "en"),
     ("NRI property purchase process",         "en"),
+    ("Tell me about The Curve",               "en"),
+    ("What is the price",                     "en"),
+    ("Download brochure",                     "en"),
+    ("I want 2 BHK in Pune",                  "en"),
+    ("contact sales team",                    "en"),
 ]
 # Hindi Devanagari tests
 HI_TESTS = [
     "\u0928\u092e\u0938\u094d\u0924\u0947 \u092e\u0941\u091d\u0947 \u092b\u094d\u0932\u0948\u091f \u091a\u093e\u0939\u093f\u090f",  # namaste mujhe flat chahiye
     "\u092a\u0941\u0923\u0947 \u092e\u0947\u0902 2 BHK \u092b\u094d\u0932\u0948\u091f",                                              # Pune mein 2 BHK flat
     "\u0905\u092d\u093f\u0928\u0935 \u0917\u094d\u0930\u0941\u092a \u0915\u0947 \u092a\u094d\u0930\u094b\u091c\u0947\u0915\u094d\u091f", # Abhinav Group ke project
+]
+# Roman Hindi / Hinglish tests (the core fix)
+HINGLISH_TESTS = [
+    ("muzhe the curve ke details batao",      "hi"),
+    ("samsara ka rate kya hai",               "hi"),
+    ("pebbles greenfield kaha par hai",       "hi"),
+    ("mujhe 3bhk chahiye pune me",            "hi"),
+    ("brochure chahiye",                      "hi"),
+    ("rate batao pebbles ka",                 "hi"),
+    ("accha toh site visit kaise book kare",  "hi"),
+    ("virar me kya projects hain",            "hi"),
+    ("iska rera number kya hai",              "hi"),
+    ("carpet area kitna hai",                 "hi"),
+    ("details batao please",                  "hi"),
+    ("kaha par hai samsara",                  "hi"),
+    ("ye project kab tak complete hoga",      "hi"),
+    ("2bhk kitne ka hai",                     "hi"),
+    ("EMI facility available hai kya",        "hi"),
 ]
 
 for text, lang in LANG_TESTS:
@@ -113,6 +136,10 @@ for text, lang in LANG_TESTS:
 for text in HI_TESTS:
     detected = svc._detect_language(text)
     test(f"lang::hi::{text[:20]}", detected == "hi", f"got={detected}")
+
+for text, lang in HINGLISH_TESTS:
+    detected = svc._detect_language(text)
+    test(f"lang::hinglish::{text[:35]}", detected == lang, f"got={detected}")
 
 # ─── T3: Mock AI response content ────────────────────────────────────────────
 # Use deterministic mock responses directly (no asyncio)

@@ -36,8 +36,12 @@ STRICT RULES — NEVER VIOLATE THESE:
 2. NEVER invent property facts, prices, discounts, or availability
 3. NEVER make commitments on behalf of Abhinav Group
 4. PRICING vs BROCHURE REQUESTS:
-   - When asked directly about PRICING, COST, BUDGET, or DISCOUNTS, do not invent prices; state:
-     "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9309505388 for the latest price sheet."
+   - When asked directly about PRICING, COST, BUDGET, or DISCOUNTS:
+     * If a specific project is asked about (e.g. "What is the price of Samsara?", "The Curve rate"):
+       Acknowledge the project and its configuration (e.g., for Samsara mention ultra-luxury 3 BHK in Mukund Nagar), and state:
+       "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9309505388 for the latest price sheet."
+     * If a generic pricing question was asked without naming a project (e.g. "what is the price?"):
+       State: "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9309505388 for the latest price sheet." You may also ask which project they are interested in.
    - When asked about BROCHURE, FLOOR PLANS, MASTER PLANS, or DOWNLOADS (e.g. "Download Brochure", "brochure", "broucher"):
      Guide the customer on obtaining project brochures and floor plans. If a specific active project was just discussed, offer brochure and layout information for that project; otherwise mention all 4 active ongoing projects. Direct them to our sales team (+91 9309505388 / sales@abhinavinfra.com) or invite them to share their details below to receive the PDF brochure directly via WhatsApp/email. NEVER give the pricing disclaimer for a brochure request!
    - CONFIGURATION MATCHING RULES (STRICT & MANDATORY):
@@ -100,6 +104,16 @@ STRICT RULES — NEVER VIOLATE THESE:
      * Specific Detail (e.g. amenities, RERA, possession): Provide 2 to 4 clean bullet points.
      * Broad Inquiry (e.g. "Tell me about The Curve", "Explore projects"): Provide a moderate, well-structured overview.
    - Never generate overwhelming walls of text. Be direct, helpful, and concise.
+
+12. CONVERSATION FLOW — NO REPETITIVE PREAMBLES:
+   - In multi-turn conversations, NEVER repeat the generic company founding biography ("Abhinav Group is a premier real estate developer headquartered in Pune, Maharashtra, with over 27 years of excellence since our founding in 1997, having delivered 50 lakh sq. ft..." etc.) in consecutive answers.
+   - The FIRST answer in a conversation may introduce the company if the user asks about it.
+   - ALL follow-up questions MUST be answered DIRECTLY without re-introducing the company background.
+   - Examples of CORRECT behavior:
+     * User asks "what does Abhinav Group do?" → Full company intro is appropriate.
+     * User then asks "what are the services?" → Jump STRAIGHT to listing services. Do NOT repeat the founding story.
+     * User then asks "in which cities?" → Answer DIRECTLY: "Our properties are located in Pune, Maharashtra and Mumbai MMR (Virar West)." No preamble paragraphs.
+   - When the user asks a simple factual follow-up, give a concise direct answer. Do NOT pad it with previously stated information.
 
 =============================================================================
 COMPANY PROFILE & CORPORATE IDENTITY (From abhinavgroup.co.in)
@@ -332,13 +346,44 @@ class ChatService:
                 ai_messages = [AIMessage(role=m.role, content=m.content) for m in recent_messages]
                 ai_messages.append(AIMessage(role="user", content=user_message))
 
-        # --- Step 5: Call AI provider (with graceful fallback) ---
+        # --- Step 5: Build effective system prompt with language directive ---
+        effective_prompt = SYSTEM_PROMPT
+        if recent_messages:
+            effective_prompt += (
+                "\n\nFOLLOW-UP RESPONSE RULE: This is an ongoing conversation. "
+                "Do NOT re-introduce the company or repeat the 1997 founding bio. "
+                "Answer the user's latest question directly and conversationally!"
+            )
+        if language == "hi":
+            # Determine if Devanagari or Roman Hindi / Hinglish
+            hindi_chars = sum(1 for c in user_message if "\u0900" <= c <= "\u097f")
+            if hindi_chars > 2:
+                effective_prompt += (
+                    "\n\nCRITICAL LANGUAGE DIRECTIVE: The customer is writing in Hindi (Devanagari script). "
+                    "You MUST reply in Hindi (Devanagari script). Keep project names (Samsara, Pebbles Greenfield, "
+                    "The Curve, Pebbles Business Bay), location names (Mukund Nagar, Tathawade, Wakad, Virar West), "
+                    "MahaRERA numbers, and the sales phone number (+91 9309505388) in English. "
+                    "But all explanations and sentences must be in Hindi Devanagari."
+                )
+            else:
+                effective_prompt += (
+                    "\n\nCRITICAL LANGUAGE DIRECTIVE: The customer is speaking in Roman Hindi / Hinglish. "
+                    "You MUST reply in natural, conversational Roman Hindi (Hinglish). "
+                    "Keep project names (Samsara, Pebbles Greenfield, The Curve, Pebbles Business Bay), "
+                    "location names (Mukund Nagar, Tathawade, Wakad, Virar West), MahaRERA numbers, "
+                    "and the sales phone number (+91 9309505388) in English. "
+                    "But explain everything else in Roman Hindi. "
+                    "Example tone: 'The Curve ek elite residential project hai jo Bolinj, Virar West mein hai.' "
+                    "NEVER reply in pure formal English when the customer speaks Hinglish."
+                )
+
+        # --- Step 6: Call AI provider (with graceful fallback) ---
         ai_response = None
         is_fallback = False
         try:
             ai_response = await self.ai.chat(
                 messages=ai_messages,
-                system_prompt=SYSTEM_PROMPT,
+                system_prompt=effective_prompt,
                 max_tokens=settings.ai_max_tokens,
                 temperature=settings.ai_temperature,
             )
@@ -355,11 +400,11 @@ class ChatService:
         reply = re.sub(r'\*{3,}', '', reply)
         reply = re.sub(r'\n{3,}', '\n\n', reply).strip()
 
-        # --- Step 6: Select Project Card (if appropriate & not previously shown) ---
+        # --- Step 7: Select Project Card (if appropriate & not previously shown) ---
         project_cards = self._select_project_cards(user_message, reply, recent_messages)
         mentioned_ids = [c["id"] for c in project_cards] if project_cards else None
 
-        # --- Step 7: Persist messages ---
+        # --- Step 8: Persist messages ---
         response_time_ms = int((time.monotonic() - start_time) * 1000)
         await self._persist_messages(
             conversation, user_message, reply, language, intent,
@@ -370,7 +415,7 @@ class ChatService:
             mentioned_project_ids=mentioned_ids,
         )
 
-        # --- Step 8: Determine quick replies ---
+        # --- Step 9: Determine quick replies ---
         quick_replies = self._get_quick_replies(intent, language)
 
         return {
@@ -383,17 +428,80 @@ class ChatService:
         }
 
     def _detect_language(self, text: str) -> str:
-        """Detect if message is in Hindi or English."""
-        # Hindi Unicode block: 0900-097F
+        """Detect if message is in Hindi (Devanagari or Roman Hindi / Hinglish) or English."""
+        # Tier 1: Devanagari script detection (Hindi / Marathi)
         hindi_chars = sum(1 for c in text if "\u0900" <= c <= "\u097f")
         if hindi_chars > 2:
             return "hi"
-        # Common Roman Hindi words
-        roman_hindi_words = {"kya", "hai", "mujhe", "chahiye", "aapka", "paisa",
-                             "kitna", "ghar", "flat", "bata", "dijiye"}
+
+        # Tier 2: Roman Hindi / Hinglish detection (3-level word matching)
         words = set(text.lower().split())
-        if len(words & roman_hindi_words) >= 2:
+
+        # Strong markers — a SINGLE match confirms Hinglish
+        strong_markers = {
+            # Pronouns & requests
+            "mujhe", "muzhe", "muje", "hume", "humko", "humein",
+            "chahiye", "chaiye", "chahie",
+            # Verbs (imperative / conversational)
+            "batao", "bataiye", "bataao", "bataye", "batana",
+            "dikhao", "dikhaiye", "dikhaye", "dikhana",
+            "bhejo", "bhejiye", "bhejdo", "bhejna",
+            # Greetings
+            "namaste", "namaskar", "dhanyawad", "shukriya",
+            # Adjectives / affirmations
+            "accha", "acha", "theek", "thik", "badhiya", "shandar",
+            # Question words (full forms)
+            "kahan", "kahaan", "kaha", "kidhar",
+            "kaisa", "kaisi", "kaise",
+        }
+        if words & strong_markers:
             return "hi"
+
+        # Medium markers — need 2 matches, OR 1 medium + 1 light
+        medium_markers = {
+            # Question / auxiliary words
+            "kya", "hai", "hain", "tha", "thi",
+            "kitna", "kitne", "kitni",
+            "kab", "kon", "kaun",
+            # Negation / affirmation
+            "nahi", "nhi", "mat", "haan", "ji",
+            # Possessives
+            "aapka", "aapke", "aapki", "mera", "mere", "meri",
+            # Nouns
+            "ghar", "paisa", "paise", "daam",
+            # Verbs (short forms)
+            "bata", "bolo", "bol", "dijiye", "dedo", "dena",
+            "dekhna", "dekho", "dekh",
+            "lena", "lo", "lelo",
+            # Qualifiers
+            "wala", "wali", "wale",
+            "abhi", "jaldi", "pehle",
+            "sab", "sabhi", "bahut", "bohot", "zyada",
+            "yahan", "wahan", "idhar", "udhar",
+            # Conjunctions
+            "aur", "lekin", "toh", "phir",
+        }
+
+        # Light markers — common Hinglish connectors (ambiguous alone)
+        light_markers = {
+            "ke", "ka", "ki", "ko", "se", "me", "mein",
+            "pe", "par", "ye", "wo", "yeh", "woh",
+            "iska", "iski", "iske", "uska", "uski", "uske",
+        }
+
+        medium_hits = len(words & medium_markers)
+        light_hits = len(words & light_markers)
+
+        # 2+ medium markers = Hinglish
+        if medium_hits >= 2:
+            return "hi"
+        # 1 medium + 1 light = Hinglish
+        if medium_hits >= 1 and light_hits >= 1:
+            return "hi"
+        # 3+ light markers together = Hinglish
+        if light_hits >= 3:
+            return "hi"
+
         return "en"
 
     def _detect_intent(self, text: str) -> str:
