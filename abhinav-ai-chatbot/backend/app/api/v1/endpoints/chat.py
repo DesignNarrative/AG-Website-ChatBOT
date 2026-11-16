@@ -45,7 +45,9 @@ async def send_message(
     Main chat endpoint. Accepts a user message and returns an AI-generated response.
     Creates a new conversation session if session_token is not provided.
     """
-    if not body.message or not body.message.strip():
+    from app.security.sanitization import sanitize_text
+    clean_msg = sanitize_text(body.message, max_length=2000, strip_html=True)
+    if not clean_msg:
         raise HTTPException(status_code=400, detail="Message cannot be empty.")
     if len(body.message) > 2000:
         raise HTTPException(status_code=400, detail="Message too long (max 2000 characters).")
@@ -75,7 +77,7 @@ async def send_message(
     service = ChatService(db=db)
     result = await service.process_message(
         conversation=conversation,
-        user_message=body.message.strip(),
+        user_message=clean_msg,
     )
 
     return ChatResponse(

@@ -99,8 +99,10 @@ async def create_lead(
     db: AsyncSession = Depends(get_db),
 ):
     """Create a new lead. Validates for duplicates before saving."""
+    from app.security.sanitization import sanitize_lead_payload
+    clean_data = sanitize_lead_payload(body.model_dump())
     service = LeadService(db=db)
-    lead = await service.create_lead(body.model_dump())
+    lead = await service.create_lead(clean_data)
     return {
         "lead_id": lead.id,
         "is_duplicate": lead.is_duplicate,

@@ -113,7 +113,9 @@ class Settings(BaseSettings):
     def widget_domains(self) -> List[str]:
         return [d.strip() for d in self.widget_allowed_domains.split(",") if d.strip()]
 
-    # --- Rate Limiting ---
+    # --- Rate Limiting & DoS Protection ---
+    rate_limit_enabled: bool = True
+    max_request_size_bytes: int = 1048576  # 1 MB max JSON request size
     rate_limit_chat: str = "30/minute"
     rate_limit_lead: str = "10/minute"
     rate_limit_admin: str = "100/minute"
@@ -142,7 +144,11 @@ class Settings(BaseSettings):
     def check_secret_not_default(cls, v: str, info) -> str:
         insecure = {"INSECURE_DEV_KEY_CHANGE_IN_PRODUCTION",
                     "INSECURE_JWT_DEV_KEY_CHANGE_IN_PRODUCTION"}
-        # Allow insecure keys only in development; warn but don't block
+        env = os.environ.get("APP_ENV", "development").lower()
+        if env == "production" and v in insecure:
+            raise ValueError(
+                f"Production mode forbids default insecure {info.field_name}. Please set a strong 32+ char secret."
+            )
         return v
 
 

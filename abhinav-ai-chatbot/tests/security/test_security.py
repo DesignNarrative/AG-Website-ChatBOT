@@ -137,6 +137,67 @@ test("leads_create_is_post", "POST" in routes.get("/api/v1/leads/", []))
 test("admin_overview_protected", "/api/v1/admin/overview" in routes)
 test("knowledge_sources_protected", "/api/v1/knowledge/" in routes)
 
+print("\n=== S6: Sliding-Window Rate Limiting ===")
+from app.security.rate_limiter import SlidingWindowRateLimiter
+test_limiter = SlidingWindowRateLimiter()
+
+# Test login rate limit (max 10 / min)
+client_ip = "192.168.1.50"
+for i in range(10):
+    allowed, _ = test_limiter.is_allowed(client_ip, "/api/v1/auth/login")
+    test(f"login_rate_permit_{i+1}", allowed)
+
+# 11th request must be blocked
+blocked, retry_after = test_limiter.is_allowed(client_ip, "/api/v1/auth/login")
+test("login_rate_block_11th", not blocked and retry_after > 0, f"blocked={not blocked}, retry={retry_after}")
+
+# Other IP should still be allowed
+other_allowed, _ = test_limiter.is_allowed("192.168.1.99", "/api/v1/auth/login")
+test("login_rate_independent_ip", other_allowed)
+
+# Test chat rate limit (max 30 / min)
+chat_ip = "192.168.1.60"
+for i in range(30):
+    allowed, _ = test_limiter.is_allowed(chat_ip, "/api/v1/chat/message")
+test("chat_rate_allow_30", allowed)
+chat_blocked, chat_retry = test_limiter.is_allowed(chat_ip, "/api/v1/chat/message")
+test("chat_rate_block_31st", not chat_blocked and chat_retry > 0)
+
+
+print("\n=== S7: Input Sanitization & Anti-XSS ===")
+from app.security.sanitization import sanitize_text, sanitize_lead_payload
+
+# Script tag removal
+clean_script = sanitize_text("<script>alert('xss')</script>Hello Property")
+test("sanitization_strip_script", clean_script == "Hello Property")
+
+# HTML tag removal
+clean_html = sanitize_text("<b>Bold</b> <i>Italic</i> <img src=x onerror=alert(1)>Text")
+test("sanitization_strip_html", clean_html == "Bold Italic Text")
+
+# Null byte removal
+clean_null = sanitize_text("Mukund\x00Nagar\x00Samsara")
+test("sanitization_strip_null_bytes", clean_null == "MukundNagarSamsara")
+
+# Lead payload sanitization
+dirty_payload = {
+    "name": "<script>evil()</script>Rajesh Sharma",
+    "email": "  RAJESH.TEST@EXAMPLE.COM  ",
+    "enquiry_summary": "<iframe src='evil.com'></iframe>Interested in 3 BHK Samsara",
+    "preferred_location": "Pune\x00Central",
+}
+clean_lead = sanitize_lead_payload(dirty_payload)
+test("clean_lead_name", clean_lead["name"] == "Rajesh Sharma")
+test("clean_lead_email", clean_lead["email"] == "rajesh.test@example.com")
+test("clean_lead_summary", clean_lead["enquiry_summary"] == "Interested in 3 BHK Samsara")
+test("clean_lead_location", clean_lead["preferred_location"] == "PuneCentral")
+
+
+print("\n=== S8: DoS Size Limits & Production Configuration ===")
+from app.core.config import settings
+test("max_request_size_enforced", settings.max_request_size_bytes == 1048576)
+test("rate_limiting_configured", settings.rate_limit_enabled is True)
+
 # ─── Summary ─────────────────────────────────────────────────────────────────
 print()
 print("=" * 60)

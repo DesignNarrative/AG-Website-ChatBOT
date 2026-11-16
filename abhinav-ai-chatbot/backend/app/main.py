@@ -14,6 +14,7 @@ from fastapi.responses import JSONResponse
 
 from app.core.config import settings
 from app.database.session import check_db_connection, init_db
+from app.security.rate_limiter import rate_limiter
 
 logger = structlog.get_logger(__name__)
 
@@ -73,6 +74,37 @@ app.add_middleware(GZipMiddleware, minimum_size=1024)
 
 
 @app.middleware("http")
+async def add_security_headers(request: Request, call_next):
+    """Add OWASP production security headers and mask server identity."""
+    response: Response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=(), payment=()"
+
+    # HSTS in production or HTTPS
+    if settings.app_env in ("production", "staging") or request.url.scheme == "https":
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+
+    # Content Security Policy (allows embedding widget on official domain)
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self' 'unsafe-inline' https:; "
+        "img-src 'self' data: https: blob:; "
+        "connect-src 'self' https: http://localhost:* http://127.0.0.1:*; "
+        "frame-ancestors 'self' https://abhinavgroup.co.in https://*.abhinavgroup.co.in http://localhost:* http://127.0.0.1:*;"
+    )
+
+    # Mask server identification
+    if "server" in response.headers:
+        del response.headers["server"]
+    if "Server" in response.headers:
+        del response.headers["Server"]
+
+    return response
+
+
+@app.middleware("http")
 async def add_request_timing(request: Request, call_next):
     """Add X-Response-Time header to every response."""
     start = time.monotonic()
@@ -83,14 +115,41 @@ async def add_request_timing(request: Request, call_next):
 
 
 @app.middleware("http")
-async def add_security_headers(request: Request, call_next):
-    """Add security headers to every response."""
-    response: Response = await call_next(request)
-    response.headers["X-Content-Type-Options"] = "nosniff"
-    response.headers["X-Frame-Options"] = "DENY"
-    response.headers["X-XSS-Protection"] = "1; mode=block"
-    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    return response
+async def enforce_request_size_limit(request: Request, call_next):
+    """Prevent memory exhaustion by blocking oversized request payloads (>1MB)."""
+    content_length = request.headers.get("content-length")
+    max_size = getattr(settings, "max_request_size_bytes", 1048576)
+    if content_length and content_length.isdigit():
+        if int(content_length) > max_size:
+            return JSONResponse(
+                status_code=413,
+                content={"detail": "Payload too large. Maximum allowed size is 1MB."},
+            )
+    return await call_next(request)
+
+
+@app.middleware("http")
+async def enforce_rate_limits(request: Request, call_next):
+    """Sliding-window rate limiter per client IP to prevent flooding, DoS, and brute-force."""
+    if not getattr(settings, "rate_limit_enabled", True):
+        return await call_next(request)
+
+    # Resolve client IP (supporting reverse proxies)
+    client_ip = (
+        request.headers.get("CF-Connecting-IP")
+        or request.headers.get("X-Forwarded-For", "").split(",")[0].strip()
+        or (request.client.host if request.client else "127.0.0.1")
+    )
+
+    allowed, retry_after = rate_limiter.is_allowed(client_ip, request.url.path)
+    if not allowed:
+        return JSONResponse(
+            status_code=429,
+            content={"detail": f"Too many requests. Please try again in {retry_after} seconds."},
+            headers={"Retry-After": str(retry_after)},
+        )
+
+    return await call_next(request)
 
 
 # ---------------------------------------------------------------------------
