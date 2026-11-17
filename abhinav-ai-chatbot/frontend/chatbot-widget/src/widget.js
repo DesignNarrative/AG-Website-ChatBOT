@@ -340,9 +340,11 @@
     }
 
     if (role === 'user') {
+      state.lastUserMsgEl = div;
       scrollToBottom();
     } else {
-      scrollToMessageStart(div);
+      var scrollTarget = state.lastUserMsgEl || div;
+      scrollToMessageStart(scrollTarget);
     }
   }
 
@@ -459,12 +461,6 @@
       '<input class="ag-lead-input" id="ag-lead-project-other" type="text" placeholder="' + t('lead_project_other_ph') + '" style="display:' + (selectedProject === 'Other' ? 'block' : 'none') + ';margin-top:8px;">' +
       '<button class="ag-lead-btn" id="ag-lead-submit">' + t('lead_btn') + '</button>';
     el.messages.appendChild(card);
-    scrollToBottom();
-        '<option value="Other"' + (selectedProject === 'Other' ? ' selected' : '') + '>' + t('lead_project_other') + '</option>' +
-      '</select>' +
-      '<input class="ag-lead-input" id="ag-lead-project-other" type="text" placeholder="' + t('lead_project_other_ph') + '" style="display:' + (selectedProject === 'Other' ? 'block' : 'none') + ';margin-top:8px;">' +
-      '<button class="ag-lead-btn" id="ag-lead-submit">' + t('lead_btn') + '</button>';
-    el.messages.appendChild(card);
 
     var projSelect = document.getElementById('ag-lead-project');
     var projOther = document.getElementById('ag-lead-project-other');
@@ -511,6 +507,7 @@
     }
 
     state.leadData = { name: name, phone: phone, email: email, interested_project: projectVal || undefined };
+    state.lastUserMsgEl = null;
     var formEl = document.getElementById('ag-lead-form');
     if (formEl) formEl.remove();
 
@@ -536,17 +533,15 @@
     if (!el.messages || !msgEl) return;
     function align() {
       if (el.messages && msgEl) {
-        var topPos = msgEl.offsetTop;
-        if (msgEl.offsetParent !== el.messages) {
-          topPos = msgEl.offsetTop - el.messages.offsetTop;
-        }
-        topPos = Math.max(0, topPos - 8);
-        el.messages.scrollTop = topPos;
+        var cRect = el.messages.getBoundingClientRect();
+        var mRect = msgEl.getBoundingClientRect();
+        var targetScroll = el.messages.scrollTop + (mRect.top - cRect.top) - 10;
+        el.messages.scrollTop = Math.max(0, targetScroll);
       }
     }
     align();
     setTimeout(align, 60);
-    setTimeout(align, 150);
+    setTimeout(align, 180);
   }
 
   function scrollToBottom() {
