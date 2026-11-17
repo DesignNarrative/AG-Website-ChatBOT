@@ -405,7 +405,7 @@
     });
   }
 
-  function showLeadCard(force) {
+  function showLeadCard() {
     if (state.leadCaptured) return;
     var existing = document.getElementById('ag-lead-form');
 
@@ -424,28 +424,29 @@
       selectedProject = 'Other';
     }
 
+    // Preserve any existing input if repositioning form to active bottom
+    var prevName = '', prevPhone = '', prevEmail = '';
     if (existing) {
-      if (!force) {
-        // If form already exists and not forced, update project dropdown to current project without jumping
-        var existingSelect = document.getElementById('ag-lead-project');
-        if (existingSelect && selectedProject && (!existingSelect.value || existingSelect.value === '')) {
-          existingSelect.value = selectedProject;
-        }
-        return;
-      }
+      var nInput = document.getElementById('ag-lead-name');
+      var pInput = document.getElementById('ag-lead-phone');
+      var eInput = document.getElementById('ag-lead-email');
+      if (nInput) prevName = nInput.value || '';
+      if (pInput) prevPhone = pInput.value || '';
+      if (eInput) prevEmail = eInput.value || '';
       existing.remove();
     }
+
     var card = document.createElement('div');
     card.className = 'ag-lead-card';
     card.id = 'ag-lead-form';
 
     card.innerHTML =
       '<p>' + t('lead_name') + '</p>' +
-      '<input class="ag-lead-input" id="ag-lead-name" type="text" placeholder="Your name" autocomplete="name">' +
+      '<input class="ag-lead-input" id="ag-lead-name" type="text" placeholder="Your name" autocomplete="name" value="' + prevName.replace(/"/g, '&quot;') + '">' +
       '<p style="margin-top:10px">' + t('lead_phone') + '</p>' +
-      '<input class="ag-lead-input" id="ag-lead-phone" type="tel" placeholder="10-digit mobile" autocomplete="tel" maxlength="13">' +
+      '<input class="ag-lead-input" id="ag-lead-phone" type="tel" placeholder="10-digit mobile" autocomplete="tel" maxlength="13" value="' + prevPhone.replace(/"/g, '&quot;') + '">' +
       '<p style="margin-top:10px">' + t('lead_email') + '</p>' +
-      '<input class="ag-lead-input" id="ag-lead-email" type="email" placeholder="name@example.com (optional)" autocomplete="email">' +
+      '<input class="ag-lead-input" id="ag-lead-email" type="email" placeholder="name@example.com (optional)" autocomplete="email" value="' + prevEmail.replace(/"/g, '&quot;') + '">' +
       '<p style="margin-top:10px">' + t('lead_project') + '</p>' +
       '<select class="ag-lead-input" id="ag-lead-project" style="background-color:white;cursor:pointer;">' +
         '<option value="">' + t('lead_project_select') + '</option>' +
@@ -453,6 +454,12 @@
         '<option value="Pebbles Greenfield"' + (selectedProject === 'Pebbles Greenfield' ? ' selected' : '') + '>Pebbles Greenfield</option>' +
         '<option value="The Curve"' + (selectedProject === 'The Curve' ? ' selected' : '') + '>The Curve</option>' +
         '<option value="Pebbles Business Bay"' + (selectedProject === 'Pebbles Business Bay' ? ' selected' : '') + '>Pebbles Business Bay</option>' +
+        '<option value="Other"' + (selectedProject === 'Other' ? ' selected' : '') + '>' + t('lead_project_other') + '</option>' +
+      '</select>' +
+      '<input class="ag-lead-input" id="ag-lead-project-other" type="text" placeholder="' + t('lead_project_other_ph') + '" style="display:' + (selectedProject === 'Other' ? 'block' : 'none') + ';margin-top:8px;">' +
+      '<button class="ag-lead-btn" id="ag-lead-submit">' + t('lead_btn') + '</button>';
+    el.messages.appendChild(card);
+    scrollToBottom();
         '<option value="Other"' + (selectedProject === 'Other' ? ' selected' : '') + '>' + t('lead_project_other') + '</option>' +
       '</select>' +
       '<input class="ag-lead-input" id="ag-lead-project-other" type="text" placeholder="' + t('lead_project_other_ph') + '" style="display:' + (selectedProject === 'Other' ? 'block' : 'none') + ';margin-top:8px;">' +
@@ -621,13 +628,16 @@
         state.messages.push({ role: 'user', text: text });
         state.messages.push({ role: 'bot', text: data.reply });
 
-        var highIntentList = [
-          'pricing_enquiry', 'escalation', 'brochure_request', 'nri_enquiry'
+        var leadIntents = [
+          'pricing_enquiry', 'escalation', 'brochure_request', 'nri_enquiry',
+          'project_enquiry_samsara', 'project_enquiry_greenfield',
+          'project_enquiry_curve', 'project_enquiry_business_bay',
+          'config_enquiry'
         ];
-        if (!state.leadCaptured && highIntentList.indexOf(data.intent) !== -1) {
-          setTimeout(function () { showLeadCard(true); }, 700);
-        } else if (!state.leadCaptured && state.messages.length >= 6) {
-          setTimeout(function () { showLeadCard(false); }, 1000);
+        if (!state.leadCaptured && leadIntents.indexOf(data.intent) !== -1) {
+          setTimeout(showLeadCard, 700);
+        } else if (!state.leadCaptured && state.messages.length >= 4) {
+          setTimeout(showLeadCard, 900);
         }
       })
       .catch(function (err) {

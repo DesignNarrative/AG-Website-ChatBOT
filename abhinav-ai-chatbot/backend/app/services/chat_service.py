@@ -388,9 +388,15 @@ class ChatService:
                 temperature=settings.ai_temperature,
             )
             reply = ai_response.content
+            if ai_response.is_fallback:
+                is_fallback = True
+                smart_fallback = self._get_verified_knowledge_response(user_message, language)
+                if smart_fallback:
+                    reply = smart_fallback
         except Exception as e:
             logger.error(f"ai_provider_error: {e} (provider={self.ai.provider_name})")
-            reply = self._ai_unavailable_response(language)
+            smart_fallback = self._get_verified_knowledge_response(user_message, language)
+            reply = smart_fallback or self._ai_unavailable_response(language)
             is_fallback = True
 
         # Clean formatting: strip raw markdown header hashes (###) and horizontal dividers (---, ***)
@@ -603,6 +609,185 @@ class ChatService:
             "📧 sales@abhinavinfra.com\n\n"
             "Available Monday to Saturday, 10 AM – 7 PM"
         )
+
+    def _get_verified_knowledge_response(self, text: str, language: str) -> Optional[str]:
+        """Provides verified corporate and project facts directly if AI provider is temporarily unreachable."""
+        t = text.lower().strip()
+
+        # Mayuri Shende Kankariya
+        if any(w in t for w in ["mayuri", "commercial leasing director"]):
+            if language == "hi":
+                return (
+                    "Mrs. Mayuri Shende Kankariya अभिनव ग्रुप में Director & Head of Commercial Leasing हैं। "
+                    "वे स्ट्रेटेजिक ब्रांडिंग, सॉफ्टवेयर डेवलपमेंट और लीजिंग में विशेषज्ञता रखती हैं और ग्रुप के "
+                    "कमर्शियल लीजिंग, ब्रांड कम्युनिकेशन और डिजिटल प्रेजेंस का नेतृत्व करती हैं।"
+                )
+            return (
+                "Mrs. Mayuri Shende Kankariya is a Director and Head of Commercial Leasing at Abhinav Group. "
+                "With an entrepreneurial background in strategic branding, software development, and leasing, "
+                "she oversees commercial leasing, brand communication, and the digital presence across Abhinav Group."
+            )
+
+        # Shamkant Shende / Sham Shende / Founder / Chairman / CEO
+        if any(w in t for w in ["sham", "shamkant", "founder", "chairman", "ceo"]):
+            if language == "hi":
+                return (
+                    "Mr. Shamkant Shende (Mr. Sham Shende) अभिनव ग्रुप के Founder, Chairman, Architect & Visionary Leader हैं। "
+                    "वे एक अनुभवी आर्किटेक्ट हैं और 1997 से पिछले 27+ वर्षों से समय पर प्रोजेक्ट डिलीवरी, "
+                    "फाइनेंशियल प्लानिंग और कस्टमर संतुष्टि का उत्कृष्ट ट्रैक रिकॉर्ड रखते हैं।"
+                )
+            return (
+                "Mr. Shamkant Shende (Mr. Sham Shende) is the Founder, Chairman, Architect, and Visionary Leader of Abhinav Group. "
+                "A hands-on architect and leader with over 27+ years of track record since 1997, he oversees architectural innovation, "
+                "meticulous financial planning, and timely project delivery."
+            )
+
+        # Gaurav Kankariya
+        if "gaurav" in t or "kankariya" in t:
+            if language == "hi":
+                return (
+                    "Mr. Gaurav Kankariya अभिनव ग्रुप में Director हैं। उनके पास हाई-एंड इंटीरियर आर्किटेक्चर "
+                    "और रियल एस्टेट में 17+ वर्षों का अनुभव है। उनका मानना है कि 'Design is a journey rather than the destination'।"
+                )
+            return (
+                "Mr. Gaurav Kankariya is a Director at Abhinav Group with over 17+ years of dynamic experience in high-end interior architecture "
+                "and real estate development. His design philosophy is rooted in the belief that 'Design is a journey rather than the destination'."
+            )
+
+        # Abhijit Kotkar
+        if "abhijit" in t or "kotkar" in t:
+            if language == "hi":
+                return (
+                    "Mr. Abhijit Kotkar अभिनव ग्रुप में Executive Director (MBA in Finance) हैं, जिनके पास रियल एस्टेट में 17+ वर्षों का अनुभव है। "
+                    "उन्होंने पुणे एयरपोर्ट पर 24x7 ऑपरेशनल 'AEROMALL' प्रोजेक्ट का नेतृत्व किया।"
+                )
+            return (
+                "Mr. Abhijit Kotkar is an Executive Director at Abhinav Group (MBA in Finance) with over 17+ years of experience across India and Sri Lanka. "
+                "He spearheaded 'AEROMALL', Pune's first 24x7 operational airport MLCP and transit retail hub."
+            )
+
+        # Pranali Kotkar
+        if "pranali" in t:
+            if language == "hi":
+                return (
+                    "Mrs. Pranali Kotkar अभिनव ग्रुप में Director हैं। उन्होंने सिंगापुर से इंटीरियर आर्किटेक्चर में उच्च शिक्षा प्राप्त की है "
+                    "और वर्तमान में कंस्ट्रक्शन व परचेज डिपार्टमेंट का नेतृत्व करती हैं।"
+                )
+            return (
+                "Mrs. Pranali Kotkar is a Director at Abhinav Group. With higher education in Interior Architecture from Singapore, "
+                "she currently leads Abhinav Group's Construction and Purchase departments."
+            )
+
+        # Leadership team overview
+        if any(w in t for w in ["leader", "leadership", "directors", "board of directors"]):
+            return (
+                "Abhinav Group is guided by an experienced executive board:\n"
+                "• Mr. Shamkant Shende (Founder, Chairman & Visionary Leader)\n"
+                "• Mr. Abhijit Kotkar (Executive Director)\n"
+                "• Mrs. Pranali Kotkar (Director - Construction & Purchase)\n"
+                "• Mr. Gaurav Kankariya (Director - Architecture & Design)\n"
+                "• Mrs. Mayuri Shende Kankariya (Director & Head of Commercial Leasing)\n\n"
+                "For more details, contact our office at 020-25663051 or sales@abhinavinfra.com."
+            )
+
+        # Financials / Net worth / Profit / Revenue / Turnover
+        if any(w in t for w in ["networth", "net worth", "profit", "profitable", "revenue", "turnover", "how much does abhinav group make", "makes"]):
+            return (
+                "As a premier real estate developer, Abhinav Group is a private organization, and we do not publicly disclose internal financial statements, "
+                "net worth, or profit margins.\n\n"
+                "Backed by over 27 years of excellence since 1997 and over 50 lakh sq. ft. of landmark developments delivered across 20+ projects, our focus remains on "
+                "architectural quality and customer trust. If you have questions about our ongoing residential or commercial projects, our sales team (+91 9309505388) will gladly assist you."
+            )
+
+        # The Curve / Virar
+        if "curve" in t or "virar" in t:
+            if language == "hi":
+                return (
+                    "The Curve अभिनव ग्रुप का एक एलीट स्टैंडअलोन सिंगल-टावर रेजिडेंशियल प्रोजेक्ट है जो बोलिंज, विरार वेस्ट, मुंबई MMR में स्थित है।\n"
+                    "• कॉन्फ़िगरेशन: 2 और 3 BHK एलीट रेजिडेंस\n"
+                    "• मुख्य आकर्षण: पैनोरमिक सीनिक व्यूज, आधुनिक क्लबहाउस, स्विमिंग पूल, जिम, चिल्ड्रन्स प्ले एरिया\n"
+                    "• MahaRERA Reg No.: PR1240002600667 | पजेशन टारगेट: जून 2031\n\n"
+                    "अधिक जानकारी या साइट विजिट के लिए हमारी सेल्स टीम से +91 9309505388 पर संपर्क करें।"
+                )
+            return (
+                "The Curve is an elite standalone single-tower residential development located in Bolinj, Virar West, Mumbai MMR.\n"
+                "• Configurations: Thoughtfully designed 2 & 3 BHK residences\n"
+                "• Highlights: Panoramic scenic views, modern clubhouse, fitness centre, children's play area\n"
+                "• MahaRERA Reg No.: PR1240002600667 | Possession Target: June 2031\n\n"
+                "For complete details or to schedule a site visit, please contact our sales team at +91 9309505388 or email sales@abhinavinfra.com."
+            )
+
+        # Samsara / Mukund Nagar
+        if "samsara" in t or "mukund nagar" in t:
+            if language == "hi":
+                return (
+                    "Samsara मुकुंद नगर, सेंट्रल पुणे में स्थित एक अल्ट्रा-लक्ज़री रेजिडेंशियल प्रोजेक्ट है।\n"
+                    "• कॉन्फ़िगरेशन: 3 BHK एक्सक्लूसिव अल्ट्रा-लक्ज़री रेजिडेंस\n"
+                    "• मुख्य आकर्षण: लैंडस्केप टेरेस डेक, मॉडर्न क्लबहाउस, पूरी तरह सुसज्जित जिम, 24x7 मल्टी-टियर सिक्योरिटी\n"
+                    "• MahaRERA Reg No.: P52100079797\n\n"
+                    "कीमत व साइट विजिट के लिए हमारी सेल्स टीम से +91 9309505388 पर संपर्क करें।"
+                )
+            return (
+                "Samsara is an ultra-luxury residential project located in the prestigious neighborhood of Mukund Nagar, Central Pune.\n"
+                "• Configurations: Exclusive 3 BHK ultra-luxury residences\n"
+                "• Highlights: Landscaped terrace deck, modern clubhouse, fully equipped gymnasium, 24x7 multi-tier security\n"
+                "• MahaRERA Reg No.: P52100079797\n\n"
+                "For current pricing or to schedule a site visit, please contact our sales team at +91 9309505388 or email sales@abhinavinfra.com."
+            )
+
+        # Pebbles Greenfield / Tathawade / Wakad
+        if "greenfield" in t or ("pebbles" in t and "bay" not in t):
+            if language == "hi":
+                return (
+                    "Pebbles Greenfield ताथवड़े / वाकड, पुणे में स्थित एक प्रीमियम रेजिडेंशियल प्रोजेक्ट है।\n"
+                    "• कॉन्फ़िगरेशन: 2 और 3 BHK प्रीमियम अपार्टमेंट\n"
+                    "• मुख्य आकर्षण: हिंजवड़ी आईटी पार्क और मुंबई-पुणे एक्सप्रेसवे से बेहतरीन कनेक्टिविटी, क्लबहाउस, स्विमिंग पूल, जिम, लैंडस्केप गार्डन\n"
+                    "• MahaRERA Reg No.: P52100045923\n\n"
+                    "अधिक जानकारी के लिए हमारी सेल्स टीम से +91 9309505388 पर संपर्क करें।"
+                )
+            return (
+                "Pebbles Greenfield is a premium residential development located in Tathawade / Wakad, Pune.\n"
+                "• Configurations: 2 & 3 BHK premium apartments\n"
+                "• Highlights: Seamless connectivity to Hinjawadi IT Park and Mumbai-Pune Expressway, swimming pool, clubhouse, gym, landscaped gardens\n"
+                "• MahaRERA Reg No.: P52100045923\n\n"
+                "For complete details or to schedule a site visit, please contact our sales team at +91 9309505388 or email sales@abhinavinfra.com."
+            )
+
+        # Pebbles Business Bay / Commercial / PBB
+        if "business bay" in t or "pbb" in t:
+            if language == "hi":
+                return (
+                    "Pebbles Business Bay वाकड, पुणे में फीनिक्स मॉल ऑफ द मिलेनियम के सामने स्थित एक प्रीमियम कमर्शियल प्रोजेक्ट है।\n"
+                    "• कॉन्फ़िगरेशन: हाई-स्ट्रीट रिटेल शोरूम, बुटीक कमर्शियल स्पेस और ग्रेड-ए कॉर्पोरेट ऑफिस\n"
+                    "• मुख्य आकर्षण: हाईवे पर बेहतरीन विजिबिलिटी, शानदार ग्लास फसाड, हाई-स्पीड एलिवेटर्स और पर्याप्त पार्किंग\n\n"
+                    "लीज़िंग या खरीद के लिए हमारी सेल्स टीम से +91 9309505388 पर संपर्क करें।"
+                )
+            return (
+                "Pebbles Business Bay is a premier commercial development located opposite Phoenix Mall of the Millennium in Wakad, Pune.\n"
+                "• Configurations: High-street retail showrooms, boutique commercial spaces, and Grade-A corporate offices\n"
+                "• Highlights: Prime highway visibility in Wakad's commercial corridor, expansive glass facade, high-speed elevators, ample parking\n\n"
+                "For sales and leasing inquiries, please contact our sales team at +91 9309505388 or email sales@abhinavinfra.com."
+            )
+
+        # Aeromall
+        if "aeromall" in t:
+            return (
+                "AEROMALL is Pune's first 24x7 operational airport multi-level car parking (MLCP) and passenger transit-cum-retail hub, "
+                "developed by Abhinav Group with the Airport Authority of India at Pune International Airport, Lohegaon. It is a fully delivered landmark."
+            )
+
+        # Amenities: Swimming pool, gym, garden
+        if any(w in t for w in ["swimming pool", "gym", "gymnasium", "garden", "amenities", "clubhouse"]):
+            return (
+                "For residences featuring world-class amenities including swimming pool, fully equipped gymnasium, modern clubhouse, and landscaped gardens, "
+                "we recommend our premier ongoing projects:\n"
+                "• Pebbles Greenfield (Tathawade / Wakad, Pune) - Premium 2 & 3 BHK apartments\n"
+                "• The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences with scenic views and elite clubhouse\n"
+                "• Samsara (Mukund Nagar, Central Pune) - Ultra-luxury 3 BHK residences with landscaped terrace deck\n\n"
+                "For complete details or to schedule a site visit, please contact our sales team at +91 9309505388 or email sales@abhinavinfra.com."
+            )
+
+        return None
 
     def _get_quick_replies(self, intent: str, language: str) -> List[str]:
         if language == "hi":

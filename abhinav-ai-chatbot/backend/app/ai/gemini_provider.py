@@ -17,9 +17,8 @@ from app.ai.provider import AIMessage, AIResponse, BaseAIProvider
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_CHAT_MODEL = "gemini-flash-lite-latest"
+DEFAULT_CHAT_MODEL = "gemini-3.1-flash-lite"
 CANDIDATE_CHAT_MODELS = [
-    "gemini-flash-lite-latest",
     "gemini-3.1-flash-lite",
     "gemini-3.5-flash-lite",
 ]
@@ -88,7 +87,7 @@ class GeminiProvider(BaseAIProvider):
         for model in models_to_try:
             url = f"{BASE_URL}/{model}:generateContent?key={self._api_key}"
             try:
-                async with httpx.AsyncClient(timeout=12.0) as client:
+                async with httpx.AsyncClient(timeout=6.0) as client:
                     res = await client.post(url, json=payload)
 
                     if res.status_code == 200:
@@ -128,6 +127,12 @@ class GeminiProvider(BaseAIProvider):
             except Exception as exc:
                 logger.warning("Gemini exception on %s: %s; trying next model...", model, str(exc))
                 last_error = str(exc)
+                # If network or DNS resolution failure (getaddrinfo / ConnectError / ConnectTimeout),
+                # all models on this host will fail. Break immediately to avoid 30+ second lag!
+                err_str = str(exc).lower()
+                if "getaddrinfo" in err_str or "connecterror" in err_str or "timeout" in err_str:
+                    logger.error("Network/DNS failure on %s (%s). Failing fast to fallback.", model, str(exc))
+                    break
                 continue
 
         # If all candidates failed, return standard polite sales escalation
