@@ -27,10 +27,12 @@ async def lifespan(app: FastAPI):
     """Startup and shutdown events."""
     logger.info("starting_up", env=settings.app_env, debug=settings.debug)
 
-    # Initialize database tables on startup (dev convenience; prod uses Alembic)
-    if settings.app_env == "development":
+    # Initialize database tables on startup (creates tables safely if missing)
+    try:
         await init_db()
         logger.info("database_initialized")
+    except Exception as exc:
+        logger.warning("database_init_failed", error=str(exc))
 
     db_ok = await check_db_connection()
     logger.info("database_health", connected=db_ok)
@@ -196,12 +198,14 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
 _BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+_BACKEND_STATIC = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "static"))
 _WIDGET_DIST = os.path.join(_BASE_DIR, "frontend", "chatbot-widget", "dist")
 _WIDGET_HTML = os.path.join(_BASE_DIR, "frontend", "chatbot-widget", "test.html")
 _ADMIN_DIST = os.path.join(_BASE_DIR, "frontend", "admin-dashboard", "dist")
 
-if os.path.isdir(_WIDGET_DIST):
-    app.mount("/static", StaticFiles(directory=_WIDGET_DIST), name="static")
+_STATIC_DIR = _WIDGET_DIST if os.path.isdir(_WIDGET_DIST) else (_BACKEND_STATIC if os.path.isdir(_BACKEND_STATIC) else None)
+if _STATIC_DIR:
+    app.mount("/static", StaticFiles(directory=_STATIC_DIR), name="static")
 
 if os.path.isdir(_ADMIN_DIST):
     _assets_dir = os.path.join(_ADMIN_DIST, "assets")
@@ -221,6 +225,9 @@ async def widget_test_page():
     """Serves the test page with the floating chatbot widget."""
     if os.path.isfile(_WIDGET_HTML):
         return FileResponse(_WIDGET_HTML)
+    backend_test = os.path.join(_BACKEND_STATIC, "test.html") if _BACKEND_STATIC else ""
+    if backend_test and os.path.isfile(backend_test):
+        return FileResponse(backend_test)
     return {"message": "Widget test file not found"}
 
 @app.get("/", tags=["Root"])
