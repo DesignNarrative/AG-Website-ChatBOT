@@ -23,8 +23,8 @@
   var SOURCE_PAGE = cfg.sourcePage || window.location.href;
   var LANG        = cfg.lang      || 'auto';      // 'en' | 'hi' | 'auto'
   var POSITION    = cfg.position  || 'bottom-right';
-  var BRAND_COLOR = cfg.brandColor || '#1a2f5a';  // Abhinav deep navy
-  var ACCENT_COLOR = cfg.accentColor || '#d4a017'; // Gold accent
+  var BRAND_COLOR = cfg.brandColor || '#0284c7';  // Sky Blue primary
+  var ACCENT_COLOR = cfg.accentColor || '#38bdf8'; // Sky Blue accent
 
   /* ── State ─────────────────────────────────────────────── */
   var state = {
@@ -55,7 +55,7 @@
       lead_prompt: 'Would you like our sales team to contact you with more details?',
       lead_name: 'Please share your name:',
       lead_phone: 'Your 10-digit mobile number:',
-      lead_email: 'Email address (optional):',
+      lead_email: 'Email address:',
       lead_project: 'Interested project:',
       lead_project_select: 'Select a project (optional)',
       lead_project_other: 'Other',
@@ -63,7 +63,7 @@
       lead_confirm: 'Thank you! Our team will contact you shortly. 📞',
       lead_btn: 'Get a Callback',
       typing: 'Typing...',
-      error: 'Connection issue. Please try again or call us at +91 9309505388.',
+      error: 'Connection issue. Please try again or call us at +91 9730397979.',
       powered: 'Powered by Abhinav Group AI',
       close: 'Close chat',
       open: 'Chat with us',
@@ -84,7 +84,7 @@
       lead_prompt: 'क्या आप चाहते हैं कि हमारी सेल्स टीम आपसे संपर्क करे?',
       lead_name: 'कृपया अपना नाम बताएं:',
       lead_phone: 'आपका 10 अंकों का मोबाइल नंबर:',
-      lead_email: 'ईमेल आईडी (वैकल्पिक):',
+      lead_email: 'ईमेल आईडी:',
       lead_project: 'रुचि का प्रोजेक्ट:',
       lead_project_select: 'प्रोजेक्ट चुनें (वैकल्पिक)',
       lead_project_other: 'अन्य (Other)',
@@ -92,7 +92,7 @@
       lead_confirm: 'धन्यवाद! हमारी टीम जल्द संपर्क करेगी। 📞',
       lead_btn: 'कॉलबैक के लिए अनुरोध करें',
       typing: 'टाइप हो रहा है...',
-      error: 'कनेक्शन त्रुटि। कृपया पुनः प्रयास करें या +91 9309505388 पर कॉल करें।',
+      error: 'कनेक्शन त्रुटि। कृपया पुनः प्रयास करें या +91 9730397979 पर कॉल करें।',
       powered: 'Abhinav Group AI द्वारा संचालित',
       close: 'चैट बंद करें',
       open: 'हमसे चैट करें',
@@ -113,85 +113,87 @@
       '#abhinav-chat-widget.pos-bottom-left{bottom:24px;left:24px}',
 
       /* Launcher bubble */
-      '#abhinav-launcher{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,' + BRAND_COLOR + ',' + ACCENT_COLOR + ');cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.3);border:none;transition:transform 0.2s,box-shadow 0.2s;position:relative}',
-      '#abhinav-launcher:hover{transform:scale(1.08);box-shadow:0 6px 25px rgba(0,0,0,0.4)}',
+      '#abhinav-launcher{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,' + BRAND_COLOR + ',' + ACCENT_COLOR + ');cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(2,132,199,0.4);border:none;transition:transform 0.2s,box-shadow 0.2s;position:relative}',
+      '#abhinav-launcher:hover{transform:scale(1.08);box-shadow:0 6px 25px rgba(2,132,199,0.5)}',
       '#abhinav-launcher svg{width:28px;height:28px;fill:white;transition:opacity 0.2s}',
       '#abhinav-launcher .badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:#e53935;color:white;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;animation:pulse 2s infinite}',
       '@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}',
 
       /* Chat panel */
-      '#abhinav-chat-panel{width:360px;height:560px;background:white;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.2);display:flex;flex-direction:column;overflow:hidden;transition:all 0.3s ease;transform-origin:bottom right}',
+      '#abhinav-chat-panel{width:360px;height:560px;background:white;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.18);display:flex;flex-direction:column;overflow:hidden;transition:all 0.3s ease;transform-origin:bottom right}',
       '#abhinav-chat-panel.hidden{opacity:0;transform:scale(0.85) translateY(20px);pointer-events:none;position:absolute;bottom:70px;right:0}',
       '#abhinav-chat-panel.visible{opacity:1;transform:scale(1) translateY(0);position:absolute;bottom:70px;right:0}',
 
       /* Header */
-      '#abhinav-header{background:linear-gradient(135deg,' + BRAND_COLOR + ' 0%,#243d6e 100%);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}',
-      '#abhinav-header-logo{width:38px;height:38px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;font-weight:700;color:' + BRAND_COLOR + ';font-size:14px;flex-shrink:0}',
+      '#abhinav-header{background:linear-gradient(135deg,' + BRAND_COLOR + ' 0%,#0369a1 100%);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}',
+      '#abhinav-header-logo{width:38px;height:38px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;font-weight:700;color:' + BRAND_COLOR + ';font-size:14px;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,0.1)}',
       '#abhinav-header-info{flex:1;min-width:0}',
       '#abhinav-header-title{color:white;font-weight:700;font-size:15px;margin:0}',
-      '#abhinav-header-subtitle{color:rgba(255,255,255,0.75);font-size:11px;margin:0}',
+      '#abhinav-header-subtitle{color:rgba(255,255,255,0.85);font-size:11px;margin:0}',
       '#abhinav-header-status{display:flex;align-items:center;gap:5px;margin-top:2px}',
       '#abhinav-header-status .dot{width:7px;height:7px;border-radius:50%;background:#4caf50;animation:pulse 2s infinite}',
-      '#abhinav-header-status span{color:rgba(255,255,255,0.8);font-size:11px}',
-      '#abhinav-close-btn{background:rgba(255,255,255,0.15);border:none;color:white;cursor:pointer;padding:6px;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s}',
-      '#abhinav-close-btn:hover{background:rgba(255,255,255,0.3)}',
+      '#abhinav-header-status span{color:rgba(255,255,255,0.9);font-size:11px}',
+      '#abhinav-close-btn{background:rgba(255,255,255,0.2);border:none;color:white;cursor:pointer;padding:6px;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s}',
+      '#abhinav-close-btn:hover{background:rgba(255,255,255,0.35)}',
 
       /* Messages area */
-      '#abhinav-messages{flex:1;overflow-y:auto;padding:16px 12px;display:flex;flex-direction:column;gap:10px;background:#f5f7fa;scroll-behavior:smooth}',
+      '#abhinav-messages{flex:1;overflow-y:auto;padding:16px 12px;display:flex;flex-direction:column;gap:10px;background:#f8fafc}',
       '#abhinav-messages::-webkit-scrollbar{width:4px}',
-      '#abhinav-messages::-webkit-scrollbar-thumb{background:#ccc;border-radius:4px}',
+      '#abhinav-messages::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}',
 
       /* Message bubbles */
-      '.ag-msg{display:flex;flex-direction:column;max-width:82%;animation:fadeUp 0.25s ease}',
+      '.ag-msg{display:flex;flex-direction:column;max-width:82%;animation:fadeUp 0.25s ease;flex-shrink:0}',
       '@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}',
       '.ag-msg.user{align-self:flex-end;align-items:flex-end}',
       '.ag-msg.bot{align-self:flex-start;align-items:flex-start}',
       '.ag-bubble{padding:10px 14px;border-radius:18px;font-size:14px;line-height:1.5;white-space:pre-wrap;word-break:break-word}',
       '.ag-msg.user .ag-bubble{background:' + BRAND_COLOR + ';color:white;border-bottom-right-radius:4px}',
-      '.ag-msg.bot .ag-bubble{background:white;color:#2d3748;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.1)}',
-      '.ag-time{font-size:10px;color:#9ca3af;margin-top:3px;padding:0 4px}',
+      '.ag-msg.bot .ag-bubble{background:white;color:#1e293b;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.08)}',
+      '.ag-time{font-size:10px;color:#94a3b8;margin-top:3px;padding:0 4px}',
 
       /* Typing indicator */
-      '#abhinav-typing{align-self:flex-start;background:white;border-radius:18px;border-bottom-left-radius:4px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.1)}',
-      '#abhinav-typing span{display:inline-block;width:7px;height:7px;border-radius:50%;background:#9ca3af;margin:0 2px;animation:bounce 1.2s infinite}',
+      '#abhinav-typing{align-self:flex-start;background:white;border-radius:18px;border-bottom-left-radius:4px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.08);flex-shrink:0}',
+      '#abhinav-typing span{display:inline-block;width:7px;height:7px;border-radius:50%;background:#94a3b8;margin:0 2px;animation:bounce 1.2s infinite}',
       '#abhinav-typing span:nth-child(2){animation-delay:0.2s}',
       '#abhinav-typing span:nth-child(3){animation-delay:0.4s}',
       '@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}',
 
       /* Quick replies */
-      '#abhinav-quick-replies{padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;background:#f5f7fa;border-top:1px solid #e5e7eb}',
+      '#abhinav-quick-replies{padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;background:#f8fafc;border-top:1px solid #e2e8f0;flex-shrink:0}',
       '.ag-qr{background:white;border:1.5px solid ' + BRAND_COLOR + ';color:' + BRAND_COLOR + ';border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap}',
-      '.ag-qr:hover{background:' + BRAND_COLOR + ';color:white}',
+      '.ag-qr:hover{background:' + BRAND_COLOR + ';color:white;box-shadow:0 2px 8px rgba(2,132,199,0.25)}',
 
       /* Input area */
-      '#abhinav-input-area{padding:12px;background:white;border-top:1px solid #e5e7eb;display:flex;gap:8px;flex-shrink:0;align-items:flex-end}',
-      '#abhinav-input{flex:1;border:1.5px solid #e5e7eb;border-radius:24px;padding:10px 16px;font-size:14px;outline:none;resize:none;max-height:100px;font-family:inherit;transition:border-color 0.2s;line-height:1.4}',
+      '#abhinav-input-area{padding:12px;background:white;border-top:1px solid #e2e8f0;display:flex;gap:8px;flex-shrink:0;align-items:flex-end}',
+      '#abhinav-input{flex:1;border:1.5px solid #cbd5e1;border-radius:24px;padding:10px 16px;font-size:14px;outline:none;resize:none;max-height:100px;font-family:inherit;transition:border-color 0.2s;line-height:1.4}',
       '#abhinav-input:focus{border-color:' + BRAND_COLOR + '}',
       '#abhinav-send{width:40px;height:40px;border-radius:50%;background:' + BRAND_COLOR + ';border:none;color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s;align-self:flex-end}',
-      '#abhinav-send:hover{background:#243d6e}',
-      '#abhinav-send:disabled{background:#9ca3af;cursor:not-allowed}',
+      '#abhinav-send:hover{background:#0369a1}',
+      '#abhinav-send:disabled{background:#94a3b8;cursor:not-allowed}',
       '#abhinav-send svg{width:18px;height:18px;fill:white}',
 
       /* Lead capture form */
-      '.ag-lead-card{background:white;border:1.5px solid ' + ACCENT_COLOR + ';border-radius:12px;padding:14px;margin-top:4px;animation:fadeUp 0.25s ease}',
-      '.ag-lead-card p{margin:0 0 10px;color:#2d3748;font-size:13px}',
-      '.ag-lead-input{width:100%;border:1.5px solid #e5e7eb;border-radius:8px;padding:9px 12px;font-size:13px;outline:none;box-sizing:border-box;font-family:inherit;transition:border-color 0.2s}',
+      '.ag-lead-card{background:white;border:1.5px solid ' + BRAND_COLOR + ';border-radius:12px;padding:14px;margin-top:4px;animation:fadeUp 0.25s ease;box-shadow:0 2px 8px rgba(2,132,199,0.15);flex-shrink:0}',
+      '.ag-lead-card p{margin:0 0 10px;color:#1e293b;font-size:13px}',
+      '.ag-lead-input{width:100%;border:1.5px solid #cbd5e1;border-radius:8px;padding:9px 12px;font-size:13px;outline:none;box-sizing:border-box;font-family:inherit;transition:border-color 0.2s}',
       '.ag-lead-input:focus{border-color:' + BRAND_COLOR + '}',
       'select.ag-lead-input{background-color:white;color:#1e293b;cursor:pointer}',
-      '.ag-lead-btn{margin-top:10px;width:100%;background:' + ACCENT_COLOR + ';color:' + BRAND_COLOR + ';border:none;border-radius:8px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity 0.2s}',
-      '.ag-lead-btn:hover{opacity:0.9}',
+      '.ag-lead-btn{margin-top:10px;width:100%;background:linear-gradient(135deg,' + BRAND_COLOR + ',#0369a1);color:white;border:none;border-radius:8px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity 0.2s}',
+      '.ag-lead-btn:hover{opacity:0.92}',
 
       /* Project card */
-      '.ag-project-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);margin-top:6px;animation:fadeUp 0.25s ease}',
-      '.ag-project-card img{width:100%;height:120px;object-fit:cover}',
-      '.ag-project-card-body{padding:10px 12px}',
+      '.ag-project-card{background:white;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,0.08);margin-top:8px;margin-bottom:6px;animation:fadeUp 0.25s ease;display:flex;flex-direction:column;flex-shrink:0;min-height:240px}',
+      '.ag-project-card-img-wrap{width:100%;height:160px;background:#f1f5f9;overflow:hidden;position:relative;flex-shrink:0}',
+      '.ag-project-card-img{width:100%;height:160px;min-height:160px;max-height:160px;object-fit:cover;display:block}',
+      '.ag-project-card-body{padding:12px 14px;flex-shrink:0}',
       '.ag-project-card-title{font-weight:700;color:' + BRAND_COLOR + ';font-size:14px;margin:0 0 4px}',
-      '.ag-project-card-info{font-size:12px;color:#6b7280;margin:0 0 8px}',
-      '.ag-project-card-btn{display:inline-block;background:' + BRAND_COLOR + ';color:white;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;text-decoration:none;cursor:pointer;border:none}',
+      '.ag-project-card-info{font-size:12px;color:#64748b;margin:0 0 10px;line-height:1.4}',
+      '.ag-project-card-btn{display:inline-block;background:linear-gradient(135deg,' + BRAND_COLOR + ',#0369a1);color:white;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:600;text-decoration:none;cursor:pointer;border:none;transition:opacity 0.2s}',
+      '.ag-project-card-btn:hover{opacity:0.92}',
 
       /* Footer */
-      '#abhinav-footer{padding:6px;text-align:center;background:white;border-top:1px solid #f0f0f0}',
-      '#abhinav-footer a{font-size:10px;color:#9ca3af;text-decoration:none}',
+      '#abhinav-footer{padding:6px;text-align:center;background:white;border-top:1px solid #f1f5f9}',
+      '#abhinav-footer a{font-size:10px;color:#94a3b8;text-decoration:none}',
       '#abhinav-footer a:hover{color:' + BRAND_COLOR + '}',
 
       /* Mobile responsive */
@@ -280,6 +282,33 @@
     return d.getHours() + ':' + ('0' + d.getMinutes()).slice(-2) + (d.getHours() >= 12 ? ' PM' : ' AM');
   }
 
+  /* ── Clean Message Formatting (Strip raw markdown artifacts like ###, ***) ── */
+  function formatWidgetMessage(raw) {
+    if (!raw) return '';
+    // Strip markdown heading hashes (###, ##, #) at line start
+    var cleaned = raw.replace(/^[#]{1,6}\s*/gm, '');
+    // Strip horizontal dividers (---, ***, ___)
+    cleaned = cleaned.replace(/^[*\-_]{3,}\s*$/gm, '');
+    // Strip triple or more asterisks
+    cleaned = cleaned.replace(/\*{3,}/g, '');
+    // Trim extra consecutive newlines
+    cleaned = cleaned.replace(/\n{3,}/g, '\n\n').trim();
+
+    // Escape HTML first for XSS safety
+    var safe = escapeHtml(cleaned);
+
+    // Convert **bold** to <strong>bold</strong>
+    safe = safe.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+    // Convert bullets (* item or - item) at start of lines into clean bullet • item
+    safe = safe.replace(/^[*\-]\s+/gm, '• ');
+
+    // Convert newlines to <br>
+    safe = safe.replace(/\n/g, '<br>');
+
+    return safe;
+  }
+
   /* ── Render Messages ────────────────────────────────────── */
   function appendMessage(role, text, extra) {
     extra = extra || {};
@@ -293,7 +322,7 @@
 
     var bubble = document.createElement('div');
     bubble.className = 'ag-bubble';
-    bubble.textContent = text;
+    bubble.innerHTML = formatWidgetMessage(text);
     div.appendChild(bubble);
 
     var timeEl = document.createElement('div');
@@ -310,21 +339,45 @@
       });
     }
 
-    scrollToBottom();
+    if (role === 'user') {
+      state.lastUserMsgEl = div;
+      scrollToBottom();
+    } else {
+      var scrollTarget = state.lastUserMsgEl || div;
+      scrollToMessageStart(scrollTarget);
+    }
   }
 
   function appendProjectCard(card) {
     var div = document.createElement('div');
     div.className = 'ag-project-card';
-    var imgHtml = card.image_url
-      ? '<img src="' + escapeHtml(card.image_url) + '" alt="' + escapeHtml(card.name) + '" loading="lazy">'
+    var rawUrl = card.image_url || '';
+    var fullUrl = rawUrl;
+    if (fullUrl && !fullUrl.startsWith('http://') && !fullUrl.startsWith('https://')) {
+      var base = API_BASE || (typeof window !== 'undefined' && window.location.origin ? window.location.origin : '');
+      fullUrl = base ? base.replace(/\/$/, '') + (fullUrl.startsWith('/') ? '' : '/') + fullUrl : fullUrl;
+    }
+    var imgHtml = fullUrl
+      ? '<div class="ag-project-card-img-wrap">' +
+        '<img class="ag-project-card-img" src="' + escapeHtml(fullUrl) + '" alt="' + escapeHtml(card.name) + '" loading="eager" decoding="async" onerror="if(!this._retried && \'' + escapeHtml(rawUrl) + '\' !== this.src){this._retried=true; this.src=\'' + escapeHtml(rawUrl) + '\';}">' +
+        '</div>'
       : '';
     div.innerHTML = imgHtml +
       '<div class="ag-project-card-body">' +
       '<p class="ag-project-card-title">' + escapeHtml(card.name) + '</p>' +
       '<p class="ag-project-card-info">' + escapeHtml(card.location || '') + (card.config ? ' · ' + card.config : '') + '</p>' +
-      '<button class="ag-project-card-btn" onclick="window.open(\'' + escapeHtml(card.url || '#') + '\',\'_blank\')">View Project</button>' +
+      '<button class="ag-project-card-btn">' + (state.lang === 'hi' ? 'प्रोजेक्ट देखें' : 'View Project') + '</button>' +
       '</div>';
+    var btn = div.querySelector('.ag-project-card-btn');
+    if (btn) {
+      btn.addEventListener('click', function (e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        if (card.url) window.open(card.url, '_blank');
+      });
+    }
     el.messages.appendChild(div);
   }
 
@@ -343,7 +396,11 @@
       var btn = document.createElement('button');
       btn.className = 'ag-qr';
       btn.textContent = reply;
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', function (e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
         sendMessage(reply);
       });
       el.quickReplies.appendChild(btn);
@@ -353,22 +410,45 @@
   function showLeadCard() {
     if (state.leadCaptured) return;
     var existing = document.getElementById('ag-lead-form');
+
+    // Normalize selectedProject to exact dropdown option values
+    var rawProject = (state.lastProject || '').toLowerCase();
+    var selectedProject = '';
+    if (rawProject.indexOf('curve') !== -1) {
+      selectedProject = 'The Curve';
+    } else if (rawProject.indexOf('samsara') !== -1) {
+      selectedProject = 'Samsara';
+    } else if (rawProject.indexOf('business bay') !== -1) {
+      selectedProject = 'Pebbles Business Bay';
+    } else if (rawProject.indexOf('greenfield') !== -1 || rawProject.indexOf('pebbles') !== -1) {
+      selectedProject = 'Pebbles Greenfield';
+    } else if (state.lastProject === 'Other') {
+      selectedProject = 'Other';
+    }
+
+    // Preserve any existing input if repositioning form to active bottom
+    var prevName = '', prevPhone = '', prevEmail = '';
     if (existing) {
+      var nInput = document.getElementById('ag-lead-name');
+      var pInput = document.getElementById('ag-lead-phone');
+      var eInput = document.getElementById('ag-lead-email');
+      if (nInput) prevName = nInput.value || '';
+      if (pInput) prevPhone = pInput.value || '';
+      if (eInput) prevEmail = eInput.value || '';
       existing.remove();
     }
+
     var card = document.createElement('div');
     card.className = 'ag-lead-card';
     card.id = 'ag-lead-form';
 
-    var selectedProject = state.lastProject || '';
-
     card.innerHTML =
       '<p>' + t('lead_name') + '</p>' +
-      '<input class="ag-lead-input" id="ag-lead-name" type="text" placeholder="Your name" autocomplete="name">' +
+      '<input class="ag-lead-input" id="ag-lead-name" type="text" placeholder="Your name" autocomplete="name" value="' + prevName.replace(/"/g, '&quot;') + '">' +
       '<p style="margin-top:10px">' + t('lead_phone') + '</p>' +
-      '<input class="ag-lead-input" id="ag-lead-phone" type="tel" placeholder="10-digit mobile" autocomplete="tel" maxlength="13">' +
+      '<input class="ag-lead-input" id="ag-lead-phone" type="tel" placeholder="10-digit mobile" autocomplete="tel" maxlength="13" value="' + prevPhone.replace(/"/g, '&quot;') + '">' +
       '<p style="margin-top:10px">' + t('lead_email') + '</p>' +
-      '<input class="ag-lead-input" id="ag-lead-email" type="email" placeholder="name@example.com (optional)" autocomplete="email">' +
+      '<input class="ag-lead-input" id="ag-lead-email" type="email" placeholder="name@example.com" autocomplete="email" value="' + prevEmail.replace(/"/g, '&quot;') + '">' +
       '<p style="margin-top:10px">' + t('lead_project') + '</p>' +
       '<select class="ag-lead-input" id="ag-lead-project" style="background-color:white;cursor:pointer;">' +
         '<option value="">' + t('lead_project_select') + '</option>' +
@@ -376,27 +456,17 @@
         '<option value="Pebbles Greenfield"' + (selectedProject === 'Pebbles Greenfield' ? ' selected' : '') + '>Pebbles Greenfield</option>' +
         '<option value="The Curve"' + (selectedProject === 'The Curve' ? ' selected' : '') + '>The Curve</option>' +
         '<option value="Pebbles Business Bay"' + (selectedProject === 'Pebbles Business Bay' ? ' selected' : '') + '>Pebbles Business Bay</option>' +
-        '<option value="Other"' + (selectedProject === 'Other' ? ' selected' : '') + '>' + t('lead_project_other') + '</option>' +
       '</select>' +
-      '<input class="ag-lead-input" id="ag-lead-project-other" type="text" placeholder="' + t('lead_project_other_ph') + '" style="display:' + (selectedProject === 'Other' ? 'block' : 'none') + ';margin-top:8px;">' +
       '<button class="ag-lead-btn" id="ag-lead-submit">' + t('lead_btn') + '</button>';
     el.messages.appendChild(card);
-    scrollToBottom();
 
-    var projSelect = document.getElementById('ag-lead-project');
-    var projOther = document.getElementById('ag-lead-project-other');
-    if (projSelect && projOther) {
-      projSelect.addEventListener('change', function () {
-        if (projSelect.value === 'Other') {
-          projOther.style.display = 'block';
-          projOther.focus();
-        } else {
-          projOther.style.display = 'none';
-        }
-      });
-    }
-
-    document.getElementById('ag-lead-submit').addEventListener('click', submitLead);
+    document.getElementById('ag-lead-submit').addEventListener('click', function (e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      submitLead();
+    });
   }
 
   function submitLead() {
@@ -406,11 +476,6 @@
 
     var projectSelect = document.getElementById('ag-lead-project');
     var projectVal = (projectSelect ? projectSelect.value || '' : '').trim();
-    if (projectVal === 'Other') {
-      var otherInput = document.getElementById('ag-lead-project-other');
-      var customVal = (otherInput ? otherInput.value || '' : '').trim();
-      projectVal = customVal || 'Other';
-    }
 
     if (!name) {
       document.getElementById('ag-lead-name').style.borderColor = 'red';
@@ -420,8 +485,13 @@
       document.getElementById('ag-lead-phone').style.borderColor = 'red';
       return;
     }
+    if (!email) {
+      document.getElementById('ag-lead-email').style.borderColor = 'red';
+      return;
+    }
 
     state.leadData = { name: name, phone: phone, email: email, interested_project: projectVal || undefined };
+    state.lastUserMsgEl = null;
     var formEl = document.getElementById('ag-lead-form');
     if (formEl) formEl.remove();
 
@@ -439,12 +509,34 @@
       appendMessage('bot', t('lead_confirm'));
       renderQuickReplies([t('qr_projects'), t('qr_brochure')]);
     }).catch(function () {
-      appendMessage('bot', 'Thank you! You can reach us directly at +91 9309505388.');
+      appendMessage('bot', 'Thank you! You can reach us directly at +91 9730397979.');
     });
   }
 
+  function scrollToMessageStart(msgEl) {
+    if (!el.messages || !msgEl) return;
+    function align() {
+      if (el.messages && msgEl) {
+        var cRect = el.messages.getBoundingClientRect();
+        var mRect = msgEl.getBoundingClientRect();
+        var targetScroll = el.messages.scrollTop + (mRect.top - cRect.top) - 10;
+        el.messages.scrollTop = Math.max(0, targetScroll);
+      }
+    }
+    align();
+    setTimeout(align, 60);
+    setTimeout(align, 180);
+  }
+
   function scrollToBottom() {
-    el.messages.scrollTop = el.messages.scrollHeight;
+    if (el.messages) {
+      el.messages.scrollTop = el.messages.scrollHeight;
+    }
+    setTimeout(function () {
+      if (el.messages) {
+        el.messages.scrollTop = el.messages.scrollHeight;
+      }
+    }, 50);
   }
 
   function escapeHtml(str) {
@@ -501,18 +593,30 @@
           renderQuickReplies(data.quick_replies);
         }
 
-        // Offer lead capture after pricing / escalation intents
-        var leadIntents = ['pricing_enquiry', 'escalation', 'brochure_request', 'project_enquiry_samsara',
-          'project_enquiry_greenfield', 'project_enquiry_curve', 'project_enquiry_aeromall'];
-        if (!state.leadCaptured && leadIntents.indexOf(data.intent) !== -1) {
-          setTimeout(showLeadCard, 1200);
+        // Track last mentioned project for lead form convenience
+        var cardName = (data.project_cards && data.project_cards.length === 1 && data.project_cards[0].name) ? data.project_cards[0].name.toLowerCase() : '';
+        if (data.intent === 'project_enquiry_samsara' || cardName.indexOf('samsara') !== -1) state.lastProject = 'Samsara';
+        else if (data.intent === 'project_enquiry_greenfield' || cardName.indexOf('greenfield') !== -1) state.lastProject = 'Pebbles Greenfield';
+        else if (data.intent === 'project_enquiry_curve' || cardName.indexOf('curve') !== -1) state.lastProject = 'The Curve';
+        else if (data.intent === 'project_enquiry_business_bay' || cardName.indexOf('business bay') !== -1) state.lastProject = 'Pebbles Business Bay';
+        else if (data.project_cards && data.project_cards.length === 1 && data.project_cards[0].name) {
+          state.lastProject = data.project_cards[0].name;
         }
 
-        // Track message count for proactive lead prompt
+        // Offer lead capture after explicit intent: pricing, escalation, brochure, or after meaningful chat
         state.messages.push({ role: 'user', text: text });
         state.messages.push({ role: 'bot', text: data.reply });
-        if (!state.leadCaptured && state.messages.length >= 6) {
-          setTimeout(showLeadCard, 800);
+
+        var leadIntents = [
+          'pricing_enquiry', 'escalation', 'brochure_request', 'nri_enquiry',
+          'project_enquiry_samsara', 'project_enquiry_greenfield',
+          'project_enquiry_curve', 'project_enquiry_business_bay',
+          'config_enquiry'
+        ];
+        if (!state.leadCaptured && leadIntents.indexOf(data.intent) !== -1) {
+          setTimeout(showLeadCard, 700);
+        } else if (!state.leadCaptured && state.messages.length >= 4) {
+          setTimeout(showLeadCard, 900);
         }
       })
       .catch(function (err) {
@@ -564,14 +668,27 @@
 
   /* ── Event Listeners ────────────────────────────────────── */
   function bindEvents() {
-    el.launcher.addEventListener('click', toggleWidget);
-    el.closeBtn.addEventListener('click', closeWidget);
-    el.sendBtn.addEventListener('click', function () { sendMessage(); });
+    el.launcher.addEventListener('click', function (e) {
+      if (e) e.stopPropagation();
+      toggleWidget();
+    });
+    el.closeBtn.addEventListener('click', function (e) {
+      if (e) e.stopPropagation();
+      closeWidget();
+    });
+    el.sendBtn.addEventListener('click', function (e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      sendMessage();
+    });
 
     // Send on Enter (Shift+Enter = newline)
     el.input.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
+        e.stopPropagation();
         sendMessage();
       }
     });
@@ -587,9 +704,19 @@
       if (e.key === 'Escape' && state.open) closeWidget();
     });
 
-    // Close on outside click
+    // Close on outside click (robust check against detached buttons & internal elements)
     document.addEventListener('click', function (e) {
-      if (state.open && !el.widget.contains(e.target)) closeWidget();
+      if (!state.open) return;
+      if (!e || !e.target) return;
+      // If clicked inside the launcher, ignore
+      if (el.launcher && (el.launcher === e.target || el.launcher.contains(e.target))) return;
+      // If clicked inside the chat panel, ignore
+      if (el.widget && el.widget.contains(e.target)) return;
+      // If clicked node was removed from DOM during event handling (e.g. quick reply cleared), ignore
+      if (!document.body.contains(e.target)) return;
+      // Check closest container if browser supports it
+      if (e.target.closest && (e.target.closest('#abhinav-chat-panel') || e.target.closest('#abhinav-launcher') || e.target.closest('#abhinav-chat-widget'))) return;
+      closeWidget();
     });
   }
 
