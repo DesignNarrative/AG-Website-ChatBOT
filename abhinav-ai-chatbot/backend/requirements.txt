@@ -10,6 +10,7 @@ python-multipart==0.0.12
 # --- Database (SQLAlchemy 2.x + Alembic migrations) ---
 sqlalchemy==2.0.36
 alembic==1.14.0
+aiosqlite>=0.20.0
 
 # --- SQLite (dev) driver — built into Python, no extra package ---
 # PostgreSQL (staging/prod) driver
