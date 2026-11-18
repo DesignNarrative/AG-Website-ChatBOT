@@ -41,7 +41,7 @@
   var T = {
     en: {
       title: 'Abhinav Group',
-      subtitle: 'Property Assistant',
+      subtitle: 'AI Assistant',
       online: 'We are online to assist you',
       placeholder: 'Type your message...',
       send: 'Send',
@@ -70,7 +70,7 @@
     },
     hi: {
       title: 'अभिनव ग्रुप',
-      subtitle: 'प्रॉपर्टी असिस्टेंट',
+      subtitle: 'AI असिस्टेंट',
       online: 'हम आपकी सहायता के लिए ऑनलाइन हैं',
       placeholder: 'अपना संदेश टाइप करें...',
       send: 'भेजें',
