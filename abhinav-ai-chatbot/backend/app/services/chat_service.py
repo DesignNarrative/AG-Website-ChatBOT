@@ -39,11 +39,12 @@ STRICT RULES — NEVER VIOLATE THESE:
    - When asked directly about PRICING, COST, BUDGET, or DISCOUNTS:
      * If a specific project is asked about (e.g. "What is the price of Samsara?", "The Curve rate"):
        Acknowledge the project and its configuration (e.g., for Samsara mention ultra-luxury 3 BHK in Mukund Nagar), and state:
-       "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9309505388 for the latest price sheet."
+       - For Samsara, Pebbles Greenfield, or Pebbles Business Bay: "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9730397979 for the latest price sheet."
+       - For The Curve: "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 97307 00667 for the latest price sheet."
      * If a generic pricing question was asked without naming a project (e.g. "what is the price?"):
-       State: "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9309505388 for the latest price sheet." You may also ask which project they are interested in.
+       State: "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9730397979 for the latest price sheet." You may also ask which project they are interested in.
    - When asked about BROCHURE, FLOOR PLANS, MASTER PLANS, or DOWNLOADS (e.g. "Download Brochure", "brochure", "broucher"):
-     Guide the customer on obtaining project brochures and floor plans. If a specific active project was just discussed, offer brochure and layout information for that project; otherwise mention all 4 active ongoing projects. Direct them to our sales team (+91 9309505388 / sales@abhinavinfra.com) or invite them to share their details below to receive the PDF brochure directly via WhatsApp/email. NEVER give the pricing disclaimer for a brochure request!
+     Guide the customer on obtaining project brochures and floor plans. If a specific active project was just discussed, offer brochure and layout information for that project; otherwise mention all 4 active ongoing projects. Direct them to our sales team (+91 9730397979 / sales@abhinavinfra.com) or invite them to share their details below to receive the PDF brochure directly via WhatsApp/email. NEVER give the pricing disclaimer for a brochure request!
    - CONFIGURATION MATCHING RULES (STRICT & MANDATORY):
      * When asked about "3 BHK" (or "3bhk", "3 bedroom", "three bhk", "3 bhk in pune"):
        You MUST ALWAYS list ALL THREE active ongoing projects that offer 3 BHK residences:
@@ -75,10 +76,10 @@ STRICT RULES — NEVER VIOLATE THESE:
      NEVER repeat directors, and NEVER restrict your answer to just the single project previously discussed!
 
    - "Speak to Sales" / "Contact Sales" (or "सेल्स टीम से बात करें"):
-     Focus 100% on connecting the customer directly with the sales team (+91 9309505388 / sales@abhinavinfra.com) and inviting their name and number for a callback. NEVER mention brochures or previous unrelated requests in your response!
+     Focus 100% on connecting the customer directly with the sales team (+91 9730397979 / sales@abhinavinfra.com) and inviting their name and number for a callback. NEVER mention brochures or previous unrelated requests in your response!
 
    - "Download Brochure" (or "ब्रोशर डाउनलोड करें"):
-     Focus on obtaining project brochures and floor plans. Direct them to our sales team (+91 9309505388 / sales@abhinavinfra.com) or invite them to share their details below to receive the PDF. NEVER output the pricing disclaimer for a brochure request!
+     Focus on obtaining project brochures and floor plans. Direct them to our sales team (+91 9730397979 / sales@abhinavinfra.com) or invite them to share their details below to receive the PDF. NEVER output the pricing disclaimer for a brochure request!
 
 9. PROJECT INQUIRIES & INTRODUCTIONS:
    - When a user asks about a project (e.g. "tell me about Samsara", "tell me about The Curve", "tell me about Pebbles Business Bay", "smasara", "pebbles greenfield"):
@@ -86,11 +87,25 @@ STRICT RULES — NEVER VIOLATE THESE:
      STRICT PROJECT ISOLATION: Focus 100% EXCLUSIVELY on the requested project. NEVER mention, repeat, re-introduce, or describe any previously discussed project (such as Samsara or any other project) unless the user explicitly requested a comparison between them (e.g. "compare Samsara and The Curve").
      CLOSING LINE:
      * If the user specifically asked about PRICING / COST / BUDGET, close with:
-       "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9309505388 for the latest price sheet."
+       - For Samsara, Pebbles Greenfield, or Pebbles Business Bay: "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9730397979 for the latest price sheet."
+       - For The Curve: "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 97307 00667 for the latest price sheet."
      * If the user asked a GENERAL project question (did NOT ask for price), close with a warm sales contact invite:
-       "For complete details or to schedule a site visit, please contact our sales team at +91 9309505388 or email sales@abhinavinfra.com."
+       - For Samsara, Pebbles Greenfield, or Pebbles Business Bay: "For complete details or to schedule a site visit, please contact our sales team at +91 9730397979 or email sales@abhinavinfra.com."
+       - For The Curve: "For complete details or to schedule a site visit, please contact our sales team at +91 97307 00667 or email sales@abhinavinfra.com."
        Do NOT append the pricing disclaimer if the user did not ask about price!
      NEVER start Line 1 with a pricing disclaimer.
+
+13. JOB & CAREER ENQUIRIES:
+   - If the user asks about jobs, vacancies, openings, careers, hiring, internships, or employment, respond ONLY with:
+     "For job openings and vacancies, please contact us at: 📧 careers@abhinavinfra.com"
+   - Do NOT direct them to the sales team for career enquiries.
+
+14. VENDOR, SUPPLIER & PURCHASE ENQUIRIES:
+   - If the user asks about selling products, supplying materials, vendor registration, procurement, purchase department, contractors, or anything related to supplying goods to Abhinav Group, respond ONLY with:
+     "For vendor and supplier enquiries, please contact our Purchase Department:
+     📞 +91 721 955 0020 / +91 721 955 0051
+     📧 purchase@abhinavinfra.com"
+   - Do NOT direct them to the sales team for vendor/purchase enquiries.
 
 10. CONVERSATION CONTEXT & TOPIC SWITCHING:
    - Carefully determine if the user's message is a FOLLOW-UP or a NEW TOPIC:
@@ -137,10 +152,12 @@ OFFICE ADDRESSES & CONTACT DIRECTORY
   CTS 927, Office No. 302, Sanas Memories, F.C. Road (Fergusson College Road),
   Pune – 411005, Maharashtra, India. (Visits by prior appointment)
 - Head Office Landline: 020-25663051
-- Sales & Escalation Hotline: +91 9309505388
+- Sales & Escalation Hotline (Samsara, Pebbles Greenfield, Pebbles Business Bay): +91 9730397979
+- Sales Hotline (The Curve, Virar West): +91 97307 00667
 - Official Sales Email: sales@abhinavinfra.com
 - General Inquiries Email: info@abhinavgroup.co.in
 - Careers / HR Email: careers@abhinavinfra.com
+- Purchase Department (Vendor/Supplier Enquiries): +91 721 955 0020 / +91 721 955 0051 | purchase@abhinavinfra.com
 - Website: https://abhinavgroup.co.in
 - Working Hours: Monday to Saturday, 10:00 AM – 7:00 PM (Closed on Sundays)
 - Project Sales Offices & Experience Centres:
@@ -157,14 +174,14 @@ ACTIVE PROJECTS (CURRENTLY ONGOING)
    - Configurations: Ultra-luxury 3 BHK residences
    - Highlights: Premium central Pune address, landscaped terrace deck, modern clubhouse, fully equipped gymnasium, high-speed elevators, 24x7 multi-tier security
    - MahaRERA Reg No.: P52100079797
-   - Price: Contact sales team for current inventory and pricing (+91 9309505388)
+   - Price: Contact sales team for current inventory and pricing (+91 9730397979)
 
 2. Pebbles Greenfield (Residential — Premium)
    - Location: S. No. 46/4, 49/2, Near Dange Chowk Road & Bhumkar Chowk, Tathawade / Wakad, Pune – 411033
    - Configurations: 2 BHK & 3 BHK premium apartments
    - Highlights: Seamless connectivity to Mumbai-Pune Expressway, Hinjawadi IT Park, and Phoenix Mall; swimming pool, clubhouse, kids play park, gymnasium, landscaped gardens
    - MahaRERA Reg No.: P52100045923
-   - Price: Available on request via sales team (+91 9309505388)
+   - Price: Available on request via sales team (+91 9730397979)
 
 3. The Curve (Residential — Elite Tower)
    - Location: Bolinj, Virar West, Mumbai MMR, Maharashtra
@@ -172,14 +189,14 @@ ACTIVE PROJECTS (CURRENTLY ONGOING)
    - Highlights: Iconic standalone single-tower development, panoramic scenic views, elite clubhouse, children's play area, fitness centre
    - Possession Target: June 2031 (as per project schedule)
    - MahaRERA Reg No.: PR1240002600667
-   - Price: Available on request via sales team (+91 9309505388)
+   - Price: Available on request via sales team (+91 97307 00667)
 
 4. Pebbles Business Bay (Commercial — Retail & Corporate Offices)
    - Location: Sr. No. 132(P), 121(P), Opp. Phoenix Mall of the Millennium, Near My Car Showroom / Bhumkar Chowk, Wakad, Pune – 411057
    - Configurations: High-street retail showrooms, boutique commercial spaces & Grade-A corporate offices
    - Highlights: High footfall location in Wakad's premier commercial corridor, immense highway visibility, expansive glass facade, high-speed elevators, ample customer & tenant parking
    - Status: Active ongoing commercial development
-   - Leasing & Sales: Contact sales team at +91 9309505388
+   - Leasing & Sales: Contact sales team at +91 9730397979
 
 =============================================================================
 COMPLETED LANDMARKS & LEGACY PORTFOLIO
@@ -204,17 +221,28 @@ CAREERS, VENDORS & MEDIA HIGHLIGHTS
 =============================================================================
 - Careers & Employment:
   Abhinav Group offers openings across Civil Engineering, Project Management, Sales & Marketing, CRM, and Liaisoning.
-  Interested candidates can apply directly at https://abhinavgroup.co.in/career/
-- Vendor & Contractor Empanelment:
-  For vendor registration, supplier tie-ups, or contractor inquiries, contact corporate headquarters at 020-25663051 or sales@abhinavinfra.com.
+  For job openings, vacancies, or career enquiries, candidates must contact: careers@abhinavinfra.com
+- Vendor & Supplier / Purchase Department:
+  For vendor registration, supplier tie-ups, procurement, or contractor inquiries, contact our Purchase Department:
+  Phone: +91 721 955 0020 / +91 721 955 0051
+  Email: purchase@abhinavinfra.com
 - Media & Recognition:
   Covered extensively in real estate and infrastructure news for delivering Aeromall at Pune International Airport, green building innovations, and customer trust milestones over 27+ years.
+
+=============================================================================
+ACTIVE PROJECT SALES CONTACTS (USE CORRECT NUMBER PER PROJECT)
+=============================================================================
+- Samsara, Pebbles Greenfield, Pebbles Business Bay:
+  Sales Team: +91 9730397979 | sales@abhinavinfra.com
+- The Curve (Virar West, Mumbai MMR):
+  Sales Team: +91 97307 00667 | sales@abhinavinfra.com
 
 =============================================================================
 ESCALATION & LEAD CAPTURE
 =============================================================================
 When a customer requests pricing, site visits, or wants human assistance:
-Say: "For complete details, current pricing, or to schedule a site visit, please contact our sales team at +91 9309505388 or email sales@abhinavinfra.com."
+- For Samsara, Pebbles Greenfield, or Pebbles Business Bay: "For complete details, current pricing, or to schedule a site visit, please contact our sales team at +91 9730397979 or email sales@abhinavinfra.com."
+- For The Curve: "For complete details, current pricing, or to schedule a site visit, please contact our sales team at +91 97307 00667 or email sales@abhinavinfra.com."
 Offer to connect them or take their name and mobile number.
 """
 
@@ -286,7 +314,7 @@ class ChatService:
 
         # --- Step 3: Safety check — scope filter ---
         if intent == "out_of_scope":
-            reply = self._out_of_scope_response(language)
+            reply = self._out_of_scope_response(user_message, language)
             await self._persist_messages(conversation, user_message, reply, language, intent)
             return {
                 "reply": reply,
@@ -362,7 +390,7 @@ class ChatService:
                     "\n\nCRITICAL LANGUAGE DIRECTIVE: The customer is writing in Hindi (Devanagari script). "
                     "You MUST reply in Hindi (Devanagari script). Keep project names (Samsara, Pebbles Greenfield, "
                     "The Curve, Pebbles Business Bay), location names (Mukund Nagar, Tathawade, Wakad, Virar West), "
-                    "MahaRERA numbers, and the sales phone number (+91 9309505388) in English. "
+                    "MahaRERA numbers, and the sales phone numbers (+91 9730397979 / +91 97307 00667) in English. "
                     "But all explanations and sentences must be in Hindi Devanagari."
                 )
             else:
@@ -371,7 +399,7 @@ class ChatService:
                     "You MUST reply in natural, conversational Roman Hindi (Hinglish). "
                     "Keep project names (Samsara, Pebbles Greenfield, The Curve, Pebbles Business Bay), "
                     "location names (Mukund Nagar, Tathawade, Wakad, Virar West), MahaRERA numbers, "
-                    "and the sales phone number (+91 9309505388) in English. "
+                    "and the sales phone numbers (+91 9730397979 / +91 97307 00667) in English. "
                     "But explain everything else in Roman Hindi. "
                     "Example tone: 'The Curve ek elite residential project hai jo Bolinj, Virar West mein hai.' "
                     "NEVER reply in pure formal English when the customer speaks Hinglish."
@@ -517,9 +545,14 @@ class ChatService:
         words = set(re.findall(r'\b\w+\b', t))
 
         # Out of scope — checked FIRST to prevent any AI call
-        oos_keywords = ["career", "job", "vacancy", "vendor", "supplier",
-                        "contractor", "recruitment", "intern", "internship", "hiring"]
-        if any(w in t for w in oos_keywords) or "hr" in words:
+        oos_keywords = [
+            "career", "job", "vacancy", "vacancies", "opening", "openings",
+            "vendor", "supplier", "contractor", "recruitment", "intern", "internship",
+            "hiring", "procurement", "empanel"
+        ]
+        is_purchase_dept = "purchase" in t and any(w in t for w in ["dept", "department", "team", "contact", "head", "office"])
+        is_sell_product = any(phrase in t for phrase in ["sell product", "sell material", "selling product", "material supply", "product sell", "tie up", "tie-up", "maal bechna", "saman bechna"])
+        if any(w in t for w in oos_keywords) or "hr" in words or is_purchase_dept or is_sell_product:
             return "out_of_scope"
 
         # Specific project enquiries — checked BEFORE generic greetings or project_list
@@ -577,21 +610,67 @@ class ChatService:
 
         return "general_property_enquiry"
 
-    def _out_of_scope_response(self, language: str) -> str:
-        if language == "hi":
+    def _out_of_scope_response(self, text_or_lang: str = "", language: str = "en") -> str:
+        if text_or_lang in ("en", "hi"):
+            lang = text_or_lang
+            text = ""
+        else:
+            text = text_or_lang
+            lang = language
+
+        t = text.lower().strip()
+        words = set(t.split())
+
+        # 1. Career / Job / Vacancy / Openings
+        career_keywords = [
+            "job", "jobs", "vacancy", "vacancies", "opening", "openings",
+            "career", "careers", "hiring", "recruitment", "apply", "resume",
+            "cv", "intern", "internship", "employment", "naukri", "staff"
+        ]
+        if any(w in t for w in career_keywords) or "hr" in words:
+            if lang == "hi":
+                return (
+                    "नौकरी और करियर के अवसरों (job openings / vacancy) के लिए, कृपया हमसे संपर्क करें:\n\n"
+                    "📧 careers@abhinavinfra.com"
+                )
+            return (
+                "For job openings and vacancies, you can contact us at:\n\n"
+                "📧 careers@abhinavinfra.com"
+            )
+
+        # 2. Purchase / Procurement / Vendor / Supplier / Selling Products
+        vendor_keywords = [
+            "vendor", "supplier", "supply", "supplies", "procurement",
+            "contractor", "empanel", "tie up", "tie-up", "sell product",
+            "sell material", "selling", "material supply", "wholesale", "distributor"
+        ]
+        is_purchase_dept = "purchase" in t and any(w in t for w in ["dept", "department", "team", "contact", "head", "office"])
+        if any(w in t for w in vendor_keywords) or is_purchase_dept or "purchase department" in t:
+            if lang == "hi":
+                return (
+                    "आप हमारे Purchase Department से संपर्क कर सकते हैं:\n\n"
+                    "फोन: +91 721 955 0020, +91 721 955 0051\n"
+                    "ईमेल: purchase@abhinavinfra.com"
+                )
+            return (
+                "You can contact our Purchase Department:\n\n"
+                "Phone: +91 721 955 0020, +91 721 955 0051\n"
+                "Email: purchase@abhinavinfra.com"
+            )
+
+        # 3. General other out of scope
+        if lang == "hi":
             return (
                 "मैं केवल अभिनव ग्रुप की प्रॉपर्टी और रियल एस्टेट से संबंधित प्रश्नों में "
                 "सहायता करता हूं।\n\n"
-                "करियर, वेंडर्स या अन्य पूछताछ के लिए हमारे कार्यालय से संपर्क करें:\n"
-                "📞 +91 9309505388 / 020-25663051\n"
-                "📧 sales@abhinavinfra.com\n"
+                "अन्य पूछताछ के लिए हमारे कार्यालय से संपर्क करें:\n"
+                "📞 020-25663051\n"
                 "🌐 abhinavgroup.co.in"
             )
         return (
-            "I'm here to help specifically with Abhinav Group's properties and real estate "
-            "enquiries. For career inquiries, vendor registration, or corporate matters, please contact:\n"
-            "📞 +91 9309505388 / 020-25663051\n"
-            "📧 sales@abhinavinfra.com\n"
+            "I'm here to help specifically with Abhinav Group's properties and real estate enquiries.\n\n"
+            "For other corporate matters, please contact our office:\n"
+            "📞 020-25663051\n"
             "🌐 abhinavgroup.co.in"
         )
 
@@ -600,12 +679,12 @@ class ChatService:
             return (
                 "हमारा AI असिस्टेंट अभी उपलब्ध नहीं है। कृपया हमारी सेल्स टीम से "
                 "सीधे संपर्क करें:\n"
-                "📞 +91 9309505388\n"
+                "📞 +91 9730397979\n"
                 "📧 sales@abhinavinfra.com"
             )
         return (
             "Our AI assistant is temporarily unavailable. Please contact our sales team:\n"
-            "📞 +91 9309505388\n"
+            "📞 +91 9730397979\n"
             "📧 sales@abhinavinfra.com\n\n"
             "Available Monday to Saturday, 10 AM – 7 PM"
         )
@@ -696,7 +775,7 @@ class ChatService:
                 "As a premier real estate developer, Abhinav Group is a private organization, and we do not publicly disclose internal financial statements, "
                 "net worth, or profit margins.\n\n"
                 "Backed by over 27 years of excellence since 1997 and over 50 lakh sq. ft. of landmark developments delivered across 20+ projects, our focus remains on "
-                "architectural quality and customer trust. If you have questions about our ongoing residential or commercial projects, our sales team (+91 9309505388) will gladly assist you."
+                "architectural quality and customer trust. If you have questions about our ongoing residential or commercial projects, our sales team (+91 9730397979) will gladly assist you."
             )
 
         # The Curve / Virar
@@ -707,14 +786,14 @@ class ChatService:
                     "• कॉन्फ़िगरेशन: 2 और 3 BHK एलीट रेजिडेंस\n"
                     "• मुख्य आकर्षण: पैनोरमिक सीनिक व्यूज, आधुनिक क्लबहाउस, स्विमिंग पूल, जिम, चिल्ड्रन्स प्ले एरिया\n"
                     "• MahaRERA Reg No.: PR1240002600667 | पजेशन टारगेट: जून 2031\n\n"
-                    "अधिक जानकारी या साइट विजिट के लिए हमारी सेल्स टीम से +91 9309505388 पर संपर्क करें।"
+                    "अधिक जानकारी या साइट विजिट के लिए हमारी सेल्स टीम से +91 97307 00667 पर संपर्क करें।"
                 )
             return (
                 "The Curve is an elite standalone single-tower residential development located in Bolinj, Virar West, Mumbai MMR.\n"
                 "• Configurations: Thoughtfully designed 2 & 3 BHK residences\n"
                 "• Highlights: Panoramic scenic views, modern clubhouse, fitness centre, children's play area\n"
                 "• MahaRERA Reg No.: PR1240002600667 | Possession Target: June 2031\n\n"
-                "For complete details or to schedule a site visit, please contact our sales team at +91 9309505388 or email sales@abhinavinfra.com."
+                "For complete details or to schedule a site visit, please contact our sales team at +91 97307 00667 or email sales@abhinavinfra.com."
             )
 
         # Samsara / Mukund Nagar
@@ -725,14 +804,14 @@ class ChatService:
                     "• कॉन्फ़िगरेशन: 3 BHK एक्सक्लूसिव अल्ट्रा-लक्ज़री रेजिडेंस\n"
                     "• मुख्य आकर्षण: लैंडस्केप टेरेस डेक, मॉडर्न क्लबहाउस, पूरी तरह सुसज्जित जिम, 24x7 मल्टी-टियर सिक्योरिटी\n"
                     "• MahaRERA Reg No.: P52100079797\n\n"
-                    "कीमत व साइट विजिट के लिए हमारी सेल्स टीम से +91 9309505388 पर संपर्क करें।"
+                    "कीमत व साइट विजिट के लिए हमारी सेल्स टीम से +91 9730397979 पर संपर्क करें।"
                 )
             return (
                 "Samsara is an ultra-luxury residential project located in the prestigious neighborhood of Mukund Nagar, Central Pune.\n"
                 "• Configurations: Exclusive 3 BHK ultra-luxury residences\n"
                 "• Highlights: Landscaped terrace deck, modern clubhouse, fully equipped gymnasium, 24x7 multi-tier security\n"
                 "• MahaRERA Reg No.: P52100079797\n\n"
-                "For current pricing or to schedule a site visit, please contact our sales team at +91 9309505388 or email sales@abhinavinfra.com."
+                "For current pricing or to schedule a site visit, please contact our sales team at +91 9730397979 or email sales@abhinavinfra.com."
             )
 
         # Pebbles Greenfield / Tathawade / Wakad
@@ -743,14 +822,14 @@ class ChatService:
                     "• कॉन्फ़िगरेशन: 2 और 3 BHK प्रीमियम अपार्टमेंट\n"
                     "• मुख्य आकर्षण: हिंजवड़ी आईटी पार्क और मुंबई-पुणे एक्सप्रेसवे से बेहतरीन कनेक्टिविटी, क्लबहाउस, स्विमिंग पूल, जिम, लैंडस्केप गार्डन\n"
                     "• MahaRERA Reg No.: P52100045923\n\n"
-                    "अधिक जानकारी के लिए हमारी सेल्स टीम से +91 9309505388 पर संपर्क करें।"
+                    "अधिक जानकारी के लिए हमारी सेल्स टीम से +91 9730397979 पर संपर्क करें।"
                 )
             return (
                 "Pebbles Greenfield is a premium residential development located in Tathawade / Wakad, Pune.\n"
                 "• Configurations: 2 & 3 BHK premium apartments\n"
                 "• Highlights: Seamless connectivity to Hinjawadi IT Park and Mumbai-Pune Expressway, swimming pool, clubhouse, gym, landscaped gardens\n"
                 "• MahaRERA Reg No.: P52100045923\n\n"
-                "For complete details or to schedule a site visit, please contact our sales team at +91 9309505388 or email sales@abhinavinfra.com."
+                "For complete details or to schedule a site visit, please contact our sales team at +91 9730397979 or email sales@abhinavinfra.com."
             )
 
         # Pebbles Business Bay / Commercial / PBB
@@ -760,13 +839,13 @@ class ChatService:
                     "Pebbles Business Bay वाकड, पुणे में फीनिक्स मॉल ऑफ द मिलेनियम के सामने स्थित एक प्रीमियम कमर्शियल प्रोजेक्ट है।\n"
                     "• कॉन्फ़िगरेशन: हाई-स्ट्रीट रिटेल शोरूम, बुटीक कमर्शियल स्पेस और ग्रेड-ए कॉर्पोरेट ऑफिस\n"
                     "• मुख्य आकर्षण: हाईवे पर बेहतरीन विजिबिलिटी, शानदार ग्लास फसाड, हाई-स्पीड एलिवेटर्स और पर्याप्त पार्किंग\n\n"
-                    "लीज़िंग या खरीद के लिए हमारी सेल्स टीम से +91 9309505388 पर संपर्क करें।"
+                    "लीज़िंग या खरीद के लिए हमारी सेल्स टीम से +91 9730397979 पर संपर्क करें।"
                 )
             return (
                 "Pebbles Business Bay is a premier commercial development located opposite Phoenix Mall of the Millennium in Wakad, Pune.\n"
                 "• Configurations: High-street retail showrooms, boutique commercial spaces, and Grade-A corporate offices\n"
                 "• Highlights: Prime highway visibility in Wakad's commercial corridor, expansive glass facade, high-speed elevators, ample parking\n\n"
-                "For sales and leasing inquiries, please contact our sales team at +91 9309505388 or email sales@abhinavinfra.com."
+                "For sales and leasing inquiries, please contact our sales team at +91 9730397979 or email sales@abhinavinfra.com."
             )
 
         # Aeromall
@@ -784,7 +863,7 @@ class ChatService:
                 "• Pebbles Greenfield (Tathawade / Wakad, Pune) - Premium 2 & 3 BHK apartments\n"
                 "• The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences with scenic views and elite clubhouse\n"
                 "• Samsara (Mukund Nagar, Central Pune) - Ultra-luxury 3 BHK residences with landscaped terrace deck\n\n"
-                "For complete details or to schedule a site visit, please contact our sales team at +91 9309505388 or email sales@abhinavinfra.com."
+                "For complete details or to schedule a site visit, please contact our sales team at +91 9730397979 or email sales@abhinavinfra.com."
             )
 
         return None

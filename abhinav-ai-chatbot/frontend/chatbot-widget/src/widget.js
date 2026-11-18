@@ -55,7 +55,7 @@
       lead_prompt: 'Would you like our sales team to contact you with more details?',
       lead_name: 'Please share your name:',
       lead_phone: 'Your 10-digit mobile number:',
-      lead_email: 'Email address (optional):',
+      lead_email: 'Email address:',
       lead_project: 'Interested project:',
       lead_project_select: 'Select a project (optional)',
       lead_project_other: 'Other',
@@ -63,7 +63,7 @@
       lead_confirm: 'Thank you! Our team will contact you shortly. 📞',
       lead_btn: 'Get a Callback',
       typing: 'Typing...',
-      error: 'Connection issue. Please try again or call us at +91 9309505388.',
+      error: 'Connection issue. Please try again or call us at +91 9730397979.',
       powered: 'Powered by Abhinav Group AI',
       close: 'Close chat',
       open: 'Chat with us',
@@ -84,7 +84,7 @@
       lead_prompt: 'क्या आप चाहते हैं कि हमारी सेल्स टीम आपसे संपर्क करे?',
       lead_name: 'कृपया अपना नाम बताएं:',
       lead_phone: 'आपका 10 अंकों का मोबाइल नंबर:',
-      lead_email: 'ईमेल आईडी (वैकल्पिक):',
+      lead_email: 'ईमेल आईडी:',
       lead_project: 'रुचि का प्रोजेक्ट:',
       lead_project_select: 'प्रोजेक्ट चुनें (वैकल्पिक)',
       lead_project_other: 'अन्य (Other)',
@@ -92,7 +92,7 @@
       lead_confirm: 'धन्यवाद! हमारी टीम जल्द संपर्क करेगी। 📞',
       lead_btn: 'कॉलबैक के लिए अनुरोध करें',
       typing: 'टाइप हो रहा है...',
-      error: 'कनेक्शन त्रुटि। कृपया पुनः प्रयास करें या +91 9309505388 पर कॉल करें।',
+      error: 'कनेक्शन त्रुटि। कृपया पुनः प्रयास करें या +91 9730397979 पर कॉल करें।',
       powered: 'Abhinav Group AI द्वारा संचालित',
       close: 'चैट बंद करें',
       open: 'हमसे चैट करें',
@@ -448,7 +448,7 @@
       '<p style="margin-top:10px">' + t('lead_phone') + '</p>' +
       '<input class="ag-lead-input" id="ag-lead-phone" type="tel" placeholder="10-digit mobile" autocomplete="tel" maxlength="13" value="' + prevPhone.replace(/"/g, '&quot;') + '">' +
       '<p style="margin-top:10px">' + t('lead_email') + '</p>' +
-      '<input class="ag-lead-input" id="ag-lead-email" type="email" placeholder="name@example.com (optional)" autocomplete="email" value="' + prevEmail.replace(/"/g, '&quot;') + '">' +
+      '<input class="ag-lead-input" id="ag-lead-email" type="email" placeholder="name@example.com" autocomplete="email" value="' + prevEmail.replace(/"/g, '&quot;') + '">' +
       '<p style="margin-top:10px">' + t('lead_project') + '</p>' +
       '<select class="ag-lead-input" id="ag-lead-project" style="background-color:white;cursor:pointer;">' +
         '<option value="">' + t('lead_project_select') + '</option>' +
@@ -456,24 +456,9 @@
         '<option value="Pebbles Greenfield"' + (selectedProject === 'Pebbles Greenfield' ? ' selected' : '') + '>Pebbles Greenfield</option>' +
         '<option value="The Curve"' + (selectedProject === 'The Curve' ? ' selected' : '') + '>The Curve</option>' +
         '<option value="Pebbles Business Bay"' + (selectedProject === 'Pebbles Business Bay' ? ' selected' : '') + '>Pebbles Business Bay</option>' +
-        '<option value="Other"' + (selectedProject === 'Other' ? ' selected' : '') + '>' + t('lead_project_other') + '</option>' +
       '</select>' +
-      '<input class="ag-lead-input" id="ag-lead-project-other" type="text" placeholder="' + t('lead_project_other_ph') + '" style="display:' + (selectedProject === 'Other' ? 'block' : 'none') + ';margin-top:8px;">' +
       '<button class="ag-lead-btn" id="ag-lead-submit">' + t('lead_btn') + '</button>';
     el.messages.appendChild(card);
-
-    var projSelect = document.getElementById('ag-lead-project');
-    var projOther = document.getElementById('ag-lead-project-other');
-    if (projSelect && projOther) {
-      projSelect.addEventListener('change', function () {
-        if (projSelect.value === 'Other') {
-          projOther.style.display = 'block';
-          projOther.focus();
-        } else {
-          projOther.style.display = 'none';
-        }
-      });
-    }
 
     document.getElementById('ag-lead-submit').addEventListener('click', function (e) {
       if (e) {
@@ -491,11 +476,6 @@
 
     var projectSelect = document.getElementById('ag-lead-project');
     var projectVal = (projectSelect ? projectSelect.value || '' : '').trim();
-    if (projectVal === 'Other') {
-      var otherInput = document.getElementById('ag-lead-project-other');
-      var customVal = (otherInput ? otherInput.value || '' : '').trim();
-      projectVal = customVal || 'Other';
-    }
 
     if (!name) {
       document.getElementById('ag-lead-name').style.borderColor = 'red';
@@ -503,6 +483,10 @@
     }
     if (phone.length < 10) {
       document.getElementById('ag-lead-phone').style.borderColor = 'red';
+      return;
+    }
+    if (!email) {
+      document.getElementById('ag-lead-email').style.borderColor = 'red';
       return;
     }
 
@@ -525,7 +509,7 @@
       appendMessage('bot', t('lead_confirm'));
       renderQuickReplies([t('qr_projects'), t('qr_brochure')]);
     }).catch(function () {
-      appendMessage('bot', 'Thank you! You can reach us directly at +91 9309505388.');
+      appendMessage('bot', 'Thank you! You can reach us directly at +91 9730397979.');
     });
   }
 

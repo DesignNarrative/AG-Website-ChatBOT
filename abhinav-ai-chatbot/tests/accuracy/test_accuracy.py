@@ -170,8 +170,8 @@ def sync_chat(query: str) -> str:
 RESPONSE_TESTS = [
     ("Hello",                       ["abhinav", "property"],                    []),
     ("Show me all projects",        ["samsara", "pebbles", "curve", "aeromall"],[]),
-    ("I want to apply for a job",   ["property", "9309505388"],                 ["resume", "cv", "hire"]),
-    ("vendor registration",         ["property", "9309505388"],                 []),
+    ("I want to apply for a job",   ["property", "9730397979"],                 ["resume", "cv", "hire"]),
+    ("vendor registration",         ["property", "9730397979"],                 []),
     ("Tell me about Pebbles Greenfield", ["pebbles"],                           []),
     ("3 BHK flat in pune",          ["samsara", "pebbles"],                     []),
 ]
@@ -248,7 +248,7 @@ test("qr_hi_devanagari", has_dev, "No Devanagari in Hindi QRs")
 # ─── T7: System prompt completeness ──────────────────────────────────────────
 from app.services.chat_service import SYSTEM_PROMPT
 sp_text = SYSTEM_PROMPT.lower()
-for keyword in ["samsara", "pebbles greenfield", "the curve", "aeromall", "9309505388",
+for keyword in ["samsara", "pebbles greenfield", "the curve", "aeromall", "9730397979",
                 "career", "vendor", "hindi"]:
     test(f"sysprompt::{keyword}", keyword in sp_text, f"{keyword} not in system prompt")
 
