@@ -1,6 +1,14 @@
 import axios from 'axios'
 
-const BASE_URL = import.meta.env.VITE_API_BASE || 'http://localhost:8000'
+const getApiBase = () => {
+  if (import.meta.env.VITE_API_BASE) return import.meta.env.VITE_API_BASE
+  if (typeof window !== 'undefined' && window.location.origin) {
+    if (window.location.port === '5173') return 'http://localhost:8000'
+    return window.location.origin
+  }
+  return 'http://localhost:8000'
+}
+const BASE_URL = getApiBase()
 const TOKEN_KEY = 'abhinav_admin_token'
 
 const apiClient = axios.create({
@@ -29,7 +37,7 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem(TOKEN_KEY)
-      window.location.href = '/login'
+      window.location.href = '/admin/login'
     }
     return Promise.reject(error)
   },
