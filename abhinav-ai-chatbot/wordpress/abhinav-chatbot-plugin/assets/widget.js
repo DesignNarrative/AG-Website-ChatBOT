@@ -22,7 +22,7 @@
   var WIDGET_KEY = cfg.widgetKey  || '';          // Set in WordPress plugin settings
   var SOURCE_PAGE = cfg.sourcePage || window.location.href;
   var LANG        = cfg.lang      || 'auto';      // 'en' | 'hi' | 'auto'
-  var POSITION    = cfg.position  || 'bottom-right';
+  var POSITION    = cfg.position  || 'bottom-left';
   var BRAND_COLOR = cfg.brandColor || '#0284c7';  // Sky Blue primary
   var ACCENT_COLOR = cfg.accentColor || '#38bdf8'; // Sky Blue accent
 
@@ -652,7 +652,14 @@
     el.panel.classList.add('visible');
     el.launcher.querySelector('svg').style.opacity = '0';
     el.badge.style.display = 'none';
-    el.input.focus();
+
+    // Auto-focus input on desktop only (screen width > 600px).
+    // On mobile devices, auto-focus forces the on-screen keyboard to pop up immediately,
+    // which covers half the screen and hides the welcome message and header.
+    var isMobile = (window.innerWidth <= 600) || /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent || '');
+    if (!isMobile) {
+      el.input.focus();
+    }
 
     // Show welcome message on first open
     if (state.messages.length === 0) {
