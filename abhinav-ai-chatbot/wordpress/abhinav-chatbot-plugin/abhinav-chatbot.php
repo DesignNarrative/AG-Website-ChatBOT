@@ -3,7 +3,7 @@
  * Plugin Name:       Abhinav Group AI Chatbot
  * Plugin URI:        https://abhinavgroup.co.in/
  * Description:       AI-powered property sales chatbot for Abhinav Group. Loads a floating chat widget that connects to the Abhinav Group chatbot API.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 5.6
  * Requires PHP:      7.4
  * Author:            Abhinav Group Technology Team
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin version and option key constants
-define( 'ABHINAV_CHATBOT_VERSION', '1.0.0' );
+define( 'ABHINAV_CHATBOT_VERSION', '1.0.1' );
 define( 'ABHINAV_CHATBOT_OPTION_KEY', 'abhinav_chatbot_settings' );
 define( 'ABHINAV_CHATBOT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ABHINAV_CHATBOT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
