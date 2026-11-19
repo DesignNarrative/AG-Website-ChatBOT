@@ -123,6 +123,9 @@
       '#abhinav-chat-panel{width:360px;height:560px;background:white;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.18);display:flex;flex-direction:column;overflow:hidden;transition:all 0.3s ease;transform-origin:bottom right}',
       '#abhinav-chat-panel.hidden{opacity:0;transform:scale(0.85) translateY(20px);pointer-events:none;position:absolute;bottom:70px;right:0}',
       '#abhinav-chat-panel.visible{opacity:1;transform:scale(1) translateY(0);position:absolute;bottom:70px;right:0}',
+      '#abhinav-chat-widget.pos-bottom-left #abhinav-chat-panel{transform-origin:bottom left!important}',
+      '#abhinav-chat-widget.pos-bottom-left #abhinav-chat-panel.hidden{left:0!important;right:auto!important}',
+      '#abhinav-chat-widget.pos-bottom-left #abhinav-chat-panel.visible{left:0!important;right:auto!important}',
 
       /* Header */
       '#abhinav-header{background:linear-gradient(135deg,' + BRAND_COLOR + ' 0%,#0369a1 100%);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}',

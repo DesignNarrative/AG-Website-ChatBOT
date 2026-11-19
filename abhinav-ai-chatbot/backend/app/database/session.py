@@ -144,6 +144,62 @@ async def init_db() -> None:
                 )
                 session.add(u)
                 await session.commit()
+
+            # Ensure official projects exist
+            res_p = await session.execute(text("SELECT count(*) FROM projects"))
+            p_count = res_p.scalar() or 0
+            if p_count == 0:
+                from app.models.project import Project, ProjectType, ProjectStatus, ApprovalStatus
+                projects_to_seed = [
+                    Project(
+                        id=str(uuid.uuid4()), project_id_slug="samsara", project_name="Samsara",
+                        project_type=ProjectType.RESIDENTIAL, project_status=ProjectStatus.ONGOING,
+                        location="Mukund Nagar", address="Mukund Nagar, Pune, Maharashtra", city="Pune", state="Maharashtra",
+                        configurations="3 BHK Luxury Residences", rera_number="P52100079797", rera_verified=True,
+                        price_verified=False, possession_verified=False,
+                        description="Luxury 3 BHK residences in the heart of Mukund Nagar, Pune with world-class amenities.",
+                        approval_status=ApprovalStatus.APPROVED, is_active=True, is_featured=True,
+                    ),
+                    Project(
+                        id=str(uuid.uuid4()), project_id_slug="pebbles-greenfield", project_name="Pebbles Greenfield",
+                        project_type=ProjectType.RESIDENTIAL, project_status=ProjectStatus.ONGOING,
+                        location="Tathawade / Wakad", address="Tathawade, Wakad, Pune, Maharashtra", city="Pune", state="Maharashtra",
+                        configurations="2 & 3 BHK", rera_number="P52100045923", rera_verified=True,
+                        price_verified=False, possession_verified=False,
+                        description="Premium 2 & 3 BHK residences with modern landscape amenities and seamless highway connectivity.",
+                        approval_status=ApprovalStatus.APPROVED, is_active=True, is_featured=True,
+                    ),
+                    Project(
+                        id=str(uuid.uuid4()), project_id_slug="the-curve", project_name="The Curve",
+                        project_type=ProjectType.RESIDENTIAL, project_status=ProjectStatus.ONGOING,
+                        location="Virar West", address="Virar West, Mumbai MMR, Maharashtra", city="Virar", state="Maharashtra",
+                        configurations="2 & 3 BHK", rera_number="PR1240002600667", rera_verified=True,
+                        price_verified=False, possession_verified=False,
+                        description="Modern 2 & 3 BHK waterfront-facing apartments in Virar West, Mumbai MMR. Possession target June 2031.",
+                        approval_status=ApprovalStatus.APPROVED, is_active=True, is_featured=True,
+                    ),
+                    Project(
+                        id=str(uuid.uuid4()), project_id_slug="pebbles-business-bay", project_name="Pebbles Business Bay",
+                        project_type=ProjectType.COMMERCIAL, project_status=ProjectStatus.ONGOING,
+                        location="Wakad, Pune", address="Sr. No. 132(P), 121(P), Opp. Phoenix Mall of the Millennium, Near My Car showroom / Bhumkar Chowk, Wakad, Pune - 411057", city="Pune", state="Maharashtra",
+                        configurations="Showrooms, Retail Spaces & Corporate Offices", rera_number="Registered", rera_verified=True,
+                        price_verified=False, possession_verified=False,
+                        description="Premier commercial landmark in Wakad, Pune, opposite Phoenix Mall of the Millennium near Bhumkar Chowk. High-street retail showrooms and corporate office spaces with high footfall and expressway connectivity.",
+                        approval_status=ApprovalStatus.APPROVED, is_active=True, is_featured=True,
+                    ),
+                    Project(
+                        id=str(uuid.uuid4()), project_id_slug="aeromall", project_name="Aeromall",
+                        project_type=ProjectType.COMMERCIAL, project_status=ProjectStatus.COMPLETED,
+                        location="Airport Road, Lohegaon", address="Pune Airport Road, Lohegaon, Pune, Maharashtra", city="Pune", state="Maharashtra",
+                        configurations="Retail & Commercial Spaces", rera_number="Commercial Facility", rera_verified=True,
+                        price_verified=False, possession_verified=False,
+                        description="Pune's first 24x7 integrated shopping, dining, and multi-level parking commercial complex.",
+                        approval_status=ApprovalStatus.APPROVED, is_active=True, is_featured=True,
+                    ),
+                ]
+                for p in projects_to_seed:
+                    session.add(p)
+                await session.commit()
     except Exception:
         pass
 
