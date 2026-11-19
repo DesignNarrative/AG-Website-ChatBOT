@@ -53,9 +53,6 @@ class Abhinav_Chatbot_Plugin {
         add_action( 'admin_init',      [ $this, 'register_settings' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );
         add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), [ $this, 'add_action_links' ] );
-        add_filter( 'script_loader_tag', [ $this, 'filter_script_loader_tag' ], 10, 2 );
-        add_filter( 'wp_inline_script_attributes', [ $this, 'filter_inline_script_attributes' ], 10, 3 );
-        add_action( 'update_option_' . ABHINAV_CHATBOT_OPTION_KEY, [ $this, 'flush_third_party_caches' ] );
     }
 
     // ── Localisation ──────────────────────────────────────────────────────
@@ -121,43 +118,6 @@ class Abhinav_Chatbot_Plugin {
             'window.AbhinavChatConfig = ' . wp_json_encode( $config ) . ';',
             'before'
         );
-    }
-
-    /**
-     * Prevent WP-Optimize / caching plugins from merging or minifying the chatbot script
-     */
-    public function filter_script_loader_tag( string $tag, string $handle ): string {
-        if ( 'abhinav-chatbot-widget' === $handle && false === strpos( $tag, 'data-minify' ) ) {
-            $tag = str_replace( '<script ', '<script data-minify="0" data-no-optimize="1" ', $tag );
-        }
-        return $tag;
-    }
-
-    /**
-     * Prevent WP-Optimize from merging dynamic inline AbhinavChatConfig into static cached files
-     */
-    public function filter_inline_script_attributes( array $attributes, string $javascript, string $handle ): array {
-        if ( 'abhinav-chatbot-widget' === $handle ) {
-            $attributes['data-minify'] = '0';
-            $attributes['data-no-optimize'] = '1';
-        }
-        return $attributes;
-    }
-
-    /**
-     * Automatically purge WP-Optimize minify and page caches when settings are saved
-     */
-    public function flush_third_party_caches(): void {
-        if ( class_exists( '\\WP_Optimize_Minify_Commands' ) ) {
-            try {
-                ( new \\WP_Optimize_Minify_Commands() )->purge_minify_cache();
-            } catch ( \Throwable $e ) {}
-        }
-        if ( function_exists( 'wpo_cache_flush' ) ) {
-            try {
-                wpo_cache_flush();
-            } catch ( \Throwable $e ) {}
-        }
     }
 
     private function is_excluded_page( array $settings ): bool {
