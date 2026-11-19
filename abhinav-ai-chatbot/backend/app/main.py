@@ -202,23 +202,25 @@ _BACKEND_STATIC = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", 
 _WIDGET_DIST = os.path.join(_BASE_DIR, "frontend", "chatbot-widget", "dist")
 _WIDGET_HTML = os.path.join(_BASE_DIR, "frontend", "chatbot-widget", "test.html")
 _ADMIN_DIST = os.path.join(_BASE_DIR, "frontend", "admin-dashboard", "dist")
+_BACKEND_ADMIN_DIST = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "admin_dist"))
+_EFFECTIVE_ADMIN_DIST = _ADMIN_DIST if os.path.isdir(_ADMIN_DIST) else (_BACKEND_ADMIN_DIST if os.path.isdir(_BACKEND_ADMIN_DIST) else None)
 
 _STATIC_DIR = _WIDGET_DIST if os.path.isdir(_WIDGET_DIST) else (_BACKEND_STATIC if os.path.isdir(_BACKEND_STATIC) else None)
 if _STATIC_DIR:
     app.mount("/static", StaticFiles(directory=_STATIC_DIR), name="static")
 
-if os.path.isdir(_ADMIN_DIST):
-    _assets_dir = os.path.join(_ADMIN_DIST, "assets")
+if _EFFECTIVE_ADMIN_DIST:
+    _assets_dir = os.path.join(_EFFECTIVE_ADMIN_DIST, "assets")
     if os.path.isdir(_assets_dir):
         app.mount("/admin/assets", StaticFiles(directory=_assets_dir), name="admin_assets")
 
     @app.get("/admin", include_in_schema=False)
     @app.get("/admin/{full_path:path}", include_in_schema=False)
     async def admin_spa(full_path: str = ""):
-        candidate = os.path.join(_ADMIN_DIST, full_path)
+        candidate = os.path.join(_EFFECTIVE_ADMIN_DIST, full_path)
         if full_path and os.path.isfile(candidate):
             return FileResponse(candidate)
-        return FileResponse(os.path.join(_ADMIN_DIST, "index.html"))
+        return FileResponse(os.path.join(_EFFECTIVE_ADMIN_DIST, "index.html"))
 
 @app.get("/widget-test", include_in_schema=False)
 async def widget_test_page():

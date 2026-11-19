@@ -125,6 +125,28 @@ async def init_db() -> None:
     async with async_engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
+    # Ensure default admin user exists
+    try:
+        import uuid
+        from app.models.user import User, UserRole
+        from app.security.auth import hash_password
+        async with AsyncSessionLocal() as session:
+            admin_email = "ai.abhinavgroup@gmail.com"
+            res = await session.execute(text("SELECT id FROM users WHERE email = :email"), {"email": admin_email})
+            if not res.fetchone():
+                u = User(
+                    id=str(uuid.uuid4()),
+                    email=admin_email,
+                    full_name="Abhinav Group Administrator",
+                    hashed_password=hash_password("abhinav@2026@"),
+                    role=UserRole.DEVELOPER,
+                    is_active=True,
+                )
+                session.add(u)
+                await session.commit()
+    except Exception:
+        pass
+
 
 async def check_db_connection() -> bool:
     """Health check: verify that the database is reachable."""
