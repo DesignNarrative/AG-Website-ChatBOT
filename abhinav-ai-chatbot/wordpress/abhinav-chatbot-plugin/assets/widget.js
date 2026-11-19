@@ -196,8 +196,21 @@
       '#abhinav-footer a{font-size:10px;color:#94a3b8;text-decoration:none}',
       '#abhinav-footer a:hover{color:' + BRAND_COLOR + '}',
 
-      /* Mobile responsive */
-      '@media(max-width:400px){#abhinav-chat-panel{width:calc(100vw - 20px);height:calc(100vh - 90px);bottom:70px!important;right:10px!important}}',
+      /* Mobile responsive (screens <= 600px) */
+      '@media(max-width:600px){' +
+        '#abhinav-chat-widget.pos-bottom-right{bottom:16px!important;right:16px!important}' +
+        '#abhinav-chat-widget.pos-bottom-left{bottom:16px!important;left:16px!important}' +
+        '#abhinav-launcher{width:56px!important;height:56px!important}' +
+        '#abhinav-chat-widget.is-open{top:0!important;left:0!important;right:0!important;bottom:0!important;width:100%!important;height:100%!important;height:100dvh!important;max-height:100dvh!important;margin:0!important;padding:0!important}' +
+        '#abhinav-chat-widget.is-open #abhinav-launcher{display:none!important}' +
+        '#abhinav-chat-widget:has(#abhinav-chat-panel.visible) #abhinav-launcher{display:none!important}' +
+        '#abhinav-chat-panel.visible{position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;width:100%!important;max-width:100vw!important;height:100%!important;height:100dvh!important;max-height:100dvh!important;border-radius:0!important;box-shadow:none!important;transform:none!important;z-index:1000000!important;margin:0!important}' +
+        '#abhinav-chat-panel.hidden{display:none!important}' +
+        '#abhinav-header{border-radius:0!important;padding:12px 14px!important;padding-top:max(12px,env(safe-area-inset-top))!important}' +
+        '#abhinav-messages{padding:14px 10px!important}' +
+        '#abhinav-input-area{padding:10px 12px!important;padding-bottom:max(10px,env(safe-area-inset-bottom))!important}' +
+        '#abhinav-footer{padding-bottom:max(6px,env(safe-area-inset-bottom))!important}' +
+      '}',
     ].join('');
 
     var style = document.createElement('style');
@@ -631,6 +644,7 @@
   /* ── Open / Close ───────────────────────────────────────── */
   function openWidget() {
     state.open = true;
+    if (el.widget) el.widget.classList.add('is-open');
     el.panel.classList.remove('hidden');
     el.panel.classList.add('visible');
     el.launcher.querySelector('svg').style.opacity = '0';
@@ -656,6 +670,7 @@
 
   function closeWidget() {
     state.open = false;
+    if (el.widget) el.widget.classList.remove('is-open');
     el.panel.classList.remove('visible');
     el.panel.classList.add('hidden');
     el.launcher.querySelector('svg').style.opacity = '1';
