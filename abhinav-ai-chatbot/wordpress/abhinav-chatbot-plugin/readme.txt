@@ -44,6 +44,13 @@ Deactivate and delete the plugin. No database cleanup is required beyond the plu
 
 == Changelog ==
 
+= 1.0.2 =
+* Fix mobile virtual keyboard behavior so keyboard remains closed when widget opens on mobile devices.
+* Configurable widget placement: choose freely between Bottom Left and Bottom Right.
+
+= 1.0.1 =
+* Added support for bottom-left widget placement.
+
 = 1.0.0 =
 * Initial release
 

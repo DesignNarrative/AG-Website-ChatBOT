@@ -366,12 +366,15 @@ class Abhinav_Chatbot_Plugin {
         ?>
         <select name="<?php echo esc_attr( ABHINAV_CHATBOT_OPTION_KEY ); ?>[position]">
             <option value="bottom-left" <?php selected( $s['position'], 'bottom-left' ); ?>>
-                <?php esc_html_e( 'Bottom Left (recommended)', 'abhinav-chatbot' ); ?>
+                <?php esc_html_e( 'Bottom Left', 'abhinav-chatbot' ); ?>
             </option>
             <option value="bottom-right" <?php selected( $s['position'], 'bottom-right' ); ?>>
                 <?php esc_html_e( 'Bottom Right', 'abhinav-chatbot' ); ?>
             </option>
         </select>
+        <p class="description">
+            <?php esc_html_e( 'Choose whether the chatbot floats on the bottom-left or bottom-right corner of your website.', 'abhinav-chatbot' ); ?>
+        </p>
         <?php
     }
 
