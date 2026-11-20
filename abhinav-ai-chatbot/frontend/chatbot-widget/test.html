@@ -64,9 +64,29 @@ window.AbhinavChatConfig = {
         document.getElementById('snippet').textContent = snippet;
     </script>
 
+    <div style="margin: 24px 0; padding: 20px; background: #ffffff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 5px solid #1a2f5a;">
+        <h3 style="margin-top: 0; color: #1a2f5a;">Widget Live Preview Controls</h3>
+        <p style="margin-bottom: 12px; color: #64748b; font-size: 14px;">Test the widget placement and the new <strong>Premium Navy Blue & White</strong> styling:</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button onclick="setWidgetPos('bottom-left')" style="padding: 9px 18px; cursor: pointer; background: #1a2f5a; color: white; border: none; border-radius: 6px; font-weight: 600; font-size: 13px;">Dock Bottom-Left</button>
+            <button onclick="setWidgetPos('bottom-right')" style="padding: 9px 18px; cursor: pointer; background: #243f75; color: white; border: none; border-radius: 6px; font-weight: 600; font-size: 13px;">Dock Bottom-Right</button>
+            <button onclick="if(window.AbhinavChat) window.AbhinavChat.open();" style="padding: 9px 18px; cursor: pointer; background: white; color: #1a2f5a; border: 1.5px solid #1a2f5a; border-radius: 6px; font-weight: 600; font-size: 13px;">Open Chat</button>
+            <button onclick="if(window.AbhinavChat) window.AbhinavChat.close();" style="padding: 9px 18px; cursor: pointer; background: white; color: #64748b; border: 1.5px solid #cbd5e1; border-radius: 6px; font-weight: 600; font-size: 13px;">Close Chat</button>
+        </div>
+    </div>
+
+    <script>
+    function setWidgetPos(pos) {
+        var w = document.getElementById('abhinav-chat-widget');
+        if (w) {
+            w.classList.remove('pos-bottom-left', 'pos-bottom-right');
+            w.classList.add('pos-' + pos);
+        }
+    }
+    </script>
+
     <!-- ============================================================
          LIVE WIDGET — for testing this page
-         Update apiBase to your backend URL
     ============================================================ -->
     <script>
     window.AbhinavChatConfig = {
@@ -74,12 +94,12 @@ window.AbhinavChatConfig = {
         widgetKey:      "dev-test-key",
         sourcePage:     window.location.href,
         lang:           "auto",
-        position:       "bottom-right",
+        position:       "bottom-left",
         autoOpen:       false,
         autoOpenDelay:  5000
     };
     </script>
-    <script src="/static/abhinav-chatbot.min.js?v=2.9" onerror="this.onerror=null;this.src='dist/abhinav-chatbot.min.js?v=2.9'" async></script>
+    <script src="/static/abhinav-chatbot.min.js?v=3.0" onerror="this.onerror=null;this.src='dist/abhinav-chatbot.min.js?v=3.0'" async></script>
     <!-- End widget -->
 
 </body>
