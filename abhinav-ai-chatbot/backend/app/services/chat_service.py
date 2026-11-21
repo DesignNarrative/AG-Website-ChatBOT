@@ -183,13 +183,88 @@ ACTIVE PROJECTS (CURRENTLY ONGOING)
    - MahaRERA Reg No.: P52100045923
    - Price: Available on request via sales team (+91 9730397979)
 
-3. The Curve (Residential — Elite Tower)
-   - Location: Bolinj, Virar West, Mumbai MMR, Maharashtra
-   - Configurations: 2 BHK & 3 BHK elite residences
-   - Highlights: Iconic standalone single-tower development, panoramic scenic views, elite clubhouse, children's play area, fitness centre
-   - Possession Target: June 2031 (as per project schedule)
+3. The Curve — Crown of Grandeur (Residential — Premium Mega-Development)
+   OFFICIAL PROJECT NAME: The Curve-Crown of Grandeur
    - MahaRERA Reg No.: PR1240002600667
-   - Price: Available on request via sales team (+91 97307 00667)
+   - Project Type: Premium residential mega-development
+   - Total Units: 936 units across 2 phases
+   - Land Size: 4 Acres (Freehold land title)
+   - Construction Technology: RCC with Aluform Technology
+   - Possession: June 2031 (as per RERA)
+   - Building Structure: G+3 Podium + 30 Floors
+   - Floor-to-Ceiling Height: 9.5 ft
+
+   LOCATION & ADDRESS:
+   - Full Address: Agashi Road, VIVA City, Bolinj, Virar West, Vasai-Virar, Maharashtra 401303
+   - Distance from Virar Railway Station: 7 minutes
+   - Distance from BKC / Andheri / Borivali / Lower Parel: approximately 35 minutes
+   - Nearby Public Transport: Rickshaw available
+   - Upcoming Infrastructure Benefits: Bullet Train, Mumbai-Ahmedabad Expressway, Coastal Road, Virar-Panvel Multi-Modal Corridor, Vadhvan Port, Palghar Airport, Metro Lines
+
+   NEARBY LANDMARKS:
+   - Reputed Schools: Muljibhai Mehta International School, Matrix Academy School, National English School, Royal Academy School
+   - Hospitals: Prakriti Hospital, Rural Hospital, Siddhai Multispeciality Hospital, Wellcare Multispeciality Hospital, Shree Sai Hospital
+   - Malls & Entertainment: Club One, Visara Water Park, Yazoo Park, Arnala Beach, Capital Mall
+
+   UNIT CONFIGURATIONS & SIZES:
+   - Configurations Available: 2 BHK and 3 BHK
+   - Carpet Areas: 2 BHK — 625 sq.ft | 3 BHK Premium — 800 sq.ft | 3 BHK Luxury — 874 sq.ft
+   - All Flats: Premium facing (all apartments have premium views)
+   - Vastu Compliant: Yes
+   - Lifts & Staircases: 5 Lifts and 2 Staircases per wing
+   - Refuge / Special Floors: 4th, 9th, 14th, 24th & 29th floor are refuge floors; 19th floor has fire tank
+   - Bare Shell Option: Not available (no bare shell)
+
+   DESIGN & ARCHITECTURE:
+   - Principal Architect: Studio Arcon Architects
+   - RCC Consultants: Strudcom Consultants Pvt. Ltd.
+   - MEP Consultant: Unicorn M.E.P Consultants Pvt. Ltd.
+   - Landscape Consultant: Designterra Landscape Consultants
+
+   AMENITIES & LIFESTYLE:
+   - Lifestyle Positioning: Andheri/Borivali style premium mega residential — modern lifestyle with thoughtfully planned spaces
+   - Amenities: Swimming Pool, Banquet Hall, Gymnasium, Badminton Court, Children's Play Area, Multipurpose Court, Co-working Space, Calisthenics Exercise Court, Kids Café, Senior Citizen Court, Yoga & Dance Studio, Star Gazing Deck, Indoor Games
+   - Amenity Area: Fully vehicle-free
+   - Retail/High Street within project: Not available
+   - Dedicated Temple/Spiritual Space: Not available
+
+   SPECIFICATIONS & INTERIORS:
+   - Flooring: Vitrified flooring 1200x600 mm
+   - Sanitary Ware: CERA / TOTO or equivalent
+   - Modular Kitchen: Not provided
+   - White Goods / Appliances: Not included
+   - Geysers in Bathrooms: Not provided
+   - Piped Gas: Not available
+   - Rainwater Harvesting: Yes, provided
+   - EV Charging Points in Parking: Yes, available
+
+   PARKING:
+   - Parking Type: Podium — Surface Parking
+   - Car Park Allotment: 3 BHK — 1 dedicated car park included | 2 BHK — Optional car park
+
+   PRICING & FINANCIALS:
+   - Base Sale Price (BSP): Rs. 10,800 per sq.ft
+   - Pricing vs Andheri/Borivali: Yes — positioned as much more attractive entry pricing vs comparable standards
+   - Payment Plan: CLP (Construction Linked Payment)
+   - Pre-Launch Offers: Yes — early access customers will receive exclusive pre-launch offers
+   - Stamp Duty: 7% | Registration: Rs. 30,000 | GST: 5%
+   - Preferred Location Charge (PLC): Yes, applicable
+   - Cancellation Charges: As per RERA guidelines
+   - Down Payment Discount: Not available
+
+   HOME LOAN & BOOKING PROCESS:
+   - Pre-Approved Banks: SBI, HDFC, ICICI, Bajaj, Mahindra, IIFL, Axis Bank
+   - Home Loan Assistance: Yes, provided
+   - Can Register After Paying 5%: Yes — subject to 95% loan sanction letter
+   - Documents Required to Book: Aadhaar Card and PAN Card
+   - Booking Amount: Rs. 2,00,000 (Rupees Two Lakhs)
+   - Payment Gateway: All payment gateways available (NEFT/RTGS/online)
+   - Unit Change After Booking: Yes — allowed before registration
+   - Agreement Signing: Within 15 days from the booking date
+
+   SALES CONTACT FOR THE CURVE:
+   - Sales Team: +91 97307 00667 | sales@abhinavinfra.com
+   - Sales Lounge: Agashi Road, Next to VIVA City, Bolinj, Virar West, Mumbai MMR – 401303
 
 4. Pebbles Business Bay (Commercial — Retail & Corporate Offices)
    - Location: Sr. No. 132(P), 121(P), Opp. Phoenix Mall of the Millennium, Near My Car Showroom / Bhumkar Chowk, Wakad, Pune – 411057
