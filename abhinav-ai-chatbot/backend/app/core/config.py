@@ -40,7 +40,7 @@ class Settings(BaseSettings):
 
     @property
     def is_postgres(self) -> bool:
-        return "postgresql" in self.database_url
+        return "postgresql" in self.database_url or "postgres" in self.database_url
 
     # --- Vector Store ---
     vector_store_type: Literal["faiss", "pgvector", "sqlite_vss"] = "faiss"

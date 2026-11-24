@@ -58,10 +58,20 @@ def _make_engine():
         return engine, sync_url
 
     else:
-        # Async PostgreSQL URL: postgresql+asyncpg://...
-        async_url = url.replace("postgresql+psycopg2://", "postgresql+asyncpg://").replace(
-            "postgresql://", "postgresql+asyncpg://"
-        )
+        # Async PostgreSQL URL: postgresql+asyncpg://... (supports postgres://, postgresql://, postgresql+psycopg2://)
+        if url.startswith("postgres://"):
+            async_url = url.replace("postgres://", "postgresql+asyncpg://", 1)
+            sync_url = url.replace("postgres://", "postgresql://", 1)
+        elif url.startswith("postgresql+psycopg2://"):
+            async_url = url.replace("postgresql+psycopg2://", "postgresql+asyncpg://", 1)
+            sync_url = url.replace("postgresql+psycopg2://", "postgresql://", 1)
+        elif url.startswith("postgresql://"):
+            async_url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
+            sync_url = url
+        else:
+            async_url = url
+            sync_url = url
+
         engine = create_async_engine(
             async_url,
             pool_size=10,
@@ -69,7 +79,7 @@ def _make_engine():
             pool_pre_ping=True,
             echo=settings.debug,
         )
-        return engine, url
+        return engine, sync_url
 
 
 async_engine, _sync_url = _make_engine()

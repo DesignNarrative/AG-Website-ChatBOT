@@ -13,8 +13,9 @@ alembic==1.14.0
 aiosqlite>=0.20.0
 
 # --- SQLite (dev) driver — built into Python, no extra package ---
-# PostgreSQL (staging/prod) driver
+# PostgreSQL (staging/prod) drivers
 psycopg2-binary==2.9.10
+asyncpg==0.30.0
 # pgvector Python client
 pgvector==0.3.6
 
