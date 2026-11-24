@@ -86,6 +86,8 @@ async def list_leads(
                 "preferred_location": l.preferred_location,
                 "is_nri": l.is_nri,
                 "source_page": l.source_page,
+                "mdoc_sync_status": l.mdoc_sync_status.value.upper() if hasattr(l.mdoc_sync_status, "value") else str(l.mdoc_sync_status).upper() if l.mdoc_sync_status else "PENDING",
+                "mdoc_lead_id": l.mdoc_lead_id,
             }
             for l in leads
         ],
@@ -142,6 +144,9 @@ async def get_lead_detail(
         "is_nri": lead.is_nri,
         "source_page": lead.source_page,
         "enquiry_summary": lead.enquiry_summary,
+        "mdoc_sync_status": lead.mdoc_sync_status.value.upper() if hasattr(lead.mdoc_sync_status, "value") else str(lead.mdoc_sync_status).upper() if lead.mdoc_sync_status else "PENDING",
+        "mdoc_lead_id": lead.mdoc_lead_id,
+        "mdoc_last_error": lead.mdoc_last_error,
         "notes": [],
     }
 

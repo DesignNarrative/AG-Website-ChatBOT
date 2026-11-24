@@ -91,8 +91,8 @@ class Settings(BaseSettings):
     email_from: str = "noreply@abhinavgroup.co.in"
 
     # --- Mdoc CRM ---
-    mdoc_enabled: bool = False
-    mdoc_mode: Literal["mock", "sandbox", "production"] = "mock"
+    mdoc_enabled: bool = True
+    mdoc_mode: Literal["mock", "sandbox", "production"] = "production"
     mdoc_api_base_url: str = "https://abhinav.maksoftbox.com/MDocBoxAPI/MdocAddEnquiryORTeleCalling/"
     mdoc_endpoint_url: str = "https://abhinav.maksoftbox.com/MDocBoxAPI/MdocAddEnquiryORTeleCalling/"
     mdoc_api_key: Optional[str] = None
