@@ -89,8 +89,8 @@ class LeadService:
             is_duplicate=lead.is_duplicate,
         )
 
-        # Queue Mdoc sync (async, non-blocking)
-        if settings.mdoc_enabled and not lead.is_duplicate:
+        # Queue Mdoc sync (async, non-blocking) — every enquiry is pushed so MDoc tracks new leads & re-engagements
+        if settings.mdoc_enabled:
             await self._queue_mdoc_sync(lead.id)
         else:
             lead.mdoc_sync_status = MdocSyncStatus.SKIPPED
