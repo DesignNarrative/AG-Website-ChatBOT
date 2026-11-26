@@ -3,7 +3,7 @@
  * Plugin Name:       Abhinav Group AI Chatbot
  * Plugin URI:        https://abhinavgroup.co.in/
  * Description:       AI-powered property sales chatbot for Abhinav Group. Loads a floating chat widget that connects to the Abhinav Group chatbot API.
- * Version:           1.0.3
+ * Version:           1.0.4
  * Requires at least: 5.6
  * Requires PHP:      7.4
  * Author:            Abhinav Group Technology Team
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin version and option key constants
-define( 'ABHINAV_CHATBOT_VERSION', '1.0.3' );
+define( 'ABHINAV_CHATBOT_VERSION', '1.0.4' );
 define( 'ABHINAV_CHATBOT_OPTION_KEY', 'abhinav_chatbot_settings' );
 define( 'ABHINAV_CHATBOT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ABHINAV_CHATBOT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -85,15 +85,20 @@ class Abhinav_Chatbot_Plugin {
             return;
         }
 
-        // Enqueue the minified widget JS (falls back to src if dist not built yet)
+        // Enqueue the minified widget JS (loads from API base if set, with local plugin fallback)
         $js_file = 'dist/abhinav-chatbot.min.js';
         if ( ! file_exists( ABHINAV_CHATBOT_PLUGIN_DIR . $js_file ) ) {
             $js_file = 'assets/widget.js';
         }
 
+        $api_base = ! empty( $settings['api_base'] ) ? rtrim( $settings['api_base'], '/' ) : '';
+        $widget_script_url = ! empty( $api_base ) 
+            ? $api_base . '/static/abhinav-chatbot.min.js' 
+            : ABHINAV_CHATBOT_PLUGIN_URL . $js_file;
+
         wp_enqueue_script(
             'abhinav-chatbot-widget',
-            ABHINAV_CHATBOT_PLUGIN_URL . $js_file,
+            $widget_script_url,
             [],   // No dependencies — fully self-contained
             ABHINAV_CHATBOT_VERSION,
             true  // Load in footer — does not block page rendering

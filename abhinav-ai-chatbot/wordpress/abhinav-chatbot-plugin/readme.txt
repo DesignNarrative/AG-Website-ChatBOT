@@ -4,7 +4,7 @@ Tags: chatbot, real estate, property, ai, customer support
 Requires at least: 5.6
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.2
+Stable tag: 1.0.4
 License: Proprietary
 
 AI-powered property sales chatbot for Abhinav Group.
