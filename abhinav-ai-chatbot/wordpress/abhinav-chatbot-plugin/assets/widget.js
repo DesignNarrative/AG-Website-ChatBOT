@@ -313,18 +313,18 @@
     var safe = escapeHtml(cleaned);
 
     // Convert markdown links [text](url) to clickable <a>
-  safe = safe.replace(/\[([^\]]+)\]\((https?:\/\/[^\s<>"'\)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  safe = safe.replace(/\[([^\]]+)\]\((https?:\/\/[^\s<>"'\)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:#0284c7;text-decoration:underline;">$1</a>');
 
   // Convert raw URLs (http:// or https://) to clickable <a>
   safe = safe.replace(/(<a\s+[^>]*>[\s\S]*?<\/a>)|(https?:\/\/[^\s<>"'\)]+)/g, function (match, existingLink, url) {
     if (existingLink) return existingLink;
-    return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
+    return '<a href="' + url + '" target="_blank" rel="noopener noreferrer" style="color:#0284c7;text-decoration:underline;">' + url + '</a>';
   });
 
   // Convert bare project domains to clickable <a> (e.g. thecurvevirar.com, pebblesbusinessbay.com, abhinavgroup.co.in/samsara)
   safe = safe.replace(/(<a\s+[^>]*>[\s\S]*?<\/a>)|(thecurvevirar\.com[^\s<>"'\)]*|pebblesbusinessbay\.com[^\s<>"'\)]*|abhinavgroup\.co\.in[^\s<>"'\)]*)/g, function (match, existingLink, domain) {
     if (existingLink) return existingLink;
-    return '<a href="https://' + domain + '" target="_blank" rel="noopener noreferrer">' + domain + '</a>';
+    return '<a href="https://' + domain + '" target="_blank" rel="noopener noreferrer" style="color:#0284c7;text-decoration:underline;">' + domain + '</a>';
   });
 
     // Convert **bold** to <strong>bold</strong>

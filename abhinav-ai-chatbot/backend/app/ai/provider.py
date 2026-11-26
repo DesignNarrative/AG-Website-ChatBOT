@@ -87,12 +87,12 @@ class MockAIProvider(BaseAIProvider):
             "• सामान्य रियल एस्टेट जानकारी"
         ),
         "projects_list": (
-            "Here are our current active projects:\n\n"
-            "• The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences\n"
+            "Here are our current active ongoing projects:\n\n"
+            "• The Curve (Virar West, Mumbai) -\n"
             "  (thecurvevirar.com)\n\n"
-            "• Samsara (Mukund Nagar, Central Pune) - Ultra-luxury 3 BHK residences\n"
+            "• Samsara (Mukund Nagar, Pune) -\n"
             "  (abhinavgroup.co.in/samsara)\n\n"
-            "• Pebbles Business Bay (Wakad, Pune) - High-street retail showrooms & Grade-A corporate offices opposite Phoenix Mall\n"
+            "• Pebbles Business Bay (Wakad, Pune) -\n"
             "  (pebblesbusinessbay.com)\n\n"
             "Would you like to know more about any specific project or schedule a site visit?"
         ),

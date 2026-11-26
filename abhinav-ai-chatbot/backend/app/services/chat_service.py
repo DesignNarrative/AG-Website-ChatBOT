@@ -48,12 +48,15 @@ STRICT RULES — NEVER VIOLATE THESE:
    - CONFIGURATION MATCHING RULES (STRICT & MANDATORY):
      * When asked about "3 BHK" (or "3bhk", "3 bedroom", "three bhk"):
        Recommend our active ongoing projects that offer 3 BHK residences:
-       • The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences (https://thecurvevirar.com/)
-       • Samsara (Mukund Nagar, Central Pune) - Ultra-luxury 3 BHK residences (https://abhinavgroup.co.in/samsara/)
+       • The Curve (Virar West, Mumbai) -
+         (thecurvevirar.com)
+       • Samsara (Mukund Nagar, Pune) -
+         (abhinavgroup.co.in/samsara)
 
      * When asked about "2 BHK" (or "2bhk", "2 bedroom", "two bhk"):
        Recommend our active ongoing project that features 2 BHK apartments:
-       • The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences (https://thecurvevirar.com/)
+       • The Curve (Virar West, Mumbai) -
+         (thecurvevirar.com)
        (Never include Samsara for 2 BHK inquiries, as Samsara exclusively offers 3 BHK).
 
      * CONFIGURATION SWITCHING:
@@ -65,14 +68,16 @@ STRICT RULES — NEVER VIOLATE THESE:
 7. FORMATTING RULE: Keep answers clean, conversational, and easy to read. NEVER use markdown heading hashes (like ### or ##) and NEVER use horizontal divider lines (like --- or ***). Use clean bullet points (- or •) and bold text sparingly for headings.
 8. QUICK ACTION BUTTONS:
    - "Explore Projects" / "Projects" / "All Projects" (or "प्रोजेक्ट देखें", "प्रोजेक्ट्स"):
-     MUST ALWAYS be treated as a global portfolio reset. REGARDLESS of whatever was discussed in previous turns, you MUST list the 3 active ongoing projects in this exact sequence, with each project link on the next line:
-     • The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences
+     MUST ALWAYS be treated as a global portfolio reset. REGARDLESS of whatever was discussed in previous turns, you MUST respond in this exact format, with "Here are our current active ongoing projects:" header and each project link on the next line:
+     Here are our current active ongoing projects:
+
+     • The Curve (Virar West, Mumbai) -
        (thecurvevirar.com)
 
-     • Samsara (Mukund Nagar, Central Pune) - Ultra-luxury 3 BHK residences
+     • Samsara (Mukund Nagar, Pune) -
        (abhinavgroup.co.in/samsara)
 
-     • Pebbles Business Bay (Wakad, Pune) - High-street retail showrooms & Grade-A corporate offices opposite Phoenix Mall
+     • Pebbles Business Bay (Wakad, Pune) -
        (pebblesbusinessbay.com)
 
      Closing line: "Would you like to know more about any specific project or schedule a site visit?"
@@ -894,22 +899,22 @@ class ChatService:
         if t in ["explore projects", "projects", "all projects", "प्रोजेक्ट देखें", "प्रोजेक्ट्स"]:
             if language == "hi":
                 return (
-                    "पुणे और मुंबई MMR में हमारे सक्रिय प्रोजेक्ट्स निम्नलिखित हैं:\n\n"
-                    "• The Curve (बोलिंज, विरार वेस्ट, मुंबई MMR) - एलीट 2 और 3 BHK रेजिडेंस\n"
+                    "यहाँ हमारे वर्तमान सक्रिय प्रोजेक्ट्स हैं:\n\n"
+                    "• The Curve (विरार वेस्ट, मुंबई) -\n"
                     "  (thecurvevirar.com)\n\n"
-                    "• Samsara (मुकुंद नगर, सेंट्रल पुणे) - अल्ट्रा-लक्ज़री 3 BHK रेजिडेंस\n"
+                    "• Samsara (मुकुंद नगर, पुणे) -\n"
                     "  (abhinavgroup.co.in/samsara)\n\n"
-                    "• Pebbles Business Bay (वाकड, पुणे) - हाई-स्ट्रीट रिटेल शोरूम और कॉर्पोरेट ऑफिस\n"
+                    "• Pebbles Business Bay (वाकड, पुणे) -\n"
                     "  (pebblesbusinessbay.com)\n\n"
                     "क्या आप किसी विशिष्ट प्रोजेक्ट के बारे में अधिक जानना चाहते हैं या साइट विजिट शेड्यूल करना चाहते हैं?"
                 )
             return (
-                "Here are our current active projects:\n\n"
-                "• The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences\n"
+                "Here are our current active ongoing projects:\n\n"
+                "• The Curve (Virar West, Mumbai) -\n"
                 "  (thecurvevirar.com)\n\n"
-                "• Samsara (Mukund Nagar, Central Pune) - Ultra-luxury 3 BHK residences\n"
+                "• Samsara (Mukund Nagar, Pune) -\n"
                 "  (abhinavgroup.co.in/samsara)\n\n"
-                "• Pebbles Business Bay (Wakad, Pune) - High-street retail showrooms & Grade-A corporate offices opposite Phoenix Mall\n"
+                "• Pebbles Business Bay (Wakad, Pune) -\n"
                 "  (pebblesbusinessbay.com)\n\n"
                 "Would you like to know more about any specific project or schedule a site visit?"
             )
