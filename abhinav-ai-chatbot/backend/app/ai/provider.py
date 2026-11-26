@@ -87,14 +87,14 @@ class MockAIProvider(BaseAIProvider):
             "• सामान्य रियल एस्टेट जानकारी"
         ),
         "projects_list": (
-            "Abhinav Group currently has these active projects:\n\n"
-            "**Residential:**\n"
-            "1. 🏠 **Samsara** — Mukund Nagar, Pune | 3 BHK luxury residences\n"
-            "2. 🏠 **Pebbles Greenfield** — Tathawade/Wakad, Pune | 2 & 3 BHK\n"
-            "3. 🏠 **The Curve** — Virar West, Mumbai | 2 & 3 BHK\n\n"
-            "**Commercial:**\n"
-            "4. 🏢 **Aeromall** — Airport Road, Lohegaon, Pune\n\n"
-            "Which project would you like to know more about?"
+            "Here are our current active projects:\n\n"
+            "• The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences\n"
+            "  (thecurvevirar.com)\n\n"
+            "• Samsara (Mukund Nagar, Central Pune) - Ultra-luxury 3 BHK residences\n"
+            "  (abhinavgroup.co.in/samsara)\n\n"
+            "• Pebbles Business Bay (Wakad, Pune) - High-street retail showrooms & Grade-A corporate offices opposite Phoenix Mall\n"
+            "  (pebblesbusinessbay.com)\n\n"
+            "Would you like to know more about any specific project or schedule a site visit?"
         ),
         "out_of_scope": (
             "I'm here specifically to help with Abhinav Group's property enquiries. "

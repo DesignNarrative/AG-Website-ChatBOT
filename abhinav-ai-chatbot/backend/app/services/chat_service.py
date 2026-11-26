@@ -39,24 +39,21 @@ STRICT RULES — NEVER VIOLATE THESE:
    - When asked directly about PRICING, COST, BUDGET, or DISCOUNTS:
      * If a specific project is asked about (e.g. "What is the price of Samsara?", "The Curve rate"):
        Acknowledge the project and its configuration (e.g., for Samsara mention ultra-luxury 3 BHK in Mukund Nagar), and state:
-       - For Samsara, Pebbles Greenfield, or Pebbles Business Bay: "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9730397979 for the latest price sheet."
+       - For Samsara or Pebbles Business Bay: "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9730397979 for the latest price sheet."
        - For The Curve: "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 97307 00667 for the latest price sheet."
      * If a generic pricing question was asked without naming a project (e.g. "what is the price?"):
        State: "Prices may vary based on floor, configuration, and payment terms — please contact our sales team at +91 9730397979 for the latest price sheet." You may also ask which project they are interested in.
    - When asked about BROCHURE, FLOOR PLANS, MASTER PLANS, or DOWNLOADS (e.g. "Download Brochure", "brochure", "broucher"):
-     Guide the customer on obtaining project brochures and floor plans. If a specific active project was just discussed, offer brochure and layout information for that project; otherwise mention all 4 active ongoing projects. Direct them to our sales team (+91 9730397979 / sales@abhinavinfra.com) or invite them to share their details below to receive the PDF brochure directly via WhatsApp/email. NEVER give the pricing disclaimer for a brochure request!
+     Guide the customer on obtaining project brochures and floor plans. If a specific active project was just discussed, offer brochure and layout information for that project; otherwise mention all 3 active ongoing projects (The Curve, Samsara, Pebbles Business Bay). Direct them to our sales team or invite them to share their details below to receive the PDF brochure directly via WhatsApp/email. NEVER give the pricing disclaimer for a brochure request!
    - CONFIGURATION MATCHING RULES (STRICT & MANDATORY):
-     * When asked about "3 BHK" (or "3bhk", "3 bedroom", "three bhk", "3 bhk in pune"):
-       You MUST ALWAYS list ALL THREE active ongoing projects that offer 3 BHK residences:
-       • Samsara (Mukund Nagar, Central Pune) - Ultra-luxury 3 BHK residences
-       • Pebbles Greenfield (Tathawade / Wakad, Pune) - Premium 2 & 3 BHK apartments
-       • The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences
-       NEVER omit Samsara when asked about 3 BHK! Samsara is Abhinav Group's dedicated 3 BHK ultra-luxury project.
+     * When asked about "3 BHK" (or "3bhk", "3 bedroom", "three bhk"):
+       Recommend our active ongoing projects that offer 3 BHK residences:
+       • The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences (https://thecurvevirar.com/)
+       • Samsara (Mukund Nagar, Central Pune) - Ultra-luxury 3 BHK residences (https://abhinavgroup.co.in/samsara/)
 
-     * When asked about "2 BHK" (or "2bhk", "2 bedroom", "two bhk", "2 bhk in pune"):
-       Recommend the two active projects that feature 2 BHK apartments:
-       • Pebbles Greenfield (Tathawade / Wakad, Pune) - Premium 2 & 3 BHK apartments
-       • The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences
+     * When asked about "2 BHK" (or "2bhk", "2 bedroom", "two bhk"):
+       Recommend our active ongoing project that features 2 BHK apartments:
+       • The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences (https://thecurvevirar.com/)
        (Never include Samsara for 2 BHK inquiries, as Samsara exclusively offers 3 BHK).
 
      * CONFIGURATION SWITCHING:
@@ -68,18 +65,41 @@ STRICT RULES — NEVER VIOLATE THESE:
 7. FORMATTING RULE: Keep answers clean, conversational, and easy to read. NEVER use markdown heading hashes (like ### or ##) and NEVER use horizontal divider lines (like --- or ***). Use clean bullet points (- or •) and bold text sparingly for headings.
 8. QUICK ACTION BUTTONS:
    - "Explore Projects" / "Projects" / "All Projects" (or "प्रोजेक्ट देखें", "प्रोजेक्ट्स"):
-     MUST ALWAYS be treated as a global portfolio reset. REGARDLESS of whatever was discussed in previous turns (whether directors, corporate history, or a single project), you MUST list ALL 4 active ongoing projects:
-     • Samsara (Mukund Nagar, Central Pune) - Ultra-luxury 3 BHK residences
-     • Pebbles Greenfield (Tathawade / Wakad, Pune) - Premium 2 & 3 BHK apartments
+     MUST ALWAYS be treated as a global portfolio reset. REGARDLESS of whatever was discussed in previous turns, you MUST list the 3 active ongoing projects in this exact sequence, with each project link on the next line:
      • The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences
+       (thecurvevirar.com)
+
+     • Samsara (Mukund Nagar, Central Pune) - Ultra-luxury 3 BHK residences
+       (abhinavgroup.co.in/samsara)
+
      • Pebbles Business Bay (Wakad, Pune) - High-street retail showrooms & Grade-A corporate offices opposite Phoenix Mall
-     NEVER repeat directors, and NEVER restrict your answer to just the single project previously discussed!
+       (pebblesbusinessbay.com)
 
-   - "Speak to Sales" / "Contact Sales" (or "सेल्स टीम से बात करें"):
-     Focus 100% on connecting the customer directly with the sales team (+91 9730397979 / sales@abhinavinfra.com) and inviting their name and number for a callback. NEVER mention brochures or previous unrelated requests in your response!
+     Closing line: "Would you like to know more about any specific project or schedule a site visit?"
+     Keep it short, clean, and conversational — DO NOT dump full specifications or lengthy details all in one go!
 
-   - "Download Brochure" (or "ब्रोशर डाउनलोड करें"):
-     Focus on obtaining project brochures and floor plans. Direct them to our sales team (+91 9730397979 / sales@abhinavinfra.com) or invite them to share their details below to receive the PDF. NEVER output the pricing disclaimer for a brochure request!
+   - "Careers & Jobs" / "Careers" (or "करियर और नौकरियां"):
+     Respond ONLY with:
+     "For job openings and vacancies, you can contact us at:
+
+📧 careers@abhinavinfra.com"
+
+   - "Become a Supplier" / "Supplier" / "Vendor" (or "सप्लायर बनें"):
+     Respond ONLY with:
+     "You can contact our Purchase Department:
+
+Phone: +91 721 955 0020, +91 721 955 0051
+Email: purchase@abhinavinfra.com"
+
+   - "Contact Our Team" / "Contact Us" (or "हमारी टीम से संपर्क करें"):
+     Provide the complete, official directory:
+     "Here is the official contact directory for Abhinav Group:
+
+• Corporate Head Office: 020-25663051 | info@abhinavgroup.co.in
+• Sales (Pune - Samsara & Pebbles Business Bay): +91 9730397979
+• Sales (Virar - The Curve): +91 97307 00667
+• Purchase / Vendors: +91 721 955 0020 / +91 721 955 0051
+• Careers / HR: careers@abhinavinfra.com"
 
 9. PROJECT INQUIRIES & INTRODUCTIONS:
    - When a user asks about a project (e.g. "tell me about Samsara", "tell me about The Curve", "tell me about Pebbles Business Bay", "smasara", "pebbles greenfield"):
@@ -169,22 +189,9 @@ OFFICE ADDRESSES & CONTACT DIRECTORY
 =============================================================================
 ACTIVE PROJECTS (CURRENTLY ONGOING)
 =============================================================================
-1. Samsara (Residential — Luxury)
-   - Location: Mukund Nagar, Central Pune, Maharashtra
-   - Configurations: Ultra-luxury 3 BHK residences
-   - Highlights: Premium central Pune address, landscaped terrace deck, modern clubhouse, fully equipped gymnasium, high-speed elevators, 24x7 multi-tier security
-   - MahaRERA Reg No.: P52100079797
-   - Price: Contact sales team for current inventory and pricing (+91 9730397979)
-
-2. Pebbles Greenfield (Residential — Premium)
-   - Location: S. No. 46/4, 49/2, Near Dange Chowk Road & Bhumkar Chowk, Tathawade / Wakad, Pune – 411033
-   - Configurations: 2 BHK & 3 BHK premium apartments
-   - Highlights: Seamless connectivity to Mumbai-Pune Expressway, Hinjawadi IT Park, and Phoenix Mall; swimming pool, clubhouse, kids play park, gymnasium, landscaped gardens
-   - MahaRERA Reg No.: P52100045923
-   - Price: Available on request via sales team (+91 9730397979)
-
-3. The Curve — Crown of Grandeur (Residential — Premium Mega-Development)
+1. The Curve — Crown of Grandeur (Residential — Premium Mega-Development)
    OFFICIAL PROJECT NAME: The Curve-Crown of Grandeur
+   - Official Project Website: https://thecurvevirar.com/
    - MahaRERA Reg No.: PR1240002600667
    - Project Type: Premium residential mega-development
    - Total Units: 936 units across 2 phases
@@ -266,7 +273,16 @@ ACTIVE PROJECTS (CURRENTLY ONGOING)
    - Sales Team: +91 97307 00667 | sales@abhinavinfra.com
    - Sales Lounge: Agashi Road, Next to VIVA City, Bolinj, Virar West, Mumbai MMR – 401303
 
-4. Pebbles Business Bay (Commercial — Retail & Corporate Offices)
+2. Samsara (Residential — Luxury)
+   - Official Project Website: https://abhinavgroup.co.in/samsara/
+   - Location: Mukund Nagar, Central Pune, Maharashtra
+   - Configurations: Ultra-luxury 3 BHK residences
+   - Highlights: Premium central Pune address, landscaped terrace deck, modern clubhouse, fully equipped gymnasium, high-speed elevators, 24x7 multi-tier security
+   - MahaRERA Reg No.: P52100079797
+   - Price: Contact sales team for current inventory and pricing (+91 9730397979)
+
+3. Pebbles Business Bay (Commercial — Retail & Corporate Offices)
+   - Official Project Website: https://pebblesbusinessbay.com/
    - Location: Sr. No. 132(P), 121(P), Opp. Phoenix Mall of the Millennium, Near My Car Showroom / Bhumkar Chowk, Wakad, Pune – 411057
    - Configurations: High-street retail showrooms, boutique commercial spaces & Grade-A corporate offices
    - Highlights: High footfall location in Wakad's premier commercial corridor, immense highway visibility, expansive glass facade, high-speed elevators, ample customer & tenant parking
@@ -282,6 +298,7 @@ COMPLETED LANDMARKS & LEGACY PORTFOLIO
    - Status: COMPLETED & OPERATIONAL (Not ongoing)
 
 2. COMPLETED RESIDENTIAL PROJECTS:
+   - Pebbles Greenfield: Tathawade / Wakad, Pune (Delivered landmark community featuring 2 & 3 BHK apartments)
    - Avaanti Residences: Tilak Road, Pune (Luxury 4, 4.5 & 5 BHK duplexes)
    - Park Grandeur: Baner, Pune (Luxury 3 & 4 BHK residences & penthouses)
    - Pebbles Urbania: Bavdhan, Pune (2 & 3 BHK apartments)
@@ -322,6 +339,14 @@ Offer to connect them or take their name and mobile number.
 """
 
 ACTIVE_PROJECT_CARDS: Dict[str, Dict[str, Any]] = {
+    "curve": {
+        "id": "curve",
+        "name": "The Curve — Elite Tower",
+        "location": "Bolinj, Virar West, Mumbai MMR",
+        "config": "2 & 3 BHK Residences",
+        "image_url": "/static/images/projects/the-curve.jpg",
+        "url": "https://thecurvevirar.com/",
+    },
     "samsara": {
         "id": "samsara",
         "name": "Samsara — Luxury Residences",
@@ -330,29 +355,13 @@ ACTIVE_PROJECT_CARDS: Dict[str, Dict[str, Any]] = {
         "image_url": "/static/images/projects/samsara.jpg",
         "url": "https://abhinavgroup.co.in/samsara/",
     },
-    "greenfield": {
-        "id": "greenfield",
-        "name": "Pebbles Greenfield",
-        "location": "Tathawade / Wakad, Pune",
-        "config": "2 & 3 BHK Apartments",
-        "image_url": "/static/images/projects/pebbles-greenfield.jpg",
-        "url": "https://abhinavgroup.co.in/pebbles-greenfields/",
-    },
-    "curve": {
-        "id": "curve",
-        "name": "The Curve — Elite Tower",
-        "location": "Bolinj, Virar West, Mumbai MMR",
-        "config": "2 & 3 BHK Residences",
-        "image_url": "/static/images/projects/the-curve.jpg",
-        "url": "https://abhinavgroup.co.in/the-curve-virar/",
-    },
     "business_bay": {
         "id": "business_bay",
         "name": "Pebbles Business Bay",
         "location": "Wakad, Pune (Opp. Phoenix Mall)",
         "config": "Retail Showrooms & Grade-A Offices",
         "image_url": "/static/images/projects/pebbles-business-bay.jpg",
-        "url": "https://abhinavgroup.co.in/commercial-projects/",
+        "url": "https://pebblesbusinessbay.com/",
     },
 }
 
@@ -402,6 +411,34 @@ class ChatService:
         # --- Step 4: Build conversation history for AI ---
         recent_messages = await self._get_recent_messages(conversation.id)
         u_clean = user_message.strip().lower()
+        if u_clean in ["contact our team", "contact team", "contact directory", "हमारी टीम से संपर्क करें", "contact our sales team"]:
+            if language == "hi":
+                reply = (
+                    "अभिनव ग्रुप की आधिकारिक संपर्क डायरेक्टरी:\n\n"
+                    "• कॉर्पोरेट हेड ऑफिस: 020-25663051 | info@abhinavgroup.co.in\n"
+                    "• सेल्स (पुणे - Samsara और Pebbles Business Bay): +91 9730397979\n"
+                    "• सेल्स (विरार - The Curve): +91 97307 00667\n"
+                    "• परचेज / वेंडर्स: +91 721 955 0020 / +91 721 955 0051\n"
+                    "• करियर / एचआर: careers@abhinavinfra.com"
+                )
+            else:
+                reply = (
+                    "Here is the official contact directory for Abhinav Group:\n\n"
+                    "• Corporate Head Office: 020-25663051 | info@abhinavgroup.co.in\n"
+                    "• Sales (Pune - Samsara & Pebbles Business Bay): +91 9730397979\n"
+                    "• Sales (Virar - The Curve): +91 97307 00667\n"
+                    "• Purchase / Vendors: +91 721 955 0020 / +91 721 955 0051\n"
+                    "• Careers / HR: careers@abhinavinfra.com"
+                )
+            await self._persist_messages(conversation, user_message, reply, language, "escalation")
+            return {
+                "reply": reply,
+                "language": language,
+                "intent": "escalation",
+                "quick_replies": self._get_quick_replies("escalation", language),
+                "is_fallback": False,
+            }
+
         if u_clean in ["explore projects", "projects", "all projects", "प्रोजेक्ट देखें", "प्रोजेक्ट्स"]:
             # Clean portfolio reset: do not bleed previous discussion into a generic Explore Projects request
             ai_messages = [AIMessage(role="user", content=user_message)]
@@ -853,6 +890,30 @@ class ChatService:
                 "architectural quality and customer trust. If you have questions about our ongoing residential or commercial projects, our sales team (+91 9730397979) will gladly assist you."
             )
 
+        # Explore Projects fallback
+        if t in ["explore projects", "projects", "all projects", "प्रोजेक्ट देखें", "प्रोजेक्ट्स"]:
+            if language == "hi":
+                return (
+                    "पुणे और मुंबई MMR में हमारे सक्रिय प्रोजेक्ट्स निम्नलिखित हैं:\n\n"
+                    "• The Curve (बोलिंज, विरार वेस्ट, मुंबई MMR) - एलीट 2 और 3 BHK रेजिडेंस\n"
+                    "  (thecurvevirar.com)\n\n"
+                    "• Samsara (मुकुंद नगर, सेंट्रल पुणे) - अल्ट्रा-लक्ज़री 3 BHK रेजिडेंस\n"
+                    "  (abhinavgroup.co.in/samsara)\n\n"
+                    "• Pebbles Business Bay (वाकड, पुणे) - हाई-स्ट्रीट रिटेल शोरूम और कॉर्पोरेट ऑफिस\n"
+                    "  (pebblesbusinessbay.com)\n\n"
+                    "क्या आप किसी विशिष्ट प्रोजेक्ट के बारे में अधिक जानना चाहते हैं या साइट विजिट शेड्यूल करना चाहते हैं?"
+                )
+            return (
+                "Here are our current active projects:\n\n"
+                "• The Curve (Bolinj, Virar West, Mumbai MMR) - Elite 2 & 3 BHK residences\n"
+                "  (thecurvevirar.com)\n\n"
+                "• Samsara (Mukund Nagar, Central Pune) - Ultra-luxury 3 BHK residences\n"
+                "  (abhinavgroup.co.in/samsara)\n\n"
+                "• Pebbles Business Bay (Wakad, Pune) - High-street retail showrooms & Grade-A corporate offices opposite Phoenix Mall\n"
+                "  (pebblesbusinessbay.com)\n\n"
+                "Would you like to know more about any specific project or schedule a site visit?"
+            )
+
         # The Curve / Virar
         if "curve" in t or "virar" in t:
             if language == "hi":
@@ -945,8 +1006,8 @@ class ChatService:
 
     def _get_quick_replies(self, intent: str, language: str) -> List[str]:
         if language == "hi":
-            return ["प्रोजेक्ट देखें", "कीमत जानें", "ब्रोशर डाउनलोड करें", "सेल्स टीम से बात करें"]
-        return ["Explore Projects", "Check Pricing", "Download Brochure", "Speak to Sales"]
+            return ["प्रोजेक्ट देखें", "करियर और नौकरियां", "सप्लायर बनें", "हमारी टीम से संपर्क करें"]
+        return ["Explore Projects", "Careers & Jobs", "Become a Supplier", "Contact Our Team"]
 
     def _default_quick_replies(self, language: str) -> List[str]:
         return self._get_quick_replies("general", language)

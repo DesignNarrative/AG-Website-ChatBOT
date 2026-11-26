@@ -45,13 +45,11 @@
       online: 'We are online to assist you',
       placeholder: 'Type your message...',
       send: 'Send',
-      welcome: 'Hello! Welcome to Abhinav Group. 🏠\n\nI\'m your AI property assistant. I can help you explore our projects, answer your questions, and connect you with our sales team.\n\nHow may I help you today?',
+      welcome: 'Hello! Welcome to Abhinav Group. 🏠\n\nI\'m your AI property assistant. I can help you explore our projects, answer your questions, and assist you with your enquiries.\n\nHow may I help you today?',
       qr_projects: 'Explore Projects',
-      qr_residential: 'Residential',
-      qr_commercial: 'Commercial Properties',
-      qr_pricing: 'Check Pricing',
-      qr_brochure: 'Download Brochure',
-      qr_sales: 'Speak to Sales',
+      qr_careers: 'Careers & Jobs',
+      qr_supplier: 'Become a Supplier',
+      qr_contact_team: 'Contact Our Team',
       lead_prompt: 'Would you like our sales team to contact you with more details?',
       lead_name: 'Please share your name:',
       lead_phone: 'Your 10-digit mobile number:',
@@ -76,11 +74,9 @@
       send: 'भेजें',
       welcome: 'नमस्ते! अभिनव ग्रुप में आपका स्वागत है। 🏠\n\nमैं आपका AI प्रॉपर्टी असिस्टेंट हूं।\n\nआज मैं आपकी कैसे सहायता कर सकता हूं?',
       qr_projects: 'प्रोजेक्ट देखें',
-      qr_residential: 'आवासीय',
-      qr_commercial: 'व्यावसायिक संपत्ति',
-      qr_pricing: 'कीमत जानें',
-      qr_brochure: 'ब्रोशर डाउनलोड करें',
-      qr_sales: 'सेल्स टीम से बात करें',
+      qr_careers: 'करियर और नौकरियां',
+      qr_supplier: 'सप्लायर बनें',
+      qr_contact_team: 'हमारी टीम से संपर्क करें',
       lead_prompt: 'क्या आप चाहते हैं कि हमारी सेल्स टीम आपसे संपर्क करे?',
       lead_name: 'कृपया अपना नाम बताएं:',
       lead_phone: 'आपका 10 अंकों का मोबाइल नंबर:',
@@ -152,6 +148,9 @@
       '.ag-bubble{padding:10px 14px;border-radius:18px;font-size:14px;line-height:1.5;white-space:pre-wrap;word-break:break-word}',
       '.ag-msg.user .ag-bubble{background:' + BRAND_COLOR + ';color:white;border-bottom-right-radius:4px}',
       '.ag-msg.bot .ag-bubble{background:white;color:#1e293b;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.08)}',
+      '.ag-bubble a{color:' + BRAND_COLOR + '!important;text-decoration:underline!important;font-weight:600!important;word-break:break-all!important;transition:color 0.15s}',
+      '.ag-bubble a:hover{color:#0369a1!important;text-decoration:underline!important}',
+      '.ag-msg.user .ag-bubble a{color:white!important;text-decoration:underline!important}',
       '.ag-time{font-size:10px;color:#94a3b8;margin-top:3px;padding:0 4px}',
 
       /* Typing indicator */
@@ -313,6 +312,21 @@
     // Escape HTML first for XSS safety
     var safe = escapeHtml(cleaned);
 
+    // Convert markdown links [text](url) to clickable <a>
+  safe = safe.replace(/\[([^\]]+)\]\((https?:\/\/[^\s<>"'\)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+  // Convert raw URLs (http:// or https://) to clickable <a>
+  safe = safe.replace(/(<a\s+[^>]*>[\s\S]*?<\/a>)|(https?:\/\/[^\s<>"'\)]+)/g, function (match, existingLink, url) {
+    if (existingLink) return existingLink;
+    return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
+  });
+
+  // Convert bare project domains to clickable <a> (e.g. thecurvevirar.com, pebblesbusinessbay.com, abhinavgroup.co.in/samsara)
+  safe = safe.replace(/(<a\s+[^>]*>[\s\S]*?<\/a>)|(thecurvevirar\.com[^\s<>"'\)]*|pebblesbusinessbay\.com[^\s<>"'\)]*|abhinavgroup\.co\.in[^\s<>"'\)]*)/g, function (match, existingLink, domain) {
+    if (existingLink) return existingLink;
+    return '<a href="https://' + domain + '" target="_blank" rel="noopener noreferrer">' + domain + '</a>';
+  });
+
     // Convert **bold** to <strong>bold</strong>
     safe = safe.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 
@@ -468,9 +482,8 @@
       '<p style="margin-top:10px">' + t('lead_project') + '</p>' +
       '<select class="ag-lead-input" id="ag-lead-project" style="background-color:white;cursor:pointer;">' +
         '<option value="">' + t('lead_project_select') + '</option>' +
-        '<option value="Samsara"' + (selectedProject === 'Samsara' ? ' selected' : '') + '>Samsara</option>' +
-        '<option value="Pebbles Greenfield"' + (selectedProject === 'Pebbles Greenfield' ? ' selected' : '') + '>Pebbles Greenfield</option>' +
         '<option value="The Curve"' + (selectedProject === 'The Curve' ? ' selected' : '') + '>The Curve</option>' +
+        '<option value="Samsara"' + (selectedProject === 'Samsara' ? ' selected' : '') + '>Samsara</option>' +
         '<option value="Pebbles Business Bay"' + (selectedProject === 'Pebbles Business Bay' ? ' selected' : '') + '>Pebbles Business Bay</option>' +
       '</select>' +
       '<button class="ag-lead-btn" id="ag-lead-submit">' + t('lead_btn') + '</button>';
@@ -523,7 +536,7 @@
     }).then(function (data) {
       state.leadCaptured = true;
       appendMessage('bot', t('lead_confirm'));
-      renderQuickReplies([t('qr_projects'), t('qr_brochure')]);
+      renderQuickReplies([t('qr_projects'), t('qr_contact_team')]);
     }).catch(function () {
       appendMessage('bot', 'Thank you! You can reach us directly at +91 9730397979.');
     });
@@ -611,9 +624,8 @@
 
         // Track last mentioned project for lead form convenience
         var cardName = (data.project_cards && data.project_cards.length === 1 && data.project_cards[0].name) ? data.project_cards[0].name.toLowerCase() : '';
-        if (data.intent === 'project_enquiry_samsara' || cardName.indexOf('samsara') !== -1) state.lastProject = 'Samsara';
-        else if (data.intent === 'project_enquiry_greenfield' || cardName.indexOf('greenfield') !== -1) state.lastProject = 'Pebbles Greenfield';
-        else if (data.intent === 'project_enquiry_curve' || cardName.indexOf('curve') !== -1) state.lastProject = 'The Curve';
+        if (data.intent === 'project_enquiry_curve' || cardName.indexOf('curve') !== -1) state.lastProject = 'The Curve';
+        else if (data.intent === 'project_enquiry_samsara' || cardName.indexOf('samsara') !== -1) state.lastProject = 'Samsara';
         else if (data.intent === 'project_enquiry_business_bay' || cardName.indexOf('business bay') !== -1) state.lastProject = 'Pebbles Business Bay';
         else if (data.project_cards && data.project_cards.length === 1 && data.project_cards[0].name) {
           state.lastProject = data.project_cards[0].name;
@@ -670,8 +682,10 @@
           if (typingEl) typingEl.remove();
           appendMessage('bot', t('welcome'));
           renderQuickReplies([
-            t('qr_projects'), t('qr_residential'),
-            t('qr_pricing'), t('qr_sales'),
+            t('qr_projects'),
+            t('qr_careers'),
+            t('qr_supplier'),
+            t('qr_contact_team'),
           ]);
         }, 900);
       }, 300);
