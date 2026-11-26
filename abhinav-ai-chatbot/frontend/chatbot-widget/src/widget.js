@@ -144,7 +144,7 @@
       '.ag-msg{display:flex;flex-direction:column;max-width:82%;animation:ag-fadeUp 0.25s ease;flex-shrink:0}',
       '@keyframes ag-fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}',
       '.ag-msg.user{align-self:flex-end;align-items:flex-end}',
-      '.ag-msg.bot{align-self:flex-start;align-items:flex-start}',
+      '.ag-msg.bot{align-self:flex-start;align-items:flex-start;max-width:88%}',
       '.ag-bubble{padding:10px 14px;border-radius:18px;font-size:14px;line-height:1.5;white-space:pre-wrap;word-break:break-word}',
       '.ag-msg.user .ag-bubble{background:' + BRAND_COLOR + ';color:white;border-bottom-right-radius:4px}',
       '.ag-msg.bot .ag-bubble{background:white;color:#1e293b;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.08)}',

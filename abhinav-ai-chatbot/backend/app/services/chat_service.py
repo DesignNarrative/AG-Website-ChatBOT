@@ -48,14 +48,14 @@ STRICT RULES — NEVER VIOLATE THESE:
    - CONFIGURATION MATCHING RULES (STRICT & MANDATORY):
      * When asked about "3 BHK" (or "3bhk", "3 bedroom", "three bhk"):
        Recommend our active ongoing projects that offer 3 BHK residences:
-       • The Curve (Virar West, Mumbai) -
+       • The Curve (Virar West, Mumbai)
          (thecurvevirar.com)
-       • Samsara (Mukund Nagar, Pune) -
+       • Samsara (Mukund Nagar, Pune)
          (abhinavgroup.co.in/samsara)
 
      * When asked about "2 BHK" (or "2bhk", "2 bedroom", "two bhk"):
        Recommend our active ongoing project that features 2 BHK apartments:
-       • The Curve (Virar West, Mumbai) -
+       • The Curve (Virar West, Mumbai)
          (thecurvevirar.com)
        (Never include Samsara for 2 BHK inquiries, as Samsara exclusively offers 3 BHK).
 
@@ -71,13 +71,13 @@ STRICT RULES — NEVER VIOLATE THESE:
      MUST ALWAYS be treated as a global portfolio reset. REGARDLESS of whatever was discussed in previous turns, you MUST respond in this exact format, with "Here are our current active ongoing projects:" header and each project link on the next line:
      Here are our current active ongoing projects:
 
-     • The Curve (Virar West, Mumbai) -
+     • The Curve (Virar West, Mumbai)
        (thecurvevirar.com)
 
-     • Samsara (Mukund Nagar, Pune) -
+     • Samsara (Mukund Nagar, Pune)
        (abhinavgroup.co.in/samsara)
 
-     • Pebbles Business Bay (Wakad, Pune) -
+     • Pebbles Business Bay (Wakad, Pune)
        (pebblesbusinessbay.com)
 
      Closing line: "Would you like to know more about any specific project or schedule a site visit?"
@@ -900,21 +900,21 @@ class ChatService:
             if language == "hi":
                 return (
                     "यहाँ हमारे वर्तमान सक्रिय प्रोजेक्ट्स हैं:\n\n"
-                    "• The Curve (विरार वेस्ट, मुंबई) -\n"
+                    "• The Curve (विरार वेस्ट, मुंबई)\n"
                     "  (thecurvevirar.com)\n\n"
-                    "• Samsara (मुकुंद नगर, पुणे) -\n"
+                    "• Samsara (मुकुंद नगर, पुणे)\n"
                     "  (abhinavgroup.co.in/samsara)\n\n"
-                    "• Pebbles Business Bay (वाकड, पुणे) -\n"
+                    "• Pebbles Business Bay (वाकड, पुणे)\n"
                     "  (pebblesbusinessbay.com)\n\n"
                     "क्या आप किसी विशिष्ट प्रोजेक्ट के बारे में अधिक जानना चाहते हैं या साइट विजिट शेड्यूल करना चाहते हैं?"
                 )
             return (
                 "Here are our current active ongoing projects:\n\n"
-                "• The Curve (Virar West, Mumbai) -\n"
+                "• The Curve (Virar West, Mumbai)\n"
                 "  (thecurvevirar.com)\n\n"
-                "• Samsara (Mukund Nagar, Pune) -\n"
+                "• Samsara (Mukund Nagar, Pune)\n"
                 "  (abhinavgroup.co.in/samsara)\n\n"
-                "• Pebbles Business Bay (Wakad, Pune) -\n"
+                "• Pebbles Business Bay (Wakad, Pune)\n"
                 "  (pebblesbusinessbay.com)\n\n"
                 "Would you like to know more about any specific project or schedule a site visit?"
             )

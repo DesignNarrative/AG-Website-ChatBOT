@@ -88,11 +88,11 @@ class MockAIProvider(BaseAIProvider):
         ),
         "projects_list": (
             "Here are our current active ongoing projects:\n\n"
-            "• The Curve (Virar West, Mumbai) -\n"
+            "• The Curve (Virar West, Mumbai)\n"
             "  (thecurvevirar.com)\n\n"
-            "• Samsara (Mukund Nagar, Pune) -\n"
+            "• Samsara (Mukund Nagar, Pune)\n"
             "  (abhinavgroup.co.in/samsara)\n\n"
-            "• Pebbles Business Bay (Wakad, Pune) -\n"
+            "• Pebbles Business Bay (Wakad, Pune)\n"
             "  (pebblesbusinessbay.com)\n\n"
             "Would you like to know more about any specific project or schedule a site visit?"
         ),
